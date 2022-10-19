@@ -15,14 +15,23 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public ApplicationUser userRegistration(@RequestBody ApplicationUser applicationUser) throws Exception {
-        String email = applicationUser.getEmail();
-
-        if (email != null && !"".equals(email)) {
-            if (registrationService.validateUserByEmail(email) != null) {
-                throw new Exception(email + " already exists");
+        if (applicationUser.getEmail() != null && !"".equals(applicationUser.getEmail())) {
+            if (registrationService.validateUserByEmail(applicationUser.getEmail()) != null) {
+                throw new Exception(applicationUser.getEmail() + " already exists");
             }
         }
         return registrationService.saveRegisteredUser(applicationUser);
     }
+
+    @PostMapping("/login")
+    public ApplicationUser userLogin(@RequestBody ApplicationUser applicationUser) throws Exception {
+        if (applicationUser.getEmail() != null && applicationUser.getPassword() != null) {
+            if (registrationService.validateUserByEmailAndPassword(applicationUser.getEmail(), applicationUser.getPassword()) == null) {
+                throw new Exception("Incorrect email or password");
+            }
+        }
+        return registrationService.validateUserByEmailAndPassword(applicationUser.getEmail(), applicationUser.getPassword());
+    }
+
 
 }

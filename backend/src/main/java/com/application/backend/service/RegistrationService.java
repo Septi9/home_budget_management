@@ -19,5 +19,9 @@ public class RegistrationService {
         return registrationRepository.findUserByEmail(email);
     }
 
+    public ApplicationUser validateUserByEmailAndPassword(String email, String password) {
+        return registrationRepository.findUserByEmailAndPassword(email, password);
+    }
+
 
 }
