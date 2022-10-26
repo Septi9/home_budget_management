@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="form-wrapper">
+    <h2>Login</h2>
+    <form #loginForm="ngForm" (ngSubmit)="loginExistingUser()">
+      <small class="text-danger">{{message}}</small>
+      <div class="form">
+        <input type="email" class="form-input" placeholder="Email" name="email" [(ngModel)]="applicationUser.email">
+        <label>Email</label>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Hasło" name="accountPassword" [(ngModel)]="applicationUser.password">
+        <label>Password</label>
+      </div>
+      <button [disabled]="loginForm.form.invalid" type="submit" class="confirm">Login</button>
+    </form>
+  </div>
+</div>
