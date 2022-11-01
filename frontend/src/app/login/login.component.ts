@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   loginExistingUser() : void {
     this.registrationService.loginApplicationUser(this.applicationUser).subscribe(
       data => this.router.navigate(['/home']),
-      error => this.message = "invalid input",
+      error => this.message = "bad input data",
     )
   }
 

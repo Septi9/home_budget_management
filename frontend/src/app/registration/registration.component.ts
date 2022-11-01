@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {RegistrationService} from "../registration.service";
+import {Router} from "@angular/router";
+import {ApplicationUser} from "../application-user";
 
 @Component({
   selector: 'app-registration',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor() { }
+  applicationUser = new ApplicationUser();
+  message = '';
+
+  constructor(private registrationService: RegistrationService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  registerNewUser() : void {
+    this.registrationService.registerApplicationUser(this.applicationUser).subscribe(
+      data => {
+        this.router.navigate(['/'])
+      },
+      error => {
+        this.message = "User already exists";
+      }
+    )
   }
 
 }

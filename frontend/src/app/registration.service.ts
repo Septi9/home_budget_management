@@ -14,4 +14,8 @@ export class RegistrationService {
     return this.httpClient.post<any>("http://localhost:8080/login", applicationUser);
   }
 
+  public registerApplicationUser(applicationUser: ApplicationUser) : Observable<any> {
+    return this.httpClient.post<any>("http://localhost:8080/register", applicationUser);
+  }
+
 }
