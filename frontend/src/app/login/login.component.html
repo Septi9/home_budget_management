@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="form-wrapper">
+    <h2>Login</h2>
+    <form #loginForm="ngForm" (ngSubmit)="loginExistingUser()">
+      <small>{{message}}</small>
+      <div class="form">
+        <label>Email</label>
+        <input type="email" class="form-input" placeholder="Email" name="email" [(ngModel)]="applicationUser.email"
+               pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" #email="ngModel" required>
+        <div *ngIf="email.errors && email.touched && email.errors?.['required']">
+          <small class="error">Email is required</small>
+        </div>
+        <div *ngIf="email.errors && email.invalid && email.errors?.['pattern']">
+          <small class="error">Invalid email</small>
+        </div>
+      </div>
+      <div class="form">
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Password" name="accountPassword"
+               [(ngModel)]="applicationUser.password" required #password="ngModel">
+        <div *ngIf="password.errors && (password.touched && password.invalid)">
+          <small class="error">Password is required</small>
+        </div>
+      </div>
+      <button [disabled]="loginForm.form.invalid" type="submit" class="confirm">Login</button>
+    </form>
+    <small class="register" [routerLink]="['/registration']" >Register here</small>
+  </div>
+</div>
