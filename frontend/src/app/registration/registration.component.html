@@ -1,53 +1,65 @@
 <div class="container">
   <div class="form-wrapper">
-    <h2>Register</h2>
-    <form #registerForm="ngForm" (ngSubmit)="registerNewUser()">
-      <small>{{message}}</small>
-      <div class="form">
-        <label>Email</label>
-        <input type="email" class="form-input" placeholder="Email" name="email" [(ngModel)]="applicationUser.email"
-               pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" #email="ngModel" required>
-        <div *ngIf="email.errors && email.touched && email.errors?.['required']">
-          <small class="error">Email is required</small>
+    <div class="form-side">
+      <div class="logo">
+        <img class="logoImage" src="assets/images/rv.png" alt="logo">
+      </div>
+      <h1 class="main-text">Create New Account</h1>
+      <form #registerForm="ngForm" (ngSubmit)="registerNewUser()">
+        <small class="error">{{message}}</small>
+        <div class="form-inside">
+          <div class="form">
+            <input type="email" class="form-input" placeholder="Email" name="email" [(ngModel)]="applicationUser.email"
+                   pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" #email="ngModel" required>
+            <div *ngIf="email.errors && email.touched && email.errors?.['required']">
+              <small class="error">Email is required</small>
+            </div>
+            <div *ngIf="email.errors && email.invalid && email.errors?.['pattern']">
+              <small class="error">Invalid email</small>
+            </div>
+          </div>
+          <div class="form">
+            <input type="text" class="form-input" placeholder="First Name" name="firstname" [(ngModel)]="applicationUser.firstname"
+                   #firstname="ngModel" required>
+            <div *ngIf="firstname.errors && firstname.touched && firstname.errors?.['required']">
+              <small class="error">First name is required</small>
+            </div>
+          </div>
+          <div class="form">
+            <input type="text" class="form-input" placeholder="Last Name" name="lastname" [(ngModel)]="applicationUser.lastname"
+                   #lastname="ngModel" required>
+            <div *ngIf="lastname.errors && lastname.touched && lastname.errors?.['required']">
+              <small class="error">Last name is required</small>
+            </div>
+          </div>
+          <div class="form">
+            <input type="password" class="form-input" placeholder="Password" name="accountPassword"
+                   [(ngModel)]="applicationUser.password" required #password="ngModel">
+            <div *ngIf="password.errors && (password.touched && password.invalid)">
+              <small class="error">Password is required</small>
+            </div>
+          </div>
+          <div class="form">
+            <input type="password" class="form-input" placeholder="Confirm Password" name="confirmAccountPassword"
+                   (ngModel)="applicationUser.password" required #confirmAccountPassword="ngModel">
+            <div *ngIf="(confirmAccountPassword.value != password.value) || confirmAccountPassword.untouched">
+              <small class="error">Both passwords must be the same</small>
+            </div>
+          </div>
         </div>
-        <div *ngIf="email.errors && email.invalid && email.errors?.['pattern']">
-          <small class="error">Invalid email</small>
+        <button [disabled]="registerForm.form.invalid" type="submit" class="confirm">Register</button>
+      </form>
+    </div>
+    <div class="second-side">
+      <div class="second-container">
+        <div class="second">
+          <div class="panel">
+            <h1 class="main-text-right">Welcome back!</h1>
+            <p class="second-text">If you already have an account, login here.</p>
+            <button class="confirm" [routerLink]="['/']" style="color: var(--text); background-color: var(--secondary)">Sign In</button>
+          </div>
         </div>
       </div>
-      <div class="form">
-        <label>Firstname</label>
-        <input type="text" class="form-input" placeholder="Firstname" name="firstname" [(ngModel)]="applicationUser.firstname"
-                #firstname="ngModel" required>
-        <div *ngIf="firstname.errors && firstname.touched && firstname.errors?.['required']">
-          <small class="error">Firstname is required</small>
-        </div>
-      </div>
-      <div class="form">
-        <label>Lastname</label>
-        <input type="text" class="form-input" placeholder="Lastname" name="lastname" [(ngModel)]="applicationUser.lastname"
-               #lastname="ngModel" required>
-        <div *ngIf="lastname.errors && lastname.touched && lastname.errors?.['required']">
-          <small class="error">Lastname is required</small>
-        </div>
-      </div>
-      <div class="form">
-        <label>Password</label>
-        <input type="password" class="form-input" placeholder="Password" name="accountPassword"
-               [(ngModel)]="applicationUser.password" required #password="ngModel">
-        <div *ngIf="password.errors && (password.touched && password.invalid)">
-          <small class="error">Password is required</small>
-        </div>
-      </div>
-      <div class="form">
-        <label>Confirm password</label>
-        <input type="password" class="form-input" placeholder="Password" name="confirmAccountPassword"
-               (ngModel)="applicationUser.password" required #confirmAccountPassword="ngModel">
-        <div *ngIf="(confirmAccountPassword.value != password.value) || confirmAccountPassword.untouched">
-          <small class="error">Both passwords must by the same</small>
-        </div>
-      </div>
-      <button [disabled]="registerForm.form.invalid" type="submit" class="confirm">Register</button>
-    </form>
-    <small class="register" [routerLink]="['/']" >Login here</small>
+    </div>
   </div>
 </div>
