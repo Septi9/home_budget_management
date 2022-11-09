@@ -8,10 +8,10 @@
 .form-wrapper {
   display: flex;
   position: relative;
-  top: calc(50% - var(--heightModal)/2);
+  top: calc(50% - var(--heightModal) * 1.2 / 2);
   left: calc(50% - var(--widthModal)/2);
   width: var(--widthModal);
-  height: var(--heightModal);
+  height: calc(var(--heightModal) * 1.2);
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
 }
@@ -68,7 +68,6 @@
 
 .second-container {
   width: 100%;
-  height: 100%;
 }
 
 .panel {

@@ -39,13 +39,6 @@
               <small class="error">Password is required</small>
             </div>
           </div>
-          <div class="form">
-            <input type="password" class="form-input" placeholder="Confirm Password" name="confirmAccountPassword"
-                   (ngModel)="applicationUser.password" required #confirmAccountPassword="ngModel">
-            <div *ngIf="(confirmAccountPassword.value != password.value) || confirmAccountPassword.untouched">
-              <small class="error">Both passwords must be the same</small>
-            </div>
-          </div>
         </div>
         <button [disabled]="registerForm.form.invalid" type="submit" class="confirm">Register</button>
       </form>
