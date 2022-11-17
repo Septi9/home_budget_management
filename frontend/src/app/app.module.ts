@@ -8,13 +8,17 @@ import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
+import { CryptoComponent } from './crypto/crypto.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    HomeComponent
+    HomeComponent,
+    CryptoComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
