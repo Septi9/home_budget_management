@@ -1,2 +1,47 @@
-<app-nav></app-nav>
+<div class="wrapper">
+  <div class="left-nav">
+    <app-nav></app-nav>
+  </div>
+  <div class="flex_elements">
+    <div class="top-nav">
+      <app-topnav></app-topnav>
+    </div>
+    <div class="inner-row">
+      <div class="inner-col">
+        <div class="content">
+          <app-search (enteredTextChanged)="onEnteredTextChanged($event)"></app-search>
+          <div class="buttons">
+            <div class="sortByName"  (click)="nameAlphabetically()">{{sortByNameContent}}</div>
+            <div class="sortByName"  (click)="priceSort()">{{sortByPriceContent}}</div>
+            <div class="sortByName"  (click)="marketCapSort()">{{sortByMarketCapContent}}</div>
+            <div class="sortByName"  (click)="totalVolumeSort()">{{sortByTotalVolumeContent}}</div>
+            <div class="sortByName"  (click)="dailySort()">{{sortBy24hContent}}</div>
+          </div>
+          <div class="container">
+            <div class="headers">
+              <div class="image element"></div>
+              <div class="element">Coin</div>
+              <div class="price element">Price</div>
+              <div class="market-cap element">Market cap</div>
+              <div class="total-volume element">Totav volume</div>
+              <div class="price-change-percentage-24h element">24h</div>
+              <div class="last-updated element">Last update</div>
+            </div>
+            <div class="table" *ngFor="let item of cryptoModel">
+              <div class="table-wrapper" *ngIf="searchText === '' || item.name.toLowerCase().includes(searchText)">
+                <div class="image element"><img src="{{item.image}}" alt="image"></div>
+                <div class="name element">{{item.name}}</div>
+                <div class="price element">{{item.current_price | currency:'USD'}}</div>
+                <div class="market-cap element">{{item.market_cap | currency:'USD'}}</div>
+                <div class="total-volume element">{{item.total_volume | currency:'USD'}}</div>
+                <div class="price-change-percentage-24h element" [ngClass]="item.price_change_percentage_24h > 0 ? 'percentage-positive' : 'percentage-negative'">{{item.price_change_percentage_24h | number: '1.2-2'}}%</div>
+                <div class="last-updated element">{{item.last_updated | date: 'h:mm a, M/d/yy'}}</div>
+              </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
