@@ -1,0 +1,37 @@
+.wrapper {
+  flex: 0 0 48px;
+}
+
+.menu-bar {
+  position: relative;
+  margin: 0 var(--marginOfElemenrs);
+  width: calc(100% - (2 * var(--marginOfElemenrs)));
+  top: 0;
+  left: 0;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+  height: 8vh;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  z-index: -1;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  width: 60%;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  font-size: 20px;
+  margin: 2px 20%;
+  cursor: pointer;
+  border: none;
+}
+
+
+.inline-list {
+  display: inline;
+  margin: 0 20px;
+}
