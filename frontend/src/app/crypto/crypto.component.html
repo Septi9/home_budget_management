@@ -9,15 +9,15 @@
     <div class="inner-row">
       <div class="inner-col">
         <div class="content">
-          <app-search (enteredTextChanged)="onEnteredTextChanged($event)"></app-search>
-          <div class="buttons">
-            <div class="sortByName"  (click)="nameAlphabetically()">{{sortByNameContent}}</div>
-            <div class="sortByName"  (click)="priceSort()">{{sortByPriceContent}}</div>
-            <div class="sortByName"  (click)="marketCapSort()">{{sortByMarketCapContent}}</div>
-            <div class="sortByName"  (click)="totalVolumeSort()">{{sortByTotalVolumeContent}}</div>
-            <div class="sortByName"  (click)="dailySort()">{{sortBy24hContent}}</div>
-          </div>
-          <div class="container">
+          <div class="top">
+            <app-search (enteredTextChanged)="onEnteredTextChanged($event)"></app-search>
+            <div class="buttons">
+              <div class="sortByName"  (click)="nameAlphabetically()">{{sortByNameContent}}</div>
+              <div class="sortByName"  (click)="priceSort()">{{sortByPriceContent}}</div>
+              <div class="sortByName"  (click)="marketCapSort()">{{sortByMarketCapContent}}</div>
+              <div class="sortByName"  (click)="totalVolumeSort()">{{sortByTotalVolumeContent}}</div>
+              <div class="sortByName"  (click)="dailySort()">{{sortBy24hContent}}</div>
+            </div>
             <div class="headers">
               <div class="image element"></div>
               <div class="element">Coin</div>
@@ -27,8 +27,10 @@
               <div class="price-change-percentage-24h element">24h</div>
               <div class="last-updated element">Last update</div>
             </div>
+          </div>
+          <div class="container">
             <div class="table" *ngFor="let item of cryptoModel">
-              <div class="table-wrapper" *ngIf="searchText === '' || item.name.toLowerCase().includes(searchText)">
+              <div class="table-wrapper" *ngIf="searchText === '' || item.name.toLowerCase().includes(searchText.toLowerCase())">
                 <div class="image element"><img src="{{item.image}}" alt="image"></div>
                 <div class="name element">{{item.name}}</div>
                 <div class="price element">{{item.current_price | currency:'USD'}}</div>

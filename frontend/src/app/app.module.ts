@@ -12,6 +12,7 @@ import { CryptoComponent } from './crypto/crypto.component';
 import { NavComponent } from './nav/nav.component';
 import { TopnavComponent } from './topnav/topnav.component';
 import { SearchComponent } from './search/search.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SearchComponent } from './search/search.component';
     CryptoComponent,
     NavComponent,
     TopnavComponent,
-    SearchComponent
+    SearchComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
