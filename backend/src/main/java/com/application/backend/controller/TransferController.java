@@ -1,11 +1,12 @@
 package com.application.backend.controller;
 
+import com.application.backend.model.IncomingTransfers;
 import com.application.backend.model.OutgoingTransfers;
+import com.application.backend.repository.IncomingTransferRepository;
 import com.application.backend.repository.TransferRepository;
+import com.application.backend.service.IncomingTransferService;
 import com.application.backend.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,13 @@ public class TransferController {
     private TransferService transferService;
 
     @Autowired
+    private IncomingTransferService incomingTransferService;
+
+    @Autowired
     private TransferRepository transferRepository;
+
+    @Autowired
+    private IncomingTransferRepository incomingTransferRepository;
 
     @GetMapping("/transfers")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -30,24 +37,14 @@ public class TransferController {
         return transferService.saveOutgoingTransfer(outgoingTransfers);
     }
 
+    @GetMapping("/incoming-transfers")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<IncomingTransfers> getAllIncomingTransfers() {
+        return incomingTransferRepository.findAll();
+    }
 
-
-//    @PostMapping("/transfers-post")
-//    @CrossOrigin(origins = "*", allowedHeaders = "*")
-//    public ResponseEntity<OutgoingTransfers> createOutgoingTransfer(@RequestBody OutgoingTransfers outgoingTransfers) {
-//        try {
-//            OutgoingTransfers _outgoingTransfers = transferService.saveOutgoingTransfer(
-//                    new OutgoingTransfers(
-//                            outgoingTransfers.getTransfer_amount(),
-//                            outgoingTransfers.getAccount_balance_before(),
-//                            outgoingTransfers.getAccount_balance_after(),
-//                            outgoingTransfers.getDestination_account(),
-//                            outgoingTransfers.getTransfer_date(),
-//                            outgoingTransfers.getOutgoing_email()));
-//            return new ResponseEntity<>(_outgoingTransfers, HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            System.out.println("HELLO");
-//            return new ResponseEntity<OutgoingTransfers>((OutgoingTransfers) null, HttpStatus.CREATED);
-//        }
-//    }
+    @PostMapping("/incoming-transfers-post")
+    public IncomingTransfers createIncomingTransfer(@RequestBody IncomingTransfers incomingTransfers) {
+        return incomingTransferService.saveIncomingTransfer(incomingTransfers);
+    }
 }

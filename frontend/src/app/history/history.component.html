@@ -9,6 +9,7 @@
     <div class="inner-row">
       <div class="inner-col">
         <div class="content">
+          <div class="header">Outgoing Transfers</div>
           <div class="top">
             <div class="headers">
               <div class="element">Transfer Amount</div>
@@ -27,7 +28,30 @@
                 <div class="element">${{item.account_balance_after | number:'1.2-2'}}</div>
                 <div class="element">{{item.destination_account}}</div>
                 <div class="element">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
-                <div class="element">icon</div>
+                <div class="element">-></div>
+              </div>
+            </div>
+          </div>
+          <div class="header">Incoming Transfers</div>
+          <div class="top">
+            <div class="headers">
+              <div class="element">Transfer Amount</div>
+              <div class="element">Account Balance Before</div>
+              <div class="element">Account Balance After</div>
+              <div class="element">Sender Account</div>
+              <div class="element">Transfer Date</div>
+              <div class="element"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="table" *ngFor = "let item of incomingTransfers">
+              <div class="table-wrapper">
+                <div class="element">${{item.transfer_amount | number:'1.2-2'}}</div>
+                <div class="element">${{item.account_balance_before | number:'1.2-2'}}</div>
+                <div class="element">${{item.account_balance_after | number:'1.2-2'}}</div>
+                <div class="element">{{item.sender_account}}</div>
+                <div class="element">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                <div class="element"><-</div>
               </div>
             </div>
           </div>

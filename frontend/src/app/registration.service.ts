@@ -3,14 +3,17 @@ import {ApplicationUser} from "./application-user";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {OutgoingTransfers} from "./outgoing-transfers";
+import {IncomingTransfers} from "./incoming-transfers";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
 
-  private baseURL = "http://localhost:8080/transfers";
-  private baseURLPost = "http://localhost:8080/transfers-post";
+  private outgoingBaseURL = "http://localhost:8080/transfers";
+  private incomingBaseURL = "http://localhost:8080/incoming-transfers";
+  private outgoingBaseURLPost = "http://localhost:8080/transfers-post";
+  private incomingBaseURLPost = "http://localhost:8080/incoming-transfers-post";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,11 +26,19 @@ export class RegistrationService {
   }
 
   public getOutgoingTransfersList(): Observable<OutgoingTransfers[]> {
-    return this.httpClient.get<OutgoingTransfers[]>(`${this.baseURL}`);
+    return this.httpClient.get<OutgoingTransfers[]>(`${this.outgoingBaseURL}`);
   }
 
-  public create(data: any): Observable<OutgoingTransfers[]> {
-    return this.httpClient.post<OutgoingTransfers[]>(`${this.baseURLPost}`, data);
+  public createOutgoingTransfer(data: any): Observable<OutgoingTransfers[]> {
+    return this.httpClient.post<OutgoingTransfers[]>(`${this.outgoingBaseURLPost}`, data);
+  }
+
+  public getIncomingTransfersList(): Observable<IncomingTransfers[]> {
+    return this.httpClient.get<IncomingTransfers[]>(`${this.incomingBaseURL}`);
+  }
+
+  public createIncomingTransfer(data: any): Observable<IncomingTransfers[]> {
+    return this.httpClient.post<IncomingTransfers[]>(`${this.incomingBaseURLPost}`, data);
   }
 
 }
