@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {ApplicationUser} from "../application-user";
+import {RegistrationService} from "../registration.service";
 
 @Component({
   selector: 'app-home',
@@ -8,8 +10,22 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  accountData : ApplicationUser[] | undefined;
+  msg = '';
 
-  ngOnInit(): void {}
+  constructor(private _service : RegistrationService, private _router: Router) { }
+
+  ngOnInit(): void {
+    this.getUserData();
+  }
+
+  private getUserData() {
+    this._service.getUserDataList().subscribe(data => {
+      this.accountData = data;
+    },
+      error => {
+      this.msg = error.error;
+      });
+  }
 
 }

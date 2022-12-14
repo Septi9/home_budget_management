@@ -14,6 +14,7 @@ export class RegistrationService {
   private incomingBaseURL = "http://localhost:8080/incoming-transfers";
   private outgoingBaseURLPost = "http://localhost:8080/transfers-post";
   private incomingBaseURLPost = "http://localhost:8080/incoming-transfers-post";
+  private userListURL = "http://localhost:8080/users";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -39,6 +40,10 @@ export class RegistrationService {
 
   public createIncomingTransfer(data: any): Observable<IncomingTransfers[]> {
     return this.httpClient.post<IncomingTransfers[]>(`${this.incomingBaseURLPost}`, data);
+  }
+
+  public getUserDataList(): Observable<ApplicationUser[]> {
+    return this.httpClient.get<ApplicationUser[]>(`${this.userListURL}`);
   }
 
 }

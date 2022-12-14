@@ -1,18 +1,22 @@
 package com.application.backend.controller;
 
 import com.application.backend.model.ApplicationUser;
+import com.application.backend.model.OutgoingTransfers;
+import com.application.backend.repository.RegistrationRepository;
 import com.application.backend.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class RegistrationController {
 
     @Autowired
     private RegistrationService registrationService;
+
+    @Autowired
+    private RegistrationRepository registrationRepository;
 
     @PostMapping("/register")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -35,6 +39,13 @@ public class RegistrationController {
         }
         return registrationService.validateUserByEmailAndPassword(applicationUser.getEmail(), applicationUser.getPassword());
     }
+
+    @GetMapping("/users")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<ApplicationUser> getAllUsers() {
+        return registrationRepository.findAll();
+    }
+
 
 
 }
