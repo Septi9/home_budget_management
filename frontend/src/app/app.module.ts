@@ -14,6 +14,8 @@ import { TopnavComponent } from './topnav/topnav.component';
 import { SearchComponent } from './search/search.component';
 import { HistoryComponent } from './history/history.component';
 import { LogoutComponent } from './logout/logout.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { GridPipe } from './grid.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { LogoutComponent } from './logout/logout.component';
     TopnavComponent,
     SearchComponent,
     HistoryComponent,
-    LogoutComponent
+    LogoutComponent,
+    CalendarComponent,
+    GridPipe
   ],
   imports: [
     BrowserModule,
