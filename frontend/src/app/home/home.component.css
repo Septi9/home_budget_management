@@ -34,3 +34,29 @@
   border-radius: 10px;
 }
 
+.header {
+  color: var(--primary);
+  font-size: 25px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.container {
+  width: 90%;
+  margin: 20px auto 0;
+  height: 30%;
+  overflow-y: scroll;
+}
+
+.table-wrapper {
+  display: flex;
+}
+
+.element {
+  width: 20%;
+  height: 5vh;
+  line-height: 5vh;
+  margin: 10px auto 0;
+  text-align: center;
+}
+

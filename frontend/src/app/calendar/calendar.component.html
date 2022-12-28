@@ -1,0 +1,115 @@
+<div class="wrapper">
+  <div class="left-nav">
+    <app-nav></app-nav>
+  </div>
+  <div class="flex_elements">
+    <div class="top-nav">
+      <app-topnav></app-topnav>
+    </div>
+    <div class="inner-row">
+      <div class="inner-col">
+        <div class="content">
+          <div class="top">
+            <div class="showMonth">
+              {{showMonth}}
+            </div>
+            <div class="buttons">
+              <div class="button" (click)="setCurrentMonth()">Today</div>
+              <div class="button" (click)="decreaseMonth()">Previous Month</div>
+              <div class="button" (click)="increaseMonth()">Next Month</div>
+            </div>
+          </div>
+          <div class="container">
+            <table class='calendar-table' *ngIf="calendar">
+              <thead>
+              <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let row of calendar | grid: 7; let i = index">
+                <td class="calendar-day" [ngClass]="{'past-date': c.isPast, 'today': c.isToday}" *ngFor="let c of row; let j = index">
+                  <div class="calendar-day-header" [ngClass]="{'blue-date': c.isToday}"><strong>{{c.date.getDate()}}</strong> <strong *ngIf="c.isToday || (i==0 && j==0) || (c.date.getDate() == 1)"> {{monthNames[c.date.getMonth()]}}</strong></div>
+                  <div class="transfers" *ngIf = "(outgoingTransfers != null) || (incomingTransfers != null)">
+                    <div class="transfer" *ngFor = "let item of transfersOut">
+                      <div class="item" *ngIf = "
+                      (c.date.getDate() == getDayFromShortDate(item)) &&
+                      (c.date.getFullYear() == getYearFromShortDate(item)) &&
+                      (c.date.getMonth()+1 == getMonthFromShortDate(item))
+                      ">
+                        <div class="number_out number" (click)="toggleDisplay(); getDayValue(c.date.getDate(), c.date.getMonth()+1, c.date.getFullYear())">
+                          <mat-icon> call_made</mat-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="transfer" *ngFor = "let item of transfersIn">
+                      <div class="item" *ngIf = "
+                      (c.date.getDate() == getDayFromShortDate(item)) &&
+                      (c.date.getFullYear() == getYearFromShortDate(item)) &&
+                      (c.date.getMonth()+1 == getMonthFromShortDate(item))
+                     ">
+                        <div class="number_in number" (click)="toggleDisplay(); getDayValue(c.date.getDate(), c.date.getMonth()+1, c.date.getFullYear())">
+                          <mat-icon> call_received</mat-icon>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHidden">
+
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplay()">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top">
+              <div class="headers">
+                <div class="element">Transfer Amount</div>
+                <div class="element">Account Balance Before</div>
+                <div class="element">Account Balance After</div>
+                <div class="element">Sender Account</div>
+                <div class="element">Transfer Date</div>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body" *ngFor="let item of outgoingTransfers">
+                <div class="table-wrapper" *ngIf = "
+                      (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
+                  ">
+                  <div class="element element-out">${{item.transfer_amount | number:'1.2-2'}}</div>
+                  <div class="element element-out">${{item.account_balance_before | number:'1.2-2'}}</div>
+                  <div class="element element-out">${{item.account_balance_after | number:'1.2-2'}}</div>
+                  <div class="element element-out">{{item.destination_account}}</div>
+                  <div class="element element-out">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                </div>
+              </div>
+              <div class="modal-body" *ngFor="let item of incomingTransfers">
+                <div class="table-wrapper" *ngIf = "
+                      (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
+                  ">
+                  <div class="element element-in">${{item.transfer_amount | number:'1.2-2'}}</div>
+                  <div class="element element-in">${{item.account_balance_before | number:'1.2-2'}}</div>
+                  <div class="element element-in">${{item.account_balance_after | number:'1.2-2'}}</div>
+                  <div class="element element-in">{{item.sender_account}}</div>
+                  <div class="element element-in">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

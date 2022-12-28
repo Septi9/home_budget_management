@@ -13,6 +13,11 @@ import { NavComponent } from './nav/nav.component';
 import { TopnavComponent } from './topnav/topnav.component';
 import { SearchComponent } from './search/search.component';
 import { HistoryComponent } from './history/history.component';
+import { LogoutComponent } from './logout/logout.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { GridPipe } from './grid.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -24,13 +29,18 @@ import { HistoryComponent } from './history/history.component';
     NavComponent,
     TopnavComponent,
     SearchComponent,
-    HistoryComponent
+    HistoryComponent,
+    LogoutComponent,
+    CalendarComponent,
+    GridPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -39,6 +39,13 @@
               <small class="error">Password is required</small>
             </div>
           </div>
+          <div class="form">
+            <input type="text" class="form-input" placeholder="Account Balance" name="accountBalance" [(ngModel)]="applicationUser.accountBalance"
+                   #accountBalance="ngModel" required>
+            <div *ngIf="accountBalance.errors && accountBalance.touched && accountBalance.errors?.['required']">
+              <small class="error">Account Balance is required</small>
+            </div>
+          </div>
         </div>
         <button [disabled]="registerForm.form.invalid" type="submit" class="confirm">Register</button>
       </form>

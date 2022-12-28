@@ -1,0 +1,232 @@
+/*flexbox*/
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-nav {
+  flex: 1;
+}
+
+.flex_elements {
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+}
+
+.inner-row {
+  display: flex;
+  flex-direction: row;
+}
+.inner-col {
+  flex: 4;
+}
+
+/*others*/
+
+.content {
+  margin: var(--marginOfElemenrs);
+  width: calc(100% - (2 * var(--marginOfElemenrs)));
+  height: calc(92vh - (2 * var(--marginOfElemenrs)));
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  border-radius: 10px;
+}
+
+.showMonth {
+  padding: 20px 0 0;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  margin: 10px auto;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+}
+
+.button {
+  width: 10%;
+  margin: 0 20px;
+  cursor: pointer;
+  text-align: center;
+  color: var(--primary);
+}
+
+.calendar-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #dee2e6;
+  background-color: #fff;
+}
+
+.calendar-table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  width: 14.2%;
+}
+
+.calendar-table td, .calendar-table th {
+  border: 1px solid #dee2e6;
+}
+
+.calendar-table td, .calendar-table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.calendar-day {
+  height: 12vh;
+  max-height: 12vh;
+  cursor: pointer;
+}
+
+.calendar-items-wrapper {
+  margin-left: -10px;
+  margin-right: -10px;
+  overflow-y: auto;
+  max-height: calc(100% - 20px);
+}
+
+.calendar-day.past-date {
+  background-color: rgb(248, 248, 248);
+}
+
+.calendar-day:hover {
+  background-color: rgb(248, 248, 248);
+}
+
+.blue-date {
+  color: rgb(16, 110, 190);
+}
+
+.transfers {
+  display: flex;
+  justify-content: center ;
+}
+
+.number {
+  margin: 10px 5px;
+  padding: 2px;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.number_in {
+  background-color: green;
+}
+
+.number_out {
+  background-color: red;
+}
+
+/*modal*/
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  width: 80%;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+
+  color: white;
+}
+
+.modal-elements {
+  overflow-y: scroll;
+  height: 600px;
+}
+
+.table-wrapper {
+  display: flex;
+}
+
+.element {
+  width: 20%;
+  height: 5vh;
+  line-height: 5vh;
+  margin: 10px auto 0;
+  text-align: center;
+}
+
+.element-out {
+  background-color: rgba(256, 0, 0, 0.3);
+}
+
+.element-in {
+  background-color: rgba(0, 256, 0, 0.3);
+}
+
+.headers {
+  display: flex;
+  font-weight: 700;
+  width: 100%;
+  margin: 20px auto;
+}

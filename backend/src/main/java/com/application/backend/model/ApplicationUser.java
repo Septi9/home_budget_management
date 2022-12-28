@@ -2,6 +2,7 @@ package com.application.backend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -13,15 +14,17 @@ public class ApplicationUser {
     private String firstname;
     private String lastname;
     private String password;
+    private BigDecimal accountBalance;
 
     public ApplicationUser() {}
 
-    public ApplicationUser(int id, String email, String firstname, String lastname, String password) {
+    public ApplicationUser(int id, String email, String firstname, String lastname, String password, BigDecimal accountBalance) {
         this.id = id;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
+        this.accountBalance = accountBalance;
     }
 
     public int getId() {
@@ -64,17 +67,25 @@ public class ApplicationUser {
         this.password = password;
     }
 
+    public BigDecimal getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(BigDecimal accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApplicationUser that = (ApplicationUser) o;
-        return id == that.id && Objects.equals(email, that.email) && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(password, that.password);
+        return id == that.id && Objects.equals(email, that.email) && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(password, that.password) && Objects.equals(accountBalance, that.accountBalance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, firstname, lastname, password);
+        return Objects.hash(id, email, firstname, lastname, password, accountBalance);
     }
 
     @Override
@@ -85,6 +96,7 @@ public class ApplicationUser {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", password='" + password + '\'' +
+                ", accountBalance=" + accountBalance +
                 '}';
     }
 }
