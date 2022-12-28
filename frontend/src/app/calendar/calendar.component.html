@@ -36,6 +36,26 @@
               <tr *ngFor="let row of calendar | grid: 7; let i = index">
                 <td class="calendar-day" [ngClass]="{'past-date': c.isPast, 'today': c.isToday}" *ngFor="let c of row; let j = index">
                   <div class="calendar-day-header" [ngClass]="{'blue-date': c.isToday}"><strong>{{c.date.getDate()}}</strong> <strong *ngIf="c.isToday || (i==0 && j==0) || (c.date.getDate() == 1)"> {{monthNames[c.date.getMonth()]}}</strong></div>
+                  <div class="transfers" *ngIf = "(outgoingTransfers != null) || (incomingTransfers != null)">
+                    <div class="transfer" *ngFor = "let item of transfersOut">
+                      <div class="element" *ngIf = "
+                      (c.date.getDate() == getDayFromShortDate(item)) &&
+                      (c.date.getFullYear() == getYearFromShortDate(item)) &&
+                      (c.date.getMonth()+1 == getMonthFromShortDate(item))
+                      ">
+                        <div class="number_out number">-></div>
+                      </div>
+                    </div>
+                    <div class="transfer" *ngFor = "let item of transfersIn">
+                      <div class="element" *ngIf = "
+                      (c.date.getDate() == getDayFromShortDate(item)) &&
+                      (c.date.getFullYear() == getYearFromShortDate(item)) &&
+                      (c.date.getMonth()+1 == getMonthFromShortDate(item))
+                     ">
+                        <div class="number_in number"><-</div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
               </tbody>
