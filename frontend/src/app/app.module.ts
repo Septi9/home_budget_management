@@ -16,6 +16,8 @@ import { HistoryComponent } from './history/history.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { GridPipe } from './grid.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { GridPipe } from './grid.pipe';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -24,6 +24,8 @@ export class CalendarComponent implements OnInit {
   outgoingTransfers : OutgoingTransfers[] | any;
   incomingTransfers : IncomingTransfers[] | any;
   msg = '';
+  isHidden = true;
+  element: string | undefined;
 
   constructor(private _service : RegistrationService) { }
 
@@ -148,11 +150,18 @@ export class CalendarComponent implements OnInit {
       for (let i = 0; i < this.transfersIn.length; i++) {
         if (this.transfersIn.indexOf(item_element) === -1) {
           this.transfersIn.push(item_element);
-          console.log(item_element);
         }
       }
     }
   }
+
+toggleDisplay() {
+    this.isHidden = !this.isHidden;
+}
+
+getDayValue(element1 : string, element2 : number, element3 : string) {
+    this.element = `${element1}${element2}${element3}`;
+}
 
 
 }
