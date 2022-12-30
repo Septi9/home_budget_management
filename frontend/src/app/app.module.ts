@@ -18,6 +18,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { GridPipe } from './grid.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
+import { PlanComponent } from './plan/plan.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatIconModule} from "@angular/material/icon";
     HistoryComponent,
     LogoutComponent,
     CalendarComponent,
-    GridPipe
+    GridPipe,
+    PlanComponent
   ],
   imports: [
     BrowserModule,
