@@ -43,7 +43,7 @@
 
 .container {
   width: 90%;
-  height: 40%;
+  height: 30%;
   margin: 20px auto 0;
   overflow-y: scroll;
 }
@@ -87,7 +87,7 @@ input {
   border: 2px solid #333;
   border-radius: 5px;
   color: #333;
-  font-size: 32px;
+  font-size: 24px;
   margin: 0;
   padding: .5rem 1rem;
   width: 100%;
@@ -97,7 +97,7 @@ select {
   border: 2px solid #333;
   border-radius: 5px;
   color: #333;
-  font-size: 32px;
+  font-size: 24px;
   margin: 0;
   padding: .5rem 1rem;
   width: 100%;
@@ -119,6 +119,36 @@ option:hover {
   width: 60%;
   margin: 10px 20%;
   color: var(--error);
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: var(--secondary);
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.amounts {
+  display: flex;
+}
+
+.amounts div {
+  margin: 20px auto;
+  font-size: 26px;
+  width: 50%;
   text-align: center;
 }
 

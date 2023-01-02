@@ -2,7 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Plan} from "../plan";
 import {PlanService} from "../plan.service";
 import {Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
+import {ApplicationUser} from "../application-user";
+import {RegistrationService} from "../registration.service";
 
 @Component({
   selector: 'app-plan',
@@ -13,19 +14,42 @@ export class PlanComponent implements OnInit {
 
   @ViewChild('addForm') addForm: any;
 
+  accountData : ApplicationUser[] | undefined;
   plan = new Plan();
   plans : Plan[] | undefined;
   msg = '';
+  sessionValue: any;
+  sum: number | undefined;
+  plannedSum: number = 0;
 
-  constructor(private _service : PlanService, private _router : Router) { }
+  constructor(private _service : PlanService, private _serviceR : RegistrationService, private _router : Router) { }
 
   ngOnInit(): void {
+    this.sessionValue = sessionStorage.getItem('email');
+    this.getUserData();
     this.getPlans();
+  }
+
+  private actualUserPlans(plans : any, accountData : any) : Plan[] {
+
+    let data : Plan[] = [];
+
+    for(let element of accountData) {
+      if (element.email === this.sessionValue) {
+        for (let item of plans) {
+          if (element.id === item.user_id) {
+            data.push(item);
+          }
+        }
+      }
+    }
+    return data;
   }
 
   private getPlans() {
     this._service.getPlanList().subscribe(data => {
-      this.plans = data;
+      this.plans = this.actualUserPlans(data, this.accountData);
+      this.sumPlansAmount(this.actualUserPlans(this.plans, this.accountData));
     },
       error => {
         this.msg = error.error;
@@ -33,8 +57,15 @@ export class PlanComponent implements OnInit {
       })
   }
 
-  public onAddPlan() : void {
-    this.plan.user_id = 1;
+  public onAddPlan(accountData : any) : void {
+    for (let item of accountData) {
+      if (item.email === this.sessionValue) {
+        this.plan.user_id = item.id;
+      }
+    }
+    if (this.plan.user_id === null) {
+      this.plan.user_id = 0;
+    }
     this._service.createPlanElement(this.plan).subscribe(data => {
         window.location.reload();
       },
@@ -44,44 +75,28 @@ export class PlanComponent implements OnInit {
     )
   }
 
-//   public format() {
-//     this.formatCurrency(`${this.plan.amount}`);
-//   }
-//
-//
-//  formatNumber(number: string) {
-//   return number.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-// }
-//
-//
-//  formatCurrency(input : string) {
-//
-//   if (input === "") { return; }
-//
-//   if (input.indexOf(".") >= 0) {
-//     let decimal_pos = input.indexOf(".");
-//
-//     var left_side = input.substring(0, decimal_pos);
-//     var right_side = input.substring(decimal_pos);
-//
-//     left_side = this.formatNumber(left_side);
-//
-//     right_side = this.formatNumber(right_side);
-//
-//     right_side = right_side.substring(0, 2);
-//
-//     input = "$" + left_side + "." + right_side;
-//
-//   } else {
-//     input = this.formatNumber(input);
-//     input = "$" + input;
-//
-//   }
-// console.log(input);
-//
-// }
+  private sumPlansAmount(plans : any) : void {
 
+    for (let item of plans) {
+      this.plannedSum = this.plannedSum + item.amount;
+    }
+  }
 
+  private getUserData() {
+    this._serviceR.getUserDataList().subscribe(data => {
+        this.accountData = data;
+        this.getData(this.accountData);
+      },
+      error => {
+        this.msg = error.error;
+      });
+  }
 
-
+  private getData(accountData : any) {
+    for (let item of accountData) {
+      if (item.email === this.sessionValue) {
+        this.sum = item.accountBalance;
+      }
+    }
+  }
 }

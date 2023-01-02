@@ -25,14 +25,14 @@
               </div>
             </div>
           </div>
-          <h1>Type planned expenses for nex month</h1>
+          <h1>Type planned expenses for next month</h1>
           <div class="form">
-            <form #addForm="ngForm" (ngSubmit)="onAddPlan()">
+            <form #addForm="ngForm" (ngSubmit)="onAddPlan(accountData)">
               <small>{{msg}}</small>
               <div class="inputs">
                 <div class="label-element">
                   <label for="amount">Amount</label>
-                  <input type="text" name="amount" class="form-input" id="amount" placeholder="$1,000,000.00" [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                  <input type="text" name="amount" class="form-input" id="amount" placeholder="1,000,000.00" [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                   <div *ngIf="amount.errors && amount.invalid && amount.errors?.['pattern']">
                     <small class="error">Invalid value</small>
                   </div>
@@ -49,15 +49,18 @@
                     <option value="Food">Food</option>
                     <option value="Others">Others</option>
                   </select>
-<!--                  <input type="text" name="description" class="form-input" id="description" [(ngModel)]="plan.plan_desc" #plan_desc="ngModel" placeholder="Description" required>-->
                 </div>
               </div>
               <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Add new plan</button>
             </form>
           </div>
+          <div class="amounts">
+            <div class="account">Your account balance: <span class="inside_value">$ {{sum}}</span></div>
+            <div class="planned">Your expected expenses: <span class="inside_value">$ {{plannedSum}}</span></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
+</div>
 
