@@ -8,6 +8,7 @@ import {HistoryComponent} from "./history/history.component";
 import {LogoutComponent} from "./logout/logout.component";
 import {AuthGuardService} from "./auth-guard.service";
 import {CalendarComponent} from "./calendar/calendar.component";
+import {PlanComponent} from "./plan/plan.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'crypto', component: CryptoComponent},
   {path: 'history', component: HistoryComponent},
   {path: 'calendar', component: CalendarComponent},
+  {path: 'plan', component: PlanComponent},
 ];
 
 @NgModule({

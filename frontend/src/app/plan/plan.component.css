@@ -1,0 +1,154 @@
+/*flexbox*/
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-nav {
+  flex: 1;
+}
+
+.flex_elements {
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+}
+
+.inner-row {
+  display: flex;
+  flex-direction: row;
+}
+.inner-col {
+  flex: 4;
+}
+
+/*others*/
+
+.content {
+  margin: var(--marginOfElemenrs);
+  width: calc(100% - (2 * var(--marginOfElemenrs)));
+  height: calc(92vh - (2 * var(--marginOfElemenrs)));
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  border-radius: 10px;
+}
+
+.headers {
+  display: flex;
+  font-weight: 700;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.container {
+  width: 90%;
+  height: 30%;
+  margin: 20px auto 0;
+  overflow-y: scroll;
+}
+
+.table-wrapper {
+  display: flex;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.element {
+  width: 20%;
+  height: 5vh;
+  line-height: 5vh;
+  margin: 10px auto 0;
+  text-align: center;
+}
+
+h1 {
+  font-size: 32px;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.inputs {
+  display: flex;
+}
+
+.label-element {
+  margin: 20px auto;
+}
+
+label {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input {
+  border: 2px solid #333;
+  border-radius: 5px;
+  color: #333;
+  font-size: 24px;
+  margin: 0;
+  padding: .5rem 1rem;
+  width: 100%;
+}
+
+select {
+  border: 2px solid #333;
+  border-radius: 5px;
+  color: #333;
+  font-size: 24px;
+  margin: 0;
+  padding: .5rem 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+option {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+option:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
+.error {
+  display: block;
+  width: 60%;
+  margin: 10px 20%;
+  color: var(--error);
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: var(--secondary);
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.amounts {
+  display: flex;
+}
+
+.amounts div {
+  margin: 20px auto;
+  font-size: 26px;
+  width: 50%;
+  text-align: center;
+}
+

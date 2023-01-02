@@ -24,12 +24,14 @@ export class CalendarComponent implements OnInit {
   outgoingTransfers : OutgoingTransfers[] | any;
   incomingTransfers : IncomingTransfers[] | any;
   msg = '';
+  sessionValue: any;
   isHidden = true;
   element: string | undefined;
 
   constructor(private _service : RegistrationService) { }
 
   ngOnInit(): void {
+    this.sessionValue = sessionStorage.getItem('email');
     this.generateDays(this.monthNumber);
     this.getOutgoingTransfers();
     this.getIncomingTransfers();
@@ -76,9 +78,31 @@ export class CalendarComponent implements OnInit {
     this.generateDays(this.monthNumber);
   }
 
+  private validateOutgoingTransfers(outgoingTransfers : any) : OutgoingTransfers[] {
+    let data : OutgoingTransfers[] = [];
+
+    for (let item of outgoingTransfers) {
+      if (item.outgoing_email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
+  }
+
+  private validateIncomingTransfers(incomingTransfers : any) : IncomingTransfers[] {
+    let data : IncomingTransfers[] = [];
+
+    for (let item of incomingTransfers) {
+      if (item.incoming_email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
+  }
+
   private getOutgoingTransfers() {
     this._service.getOutgoingTransfersList().subscribe(data => {
-        this.outgoingTransfers = data;
+        this.outgoingTransfers = this.validateOutgoingTransfers(data);
         this.assignTransferOutToCalendarDate(this.outgoingTransfers);
       },
       error => {
@@ -90,7 +114,7 @@ export class CalendarComponent implements OnInit {
 
   private getIncomingTransfers() {
     this._service.getIncomingTransfersList().subscribe(data => {
-        this.incomingTransfers = data;
+        this.incomingTransfers = this.validateIncomingTransfers(data);
         this.assignTransferInToCalendarDate(this.incomingTransfers)
       },
       error => {
