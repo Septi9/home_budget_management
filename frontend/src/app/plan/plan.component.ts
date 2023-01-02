@@ -34,14 +34,18 @@ export class PlanComponent implements OnInit {
 
     let data : Plan[] = [];
 
-    for(let element of accountData) {
-      if (element.email === this.sessionValue) {
-        for (let item of plans) {
-          if (element.id === item.user_id) {
-            data.push(item);
+    try {
+      for(let element of accountData) {
+        if (element.email === this.sessionValue) {
+          for (let item of plans) {
+            if (element.id === item.user_id) {
+              data.push(item);
+            }
           }
         }
       }
+    } catch (e) {
+      window.location.reload();
     }
     return data;
   }
@@ -82,9 +86,20 @@ export class PlanComponent implements OnInit {
     }
   }
 
+  private validateUsers(accountData : any) : ApplicationUser[] {
+    let data : ApplicationUser[] = [];
+
+    for (let item of accountData) {
+      if (item.email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
+  }
+
   private getUserData() {
     this._serviceR.getUserDataList().subscribe(data => {
-        this.accountData = data;
+        this.accountData = this.validateUsers(data);
         this.getData(this.accountData);
       },
       error => {
@@ -94,9 +109,7 @@ export class PlanComponent implements OnInit {
 
   private getData(accountData : any) {
     for (let item of accountData) {
-      if (item.email === this.sessionValue) {
-        this.sum = item.accountBalance;
-      }
+      this.sum = item.accountBalance;
     }
   }
 }
