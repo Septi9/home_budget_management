@@ -1,0 +1,50 @@
+<div class="wrapper">
+  <div class="left-nav">
+    <app-nav></app-nav>
+  </div>
+  <div class="flex_elements">
+    <div class="top-nav">
+      <app-topnav></app-topnav>
+    </div>
+    <div class="inner-row">
+      <div class="inner-col">
+        <div class="content">
+          <div class="top">
+          </div>
+          <div class="container">
+            <header>Currency Converter</header>
+            <input type="text" value="1">
+            <div *ngIf="currencyData != null">
+              <div *ngFor="let item of currencyData.conversion_rates | keyvalue">
+                <div>{{item.value}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="currency">
+            <div class="first">
+              <p>From</p>
+              <div class="select-currency">
+                <img src="https://flagcdn.com/48x36/{{countryFrom}}.png" alt="flag">
+                <select #from (change)="onSelectedFrom(from.value)" [(ngModel)]="selectedFrom">
+                  <option *ngFor="let code of countries" value="{{code.currencyCode}}">{{code.countryCode}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="second">
+              <p>To</p>
+              <div class="select-currency">
+                <img src="https://flagcdn.com/48x36/{{countryTo}}.png" alt="flag">
+                <select #to (change)="onSelectedTo(to.value)" [(ngModel)]="selectedTo">
+                  <option *ngFor="let code of countries" [value]="code.currencyCode">{{code.countryCode}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="exchange">1 {{selectedFrom}} = 1 {{selectedTo}}</div>
+          <button>Convert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
