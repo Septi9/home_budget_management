@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   cryptoBaseUrl: 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false',
+  currencyBaseUrl: 'https://v6.exchangerate-api.com/v6/bd6916961f66b401213643f4/latest/USD',
 };
 
 /*

@@ -9,6 +9,7 @@ import {LogoutComponent} from "./logout/logout.component";
 import {AuthGuardService} from "./auth-guard.service";
 import {CalendarComponent} from "./calendar/calendar.component";
 import {PlanComponent} from "./plan/plan.component";
+import {ConverterComponent} from "./converter/converter.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -17,10 +18,9 @@ const routes: Routes = [
   {path: 'crypto', component: CryptoComponent, canActivate:[AuthGuardService]},
   {path: 'history', component: HistoryComponent, canActivate:[AuthGuardService]},
   {path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService]},
-  {path: 'crypto', component: CryptoComponent},
-  {path: 'history', component: HistoryComponent},
-  {path: 'calendar', component: CalendarComponent},
-  {path: 'plan', component: PlanComponent},
+  {path: 'calendar', component: CalendarComponent, canActivate:[AuthGuardService]},
+  {path: 'plan', component: PlanComponent, canActivate:[AuthGuardService]},
+  {path: 'converter', component: ConverterComponent, canActivate:[AuthGuardService]},
 ];
 
 @NgModule({
