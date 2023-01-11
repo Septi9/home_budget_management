@@ -20,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import { PlanComponent } from './plan/plan.component';
 import { ConverterComponent } from './converter/converter.component';
+import { DiagramsComponent } from './diagrams/diagrams.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { ConverterComponent } from './converter/converter.component';
     CalendarComponent,
     GridPipe,
     PlanComponent,
-    ConverterComponent
+    ConverterComponent,
+    DiagramsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { ConverterComponent } from './converter/converter.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
+    NgChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

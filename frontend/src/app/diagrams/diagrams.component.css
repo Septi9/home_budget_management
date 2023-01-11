@@ -1,0 +1,48 @@
+/*flexbox*/
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-nav {
+  flex: 1;
+}
+
+.flex_elements {
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+}
+
+.inner-row {
+  display: flex;
+  flex-direction: row;
+}
+.inner-col {
+  flex: 4;
+}
+
+/*others*/
+
+.content {
+  margin: var(--marginOfElemenrs);
+  width: calc(100% - (2 * var(--marginOfElemenrs)));
+  height: calc(92vh - (2 * var(--marginOfElemenrs)));
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  border-radius: 10px;
+}
+
+.header {
+  color: var(--primary);
+  font-size: 25px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.container {
+  width: 90%;
+  margin: 20px auto 0;
+  height: 100%;
+}
