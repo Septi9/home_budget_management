@@ -22,14 +22,23 @@ export class DiagramsComponent implements OnInit {
   sessionValue: any;
   msg = '';
   public chart: any;
+  public chartIncoming: any;
+  public chartOutgoing: any;
   monthsIncoming : number[] = [0, 0, 0, 0, 0, 0, 0];
   monthsOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0];
+  categories = [
+    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
+    "Basic Expenses", "Food", "Others"
+  ];
+  categoriesCountIncoming : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
+  categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
+  isHidden = true;
 
   constructor(private _service : RegistrationService) {}
 
   ngOnInit(): void {
     this.sessionValue = sessionStorage.getItem('email');
-    this.getIncomingTransfers();
+    this.getTransfers();
   }
 
   private validateIncomingTransfers(incomingTransfers : any) : IncomingTransfers[] {
@@ -54,10 +63,11 @@ export class DiagramsComponent implements OnInit {
     return data;
   }
 
-  private getIncomingTransfers() {
+  private getTransfers() {
     this._service.getIncomingTransfersList().subscribe(data => {
         this.incomingTransfers = this.validateIncomingTransfers(data);
         this.monthlyTransfers(this.incomingTransfers, this.monthsIncoming);
+        this.findCategory(this.incomingTransfers, this.categoriesCountIncoming);
       },
       error => {
         console.log("not working");
@@ -67,7 +77,8 @@ export class DiagramsComponent implements OnInit {
     this._service.getOutgoingTransfersList().subscribe(data => {
       this.outgoingTransfers = this.validateOutgoingTransfers(data);
       this.monthlyTransfers(this.outgoingTransfers, this.monthsOutgoing);
-        this.createChart();
+      this.findCategory(this.outgoingTransfers, this.categoriesCountOutgoing);
+      this.createChart();
     },
       error => {
         console.log("not working");
@@ -92,6 +103,24 @@ export class DiagramsComponent implements OnInit {
     }
   }
 
+  public findCategory(transfers : any, array : any) {
+    for(let i = 0; i < transfers.length; i++) {
+      for (let j = 0; j < this.categories.length; j++) {
+        if (transfers[i].category === this.categories[j]) {
+          array[j] += 1;
+        }
+      }
+    }
+  }
+
+  toggleDisplay() {
+    this.isHidden = !this.isHidden;
+  }
+
+  reload() {
+    window.location.reload();
+  }
+
   createChart() {
     this.chart = new Chart("baseChart", {
       type: 'bar',
@@ -113,6 +142,64 @@ export class DiagramsComponent implements OnInit {
           {
             data: [ this.monthsIncoming[6], this.monthsIncoming[5], this.monthsIncoming[4], this.monthsIncoming[3], this.monthsIncoming[2], this.monthsIncoming[1], this.monthsIncoming[0] ],
             label: 'Incoming Transfers',
+          }
+        ]
+      }
+    });
+    this.chartIncoming = new Chart("secondChart", {
+      type: 'pie',
+      data: {
+        labels: [
+          this.categories[0],
+          this.categories[1],
+          this.categories[2],
+          this.categories[3],
+          this.categories[4],
+          this.categories[5],
+          this.categories[6],
+          this.categories[7],
+        ],
+        datasets: [
+          {
+            data: [
+              this.categoriesCountIncoming[0],
+              this.categoriesCountIncoming[1],
+              this.categoriesCountIncoming[2],
+              this.categoriesCountIncoming[3],
+              this.categoriesCountIncoming[4],
+              this.categoriesCountIncoming[5],
+              this.categoriesCountIncoming[6],
+              this.categoriesCountIncoming[7],
+            ],
+          }
+        ]
+      }
+    });
+    this.chartOutgoing = new Chart("thirdChart", {
+      type: 'pie',
+      data: {
+        labels: [
+          this.categories[0],
+          this.categories[1],
+          this.categories[2],
+          this.categories[3],
+          this.categories[4],
+          this.categories[5],
+          this.categories[6],
+          this.categories[7],
+        ],
+        datasets: [
+          {
+            data: [
+              this.categoriesCountOutgoing[0],
+              this.categoriesCountOutgoing[1],
+              this.categoriesCountOutgoing[2],
+              this.categoriesCountOutgoing[3],
+              this.categoriesCountOutgoing[4],
+              this.categoriesCountOutgoing[5],
+              this.categoriesCountOutgoing[6],
+              this.categoriesCountOutgoing[7],
+            ],
           }
         ]
       }

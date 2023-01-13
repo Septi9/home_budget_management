@@ -17,16 +17,27 @@ public class OutgoingTransfers {
     private String destination_account;
     private Date transfer_date;
     private String outgoing_email;
+    private String category;
 
     public OutgoingTransfers() {}
 
-    public OutgoingTransfers(BigDecimal transfer_amount, BigDecimal account_balance_before, BigDecimal account_balance_after, String destination_account, Date transfer_date, String outgoing_email) {
+    public OutgoingTransfers(int id, BigDecimal transfer_amount, BigDecimal account_balance_before, BigDecimal account_balance_after, String destination_account, Date transfer_date, String outgoing_email, String category) {
+        this.id = id;
         this.transfer_amount = transfer_amount;
         this.account_balance_before = account_balance_before;
         this.account_balance_after = account_balance_after;
         this.destination_account = destination_account;
         this.transfer_date = transfer_date;
         this.outgoing_email = outgoing_email;
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public BigDecimal getTransfer_amount() {
@@ -77,22 +88,30 @@ public class OutgoingTransfers {
         this.outgoing_email = outgoing_email;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OutgoingTransfers that = (OutgoingTransfers) o;
-        return id == that.id && transfer_amount.equals(that.transfer_amount) && account_balance_before.equals(that.account_balance_before) && account_balance_after.equals(that.account_balance_after) && destination_account.equals(that.destination_account) && transfer_date.equals(that.transfer_date) && outgoing_email.equals(that.outgoing_email);
+        return id == that.id && Objects.equals(transfer_amount, that.transfer_amount) && Objects.equals(account_balance_before, that.account_balance_before) && Objects.equals(account_balance_after, that.account_balance_after) && Objects.equals(destination_account, that.destination_account) && Objects.equals(transfer_date, that.transfer_date) && Objects.equals(outgoing_email, that.outgoing_email) && Objects.equals(category, that.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, transfer_amount, account_balance_before, account_balance_after, destination_account, transfer_date, outgoing_email);
+        return Objects.hash(id, transfer_amount, account_balance_before, account_balance_after, destination_account, transfer_date, outgoing_email, category);
     }
 
     @Override
     public String toString() {
-        return "OutgoingTransfer{" +
+        return "OutgoingTransfers{" +
                 "id=" + id +
                 ", transfer_amount=" + transfer_amount +
                 ", account_balance_before=" + account_balance_before +
@@ -100,6 +119,7 @@ public class OutgoingTransfers {
                 ", destination_account='" + destination_account + '\'' +
                 ", transfer_date=" + transfer_date +
                 ", outgoing_email='" + outgoing_email + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

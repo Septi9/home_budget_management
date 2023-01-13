@@ -12,11 +12,37 @@
           <div class="top">
           </div>
           <div class="container">
-            <div id="divChart">
-              <div style="display: block;">
-                <canvas id="baseChart" width="1200" height="400">
-                  {{chart}}
-                </canvas>
+            <div class="wrap">
+              <div class="bar-diagrams" [hidden]="!isHidden">
+                <h2>Your Last Transfers</h2>
+                <div id="divChart">
+                  <div style="display: block;">
+                    <canvas id="baseChart" width="1200" height="400">
+                      {{chart}}
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="circle-diagrams" [hidden]="isHidden">
+                <h2>Transfers Categories</h2>
+                <div class="circles">
+                  <div style="display: block; width: 300px; height: 300px; margin: 20px auto 0">
+                    <h3>Incoming Transfers</h3>
+                    <canvas id="secondChart">
+                      {{chartIncoming}}
+                    </canvas>
+                  </div>
+                  <div style="display: block; width: 300px; height: 300px; margin: 20px auto 0">
+                    <h3>OutgoingTransfers</h3>
+                    <canvas id="thirdChart">
+                      {{chartIncoming}}
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="btns">
+                <div class="btn" (click)="toggleDisplay();">Show more</div>
+                <div class="btn" (click)="reload();" [hidden]="!isHidden">Reload diagrams</div>
               </div>
             </div>
           </div>
@@ -25,4 +51,3 @@
     </div>
   </div>
 </div>
-
