@@ -33,6 +33,8 @@ export class DiagramsComponent implements OnInit {
   categoriesCountIncoming : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
   categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
   isHidden = true;
+  toggle1 = false;
+  toggle2 = false;
 
   constructor(private _service : RegistrationService) {}
 
@@ -68,6 +70,7 @@ export class DiagramsComponent implements OnInit {
         this.incomingTransfers = this.validateIncomingTransfers(data);
         this.monthlyTransfers(this.incomingTransfers, this.monthsIncoming);
         this.findCategory(this.incomingTransfers, this.categoriesCountIncoming);
+        this.toggle1 = true;
       },
       error => {
         console.log("not working");
@@ -78,7 +81,12 @@ export class DiagramsComponent implements OnInit {
       this.outgoingTransfers = this.validateOutgoingTransfers(data);
       this.monthlyTransfers(this.outgoingTransfers, this.monthsOutgoing);
       this.findCategory(this.outgoingTransfers, this.categoriesCountOutgoing);
-      this.createChart();
+      this.toggle2 = true;
+      if (this.toggle1 && this.toggle2) {
+        this.createChart();
+      } else {
+        window.location.reload();
+      }
     },
       error => {
         console.log("not working");
@@ -86,6 +94,9 @@ export class DiagramsComponent implements OnInit {
         console.log(error)
       });
   }
+private compareTwoArrays(a: any, b: any) {
+    return JSON.stringify(a) != JSON.stringify(b);
+}
 
   public monthlyTransfers(transfers : any, array : any) {
     for(let item of transfers) {
@@ -115,10 +126,6 @@ export class DiagramsComponent implements OnInit {
 
   toggleDisplay() {
     this.isHidden = !this.isHidden;
-  }
-
-  reload() {
-    window.location.reload();
   }
 
   createChart() {
