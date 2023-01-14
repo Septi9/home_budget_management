@@ -10,6 +10,7 @@ import {AuthGuardService} from "./auth-guard.service";
 import {CalendarComponent} from "./calendar/calendar.component";
 import {PlanComponent} from "./plan/plan.component";
 import {ConverterComponent} from "./converter/converter.component";
+import {DiagramsComponent} from "./diagrams/diagrams.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'calendar', component: CalendarComponent, canActivate:[AuthGuardService]},
   {path: 'plan', component: PlanComponent, canActivate:[AuthGuardService]},
   {path: 'converter', component: ConverterComponent, canActivate:[AuthGuardService]},
+  {path: 'diagrams', component: DiagramsComponent, canActivate:[AuthGuardService]},
 ];
 
 @NgModule({
