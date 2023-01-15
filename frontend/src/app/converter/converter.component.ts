@@ -23,12 +23,6 @@ export class ConverterComponent implements OnInit {
   countryFrom: any = "us";
   countryTo: any = "us";
   map : Map<string, number> | undefined;
-  map2 = new Map([
-    ['name', 'Tim'],
-    ['country', 'Chile'],
-  ]);
-  element1: number | undefined = 0;
-  element2: number | undefined = 0;
 
   constructor(private currencyService : CurrencyService) { }
 
@@ -52,16 +46,11 @@ export class ConverterComponent implements OnInit {
       } catch (e) {
         console.log("problem with map")
       }
-      console.log(this.map.get(this.selectedFrom));
-      console.log(this.map.get(this.selectedTo));
-    } else {
-      console.log("hello")
     }
   }
 
   onType(value : any) {
     this.type = value;
-    console.log(this.type)
   }
 
   onSelectedFrom(value : string) : void {
