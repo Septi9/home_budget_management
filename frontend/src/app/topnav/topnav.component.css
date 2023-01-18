@@ -17,6 +17,7 @@
 
 ul {
   list-style-type: none;
+  display: flex;
 }
 
 li {
@@ -34,4 +35,8 @@ li {
 .inline-list {
   display: inline;
   margin: 0 20px;
+}
+
+img {
+  margin: -5px 20px;
 }

@@ -17,7 +17,7 @@
               <div class="first">
                 <p>From</p>
                 <div class="select-currency">
-                  <img src="https://flagcdn.com/48x36/{{countryFrom}}.png" alt="flag">
+                  <img src="https://flagcdn.com/h40/{{countryFrom}}.png" alt="flag">
                   <select #from (change)="onSelectedFrom(from.value)" [(ngModel)]="selectedFrom">
                     <option *ngFor="let code of countries" value="{{code.currencyCode}}">{{code.countryCode}}</option>
                   </select>
@@ -26,7 +26,7 @@
               <div class="second">
                 <p>To</p>
                 <div class="select-currency">
-                  <img src="https://flagcdn.com/48x36/{{countryTo}}.png" alt="flag">
+                  <img src="https://flagcdn.com/h40/{{countryTo}}.png" alt="flag">
                   <select #to (change)="onSelectedTo(to.value)" [(ngModel)]="selectedTo">
                     <option *ngFor="let code of countries" [value]="code.currencyCode">{{code.countryCode}}</option>
                   </select>
