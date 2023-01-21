@@ -19,7 +19,7 @@ export class PlanComponent implements OnInit {
   plans : Plan[] | undefined;
   msg = '';
   sessionValue: any;
-  sum: number | undefined;
+  sum: number = 0;
   plannedSum: number = 0;
 
   constructor(private _service : PlanService, private _serviceR : RegistrationService, private _router : Router) { }

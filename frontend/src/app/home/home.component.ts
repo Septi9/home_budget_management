@@ -13,6 +13,10 @@ export class HomeComponent implements OnInit {
   accountData : ApplicationUser[] | undefined;
   msg = '';
   sessionValue: any;
+  firstname: any;
+  lastname: any;
+  email: any;
+  accountBalance: any;
 
   constructor(private _service : RegistrationService, private _router: Router) { }
 
@@ -27,6 +31,10 @@ export class HomeComponent implements OnInit {
     for (let item of accountData) {
       if (item.email === this.sessionValue) {
         data.push(item);
+        this.firstname = item.firstname;
+        this.lastname = item.lastname;
+        this.email = item.email;
+        this.accountBalance = item.accountBalance;
       }
     }
     return data;

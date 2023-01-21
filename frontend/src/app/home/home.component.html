@@ -12,12 +12,48 @@
           <div class="top">
           </div>
           <div class="container">
-            <div class="table" *ngFor = "let item of accountData">
+            <div class="table">
               <div class="table-wrapper">
-                <div class="element">{{item.firstname}}</div>
-                <div class="element">{{item.lastname}}</div>
-                <div class="element">{{item.email}}</div>
-                <div class="element">${{item.accountBalance | number:'1.2-2'}}</div>
+                <div class="element" [routerLink]="['/home']">
+                  <p class="hello">Hello {{firstname}} {{lastname}},</p>
+                  <p class="hello">have a nice day!</p>
+                </div>
+                <div class="element" [routerLink]="['/diagrams']">
+                  <div class="center">
+                    <p class="desc">You have</p>
+                    <div class="value">{{accountBalance}} PLN</div>
+                    <p class="desc2">in your account</p>
+                  </div>
+                </div>
+                <div class="element" [routerLink]="['/plan']">
+                  <div class="center">
+                    <p class="desc">You planned</p>
+                    <div class="value">0 PLN</div>
+                    <p class="class2">for the next expenses</p>
+                  </div>
+                </div>
+              </div>
+              <div class="table-wrapper">
+                <div class="element" [routerLink]="['/history']">
+                  <div class="center">
+                    <p class="desc">You spent</p>
+                    <div class="value">0 PLN</div>
+                    <p class="class2">last month</p>
+                  </div>
+                </div>
+                <div class="element" [routerLink]="['/history']">
+                  <div class="center">
+                    <p class="desc">You received</p>
+                    <div class="value">0 PLN</div>
+                    <p class="class2">last month</p>
+                  </div>
+                </div>
+                <div class="element" [routerLink]="['/diagrams']">
+                  <div class="center">
+                    <p class="desc">you spend the most on</p>
+                    <div class="value">tutaj kategoria</div>
+                  </div>
+                </div>
               </div>
           </div>
         </div>
