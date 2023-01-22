@@ -34,7 +34,7 @@
                   <label for="amount">Amount</label>
                   <input type="text" name="amount" class="form-input" id="amount" placeholder="1,000,000.00" [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                   <div *ngIf="amount.errors && amount.invalid && amount.errors?.['pattern']">
-                    <small class="error">Invalid value</small>
+                    <small class="error">Please enter decimal value</small>
                   </div>
                 </div>
                 <div class="label-element">

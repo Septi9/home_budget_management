@@ -98,7 +98,7 @@ export class CryptoComponent implements OnInit {
   totalVolumeSort(): number {
     if(this.sortByTotalVolume == 0) {
       this.cryptoModel.sort((a, b) => a.total_volume < b.total_volume ? 1 : -1);
-      this.sortByTotalVolumeContent = "Lowest Price";
+      this.sortByTotalVolumeContent = "Lowest total volume";
       this.sortByTotalVolume++;
       return 0;
     } else if(this.sortByTotalVolume == 1) {
@@ -108,7 +108,7 @@ export class CryptoComponent implements OnInit {
       return 0;
     } else if(this.sortByTotalVolume == 2) {
       this.ngOnInit();
-      this.sortByTotalVolumeContent = "Highest price";
+      this.sortByTotalVolumeContent = "Highest total volume";
       this.sortByTotalVolume = 0;
       return 0;
     }
@@ -118,7 +118,7 @@ export class CryptoComponent implements OnInit {
   dailySort(): number {
     if(this.sortBy24h == 0) {
       this.cryptoModel.sort((a, b) => a.price_change_percentage_24h < b.price_change_percentage_24h ? 1 : -1);
-      this.sortBy24hContent = "Lowest Price";
+      this.sortBy24hContent = "Lowest increase";
       this.sortBy24h++;
       return 0;
     } else if(this.sortBy24h == 1) {
@@ -128,7 +128,7 @@ export class CryptoComponent implements OnInit {
       return 0;
     } else if(this.sortBy24h == 2) {
       this.ngOnInit();
-      this.sortBy24hContent = "Highest price";
+      this.sortBy24hContent = "Highest increase";
       this.sortBy24h = 0;
       return 0;
     }

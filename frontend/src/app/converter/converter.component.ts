@@ -17,8 +17,8 @@ export class ConverterComponent implements OnInit {
   countries: Country[] = countryData;
   selectedFrom : any = "USD";
   selectedTo : any = "USD";
-  type : any = 1;
-  finalValue: any = 1;
+  type : any = `${1}.00`;
+  finalValue: any = `${1}.00`;
   option: any;
   countryFrom: any = "us";
   countryTo: any = "us";
@@ -43,6 +43,9 @@ export class ConverterComponent implements OnInit {
       this.map = new Map<string, number>(Object.entries(this.currencyData.conversion_rates));
       try {
         this.finalValue = Math.round((this.type * this.map.get(this.selectedFrom)! * this.map.get(this.selectedTo)!) * 100) / 100;
+        if (!this.finalValue.toString().includes('.')) {
+          this.finalValue = `${this.finalValue}.00`;
+        }
       } catch (e) {
         console.log("problem with map")
       }
@@ -50,7 +53,11 @@ export class ConverterComponent implements OnInit {
   }
 
   onType(value : any) {
+    if (!value.includes('.')) {
+      value = `${value}.00`;
+    }
     this.type = value;
+    console.log("change")
   }
 
   onSelectedFrom(value : string) : void {
@@ -58,7 +65,7 @@ export class ConverterComponent implements OnInit {
     for (let country of this.countries) {
       if (country.currencyCode === value) {
         this.countryFrom = country.countryCode.toLowerCase();
-        this.finalValue = 0;
+        this.finalValue = `${0}.00`;
         this.getApi();
       }
     }
@@ -69,7 +76,7 @@ export class ConverterComponent implements OnInit {
     for (let country of this.countries) {
       if (country.currencyCode === value) {
         this.countryTo = country.countryCode.toLowerCase();
-        this.finalValue = 0;
+        this.finalValue = `${0}.00`;
       }
     }
   }
