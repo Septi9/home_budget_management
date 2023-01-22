@@ -216,6 +216,18 @@
   text-align: center;
 }
 
+.element-not-center {
+  width: 20%;
+  height: 5vh;
+  line-height: 5vh;
+  margin: 10px auto 0;
+}
+
+.icon {
+  text-align: left;
+  margin: 10px 40px 0 20px;
+}
+
 .element-out {
   background-color: rgba(256, 0, 0, 0.3);
 }

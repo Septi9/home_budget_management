@@ -13,7 +13,7 @@
           <div *ngIf="email.errors && email.touched && email.errors?.['required']">
             <small class="error">Email is required</small>
           </div>
-          <div *ngIf="email.errors && email.invalid && email.errors?.['pattern']">
+          <div *ngIf="email.errors && email.touched && email.errors?.['pattern']">
             <small class="error">Invalid email</small>
           </div>
         </div>
