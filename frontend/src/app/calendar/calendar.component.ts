@@ -183,8 +183,17 @@ toggleDisplay() {
     this.isHidden = !this.isHidden;
 }
 
-getDayValue(element1 : string, element2 : number, element3 : string) {
-    this.element = `${element1}${element2}${element3}`;
+getDayValue(element1 : number, element2 : number, element3 : string) {
+    if (element1 < 10 && element2 > 9) {
+      this.element = `0${element1}${element2}${element3}`;
+    } else if (element2 < 10 && element1 > 9) {
+      this.element = `${element1}0${element2}${element3}`;
+    } else if (element1 < 10 && element2 < 10) {
+      this.element = `0${element1}0${element2}${element3}`;
+    } else {
+      this.element = `${element1}${element2}${element3}`;
+    }
+    console.log('element', this.element)
 }
 
 

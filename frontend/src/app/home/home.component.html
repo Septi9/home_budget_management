@@ -21,14 +21,14 @@
                 <div class="element" [routerLink]="['/diagrams']">
                   <div class="center">
                     <p class="desc">You have</p>
-                    <div class="value">{{accountBalance}} PLN</div>
+                    <div class="value">${{accountBalance}}</div>
                     <p class="desc2">in your account</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/plan']">
                   <div class="center">
                     <p class="desc">You planned</p>
-                    <div class="value">0 PLN</div>
+                    <div class="value">${{plannedSum}}</div>
                     <p class="class2">for the next expenses</p>
                   </div>
                 </div>
@@ -37,21 +37,21 @@
                 <div class="element" [routerLink]="['/history']">
                   <div class="center">
                     <p class="desc">You spent</p>
-                    <div class="value">0 PLN</div>
+                    <div class="value">${{outgoingTransfersLastMonth}}</div>
                     <p class="class2">last month</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/history']">
                   <div class="center">
                     <p class="desc">You received</p>
-                    <div class="value">0 PLN</div>
+                    <div class="value">${{incomingTransfersLastMonth}}</div>
                     <p class="class2">last month</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/diagrams']">
                   <div class="center">
                     <p class="desc">you spend the most on</p>
-                    <div class="value">tutaj kategoria</div>
+                    <div class="value">{{mostPopularCategory}}</div>
                   </div>
                 </div>
               </div>
