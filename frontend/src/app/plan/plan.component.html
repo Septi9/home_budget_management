@@ -9,22 +9,6 @@
     <div class="inner-row">
       <div class="inner-col">
         <div class="content">
-          <div class="top">
-            <div class="headers">
-              <div class="element">Amount</div>
-              <div class="element">Category</div>
-              <div class="element"></div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="table" *ngFor = "let item of plans">
-              <div class="table-wrapper">
-                <div class="element value">${{item.amount | number:'1.2-2'}}</div>
-                <div class="element value">{{item.plan_desc}}</div>
-                <div class="element value">icon</div>
-              </div>
-            </div>
-          </div>
           <h1>Type planned expenses for next month</h1>
           <div class="form">
             <form #addForm="ngForm" (ngSubmit)="onAddPlan(accountData)">
@@ -34,7 +18,7 @@
                   <label for="amount">Amount</label>
                   <input type="text" name="amount" class="form-input" id="amount" placeholder="1,000,000.00" [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                   <div *ngIf="amount.errors && amount.invalid && amount.errors?.['pattern']">
-                    <small class="error">Invalid value</small>
+                    <small class="error">Please enter decimal value</small>
                   </div>
                 </div>
                 <div class="label-element">
@@ -56,7 +40,27 @@
           </div>
           <div class="amounts">
             <div class="account">Your account balance: <span class="inside_value">$ {{sum}}</span></div>
-            <div class="planned">Your expected expenses: <span class="inside_value">$ {{plannedSum}}</span></div>
+            <div class="planned" [ngClass]="sum >= plannedSum ? 'green' : 'red'">Your expected expenses: <span class="inside_value">$ {{plannedSum}}</span></div>
+          </div>
+          <div class="top">
+            <div class="headers">
+              <div class="element">Amount</div>
+              <div class="element">Category</div>
+              <div class="element"></div>
+              <div class="element">Delete plan</div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="table" *ngFor = "let item of plans">
+              <div class="table-wrapper">
+                <div class="element value">${{item.amount | number:'1.2-2'}}</div>
+                <div class="element value">{{item.plan_desc}}</div>
+                <div class="element value">
+                  <mat-icon>{{getPlanIcon(item.plan_desc)}}</mat-icon>
+                </div>
+                <div class="element value"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -19,8 +19,13 @@ export class PlanComponent implements OnInit {
   plans : Plan[] | undefined;
   msg = '';
   sessionValue: any;
-  sum: number | undefined;
+  sum: number = 0;
   plannedSum: number = 0;
+  planIcon: string | undefined;
+  categories = [
+    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
+    "Basic Expenses", "Food", "Others"
+  ];
 
   constructor(private _service : PlanService, private _serviceR : RegistrationService, private _router : Router) { }
 
@@ -110,6 +115,20 @@ export class PlanComponent implements OnInit {
   private getData(accountData : any) {
     for (let item of accountData) {
       this.sum = item.accountBalance;
+    }
+  }
+
+  getPlanIcon(description : string | undefined) : string {
+    switch (description) {
+      case this.categories[0]: return 'beach_access';
+      case this.categories[1]: return 'directions_subway';
+      case this.categories[2]: return 'attach_money';
+      case this.categories[3]: return 'spa';
+      case this.categories[4]: return 'home';
+      case this.categories[5]: return 'shopping_basket';
+      case this.categories[6]: return 'fastfood';
+      case this.categories[7]: return 'account_circle';
+      default: return 'bug_report';
     }
   }
 }

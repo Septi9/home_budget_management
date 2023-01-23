@@ -121,4 +121,12 @@ button:hover {
   color: var(--primary);
 }
 
+.error {
+  display: block;
+  width: 60%;
+  margin: 10px 20%;
+  color: var(--error);
+  text-align: center;
+}
+
 

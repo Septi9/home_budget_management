@@ -79,6 +79,7 @@
                 <div class="element">Account Balance After</div>
                 <div class="element">Sender Account</div>
                 <div class="element">Transfer Date</div>
+                <div class="element">Category</div>
               </div>
             </div>
             <div class="modal-elements">
@@ -91,6 +92,7 @@
                   <div class="element element-out">${{item.account_balance_after | number:'1.2-2'}}</div>
                   <div class="element element-out">{{item.destination_account}}</div>
                   <div class="element element-out">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                  <div class="element-not-center element-out"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
               <div class="modal-body" *ngFor="let item of incomingTransfers">
@@ -102,6 +104,7 @@
                   <div class="element element-in">${{item.account_balance_after | number:'1.2-2'}}</div>
                   <div class="element element-in">{{item.sender_account}}</div>
                   <div class="element element-in">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                  <div class="element-not-center element-in"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
             </div>

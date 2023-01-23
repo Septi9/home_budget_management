@@ -15,6 +15,10 @@ export class CalendarComponent implements OnInit {
   monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
+  categories = [
+    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
+    "Basic Expenses", "Food", "Others"
+  ];
   public showMonth: string | undefined;
   private monthNumber: number = 0;
   trigger: number = 0;
@@ -183,9 +187,31 @@ toggleDisplay() {
     this.isHidden = !this.isHidden;
 }
 
-getDayValue(element1 : string, element2 : number, element3 : string) {
-    this.element = `${element1}${element2}${element3}`;
+getDayValue(element1 : number, element2 : number, element3 : string) {
+    if (element1 < 10 && element2 > 9) {
+      this.element = `0${element1}${element2}${element3}`;
+    } else if (element2 < 10 && element1 > 9) {
+      this.element = `${element1}0${element2}${element3}`;
+    } else if (element1 < 10 && element2 < 10) {
+      this.element = `0${element1}0${element2}${element3}`;
+    } else {
+      this.element = `${element1}${element2}${element3}`;
+    }
+    console.log('element', this.element)
 }
+  getPlanIcon(description : string | undefined) : string {
+    switch (description) {
+      case this.categories[0]: return 'beach_access';
+      case this.categories[1]: return 'directions_subway';
+      case this.categories[2]: return 'attach_money';
+      case this.categories[3]: return 'spa';
+      case this.categories[4]: return 'home';
+      case this.categories[5]: return 'shopping_basket';
+      case this.categories[6]: return 'fastfood';
+      case this.categories[7]: return 'account_circle';
+      default: return 'bug_report';
+    }
+  }
 
 
 }

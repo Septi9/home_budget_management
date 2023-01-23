@@ -14,7 +14,7 @@
             <div *ngIf="email.errors && email.touched && email.errors?.['required']">
               <small class="error">Email is required</small>
             </div>
-            <div *ngIf="email.errors && email.invalid && email.errors?.['pattern']">
+            <div *ngIf="email.errors && email.touched && email.errors?.['pattern']">
               <small class="error">Invalid email</small>
             </div>
           </div>
@@ -41,9 +41,12 @@
           </div>
           <div class="form">
             <input type="text" class="form-input" placeholder="Account Balance" name="accountBalance" [(ngModel)]="applicationUser.accountBalance"
-                   #accountBalance="ngModel" required>
+                   #accountBalance="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
             <div *ngIf="accountBalance.errors && accountBalance.touched && accountBalance.errors?.['required']">
               <small class="error">Account Balance is required</small>
+            </div>
+            <div *ngIf="accountBalance.errors && accountBalance.invalid && accountBalance.errors?.['pattern']">
+              <small class="error">Please enter decimal value</small>
             </div>
           </div>
         </div>

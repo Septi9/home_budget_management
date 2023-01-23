@@ -2,9 +2,12 @@
 
 :root {
   --background: #eff0f4;
+  --primary_dark: #1181B2;
   --primary: #3399ff;
+  --secondary_dark: #212221;
   --secondary: #ffffff;
   --error: #ff0000;
+  --text_dark: #aaaaaa;
   --text: #000000;
 
 
@@ -21,8 +24,24 @@
 
 html {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--background);
+  background-color: var(--secondary);
+  color: var(--text);
 }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(51,151,255,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(51,151,255,0.4);
+}

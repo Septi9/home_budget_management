@@ -17,7 +17,7 @@
               <div class="first">
                 <p>From</p>
                 <div class="select-currency">
-                  <img src="https://flagcdn.com/48x36/{{countryFrom}}.png" alt="flag">
+                  <img src="https://flagcdn.com/h40/{{countryFrom}}.png" alt="flag">
                   <select #from (change)="onSelectedFrom(from.value)" [(ngModel)]="selectedFrom">
                     <option *ngFor="let code of countries" value="{{code.currencyCode}}">{{code.countryCode}}</option>
                   </select>
@@ -26,7 +26,7 @@
               <div class="second">
                 <p>To</p>
                 <div class="select-currency">
-                  <img src="https://flagcdn.com/48x36/{{countryTo}}.png" alt="flag">
+                  <img src="https://flagcdn.com/h40/{{countryTo}}.png" alt="flag">
                   <select #to (change)="onSelectedTo(to.value)" [(ngModel)]="selectedTo">
                     <option *ngFor="let code of countries" [value]="code.currencyCode">{{code.countryCode}}</option>
                   </select>
@@ -34,9 +34,12 @@
               </div>
             </div>
             <div class="amounts">
-              <input class="input" type="text" value="1" #getVal (change)="onType(getVal.value)" [(ngModel)]="type">
+              <input class="input" type="text" value="0.00" min="0.00" max="1.00" step="0.01" #getVal (change)="onType(getVal.value)" [(ngModel)]="type" #element="ngModel" pattern="^\d+(\.)\d{2}$" data-type="currency">
+              <div *ngIf="element.errors && element.invalid && element.errors?.['pattern']">
+                <small class="error">Please enter decimal value</small>
+              </div>
               <div class="exchange">{{type}} {{selectedFrom}} = {{finalValue}} {{selectedTo}}</div>
-              <button class="confirm" (click)="getCurrency()">Convert</button>
+              <button class="confirm" [disabled]="element.invalid" (click)="getCurrency()">Convert</button>
             </div>
           </div>
         </div>

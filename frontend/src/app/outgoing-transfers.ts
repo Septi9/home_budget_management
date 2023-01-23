@@ -6,7 +6,7 @@ export class OutgoingTransfers {
   destination_account: string | undefined;
   transfer_date: Date | undefined;
   outgoing_email: string | undefined;
-  categoty: string | undefined;
+  category: string | undefined;
 
   constructor() {}
 }

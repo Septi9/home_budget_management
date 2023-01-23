@@ -62,20 +62,6 @@
   border-radius: 20px;
 }
 
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgba(51,151,255,0.8);
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-::-webkit-scrollbar-thumb:window-inactive {
-  background: rgba(51,151,255,0.4);
-}
-
 
 h2 {
   text-align: center;
