@@ -136,7 +136,7 @@ export class HomeComponent implements OnInit {
   private getPlans() {
     this._planService.getPlanList().subscribe(data => {
         this.plans = this.actualUserPlans(data, this.accountData);
-        this.sumPlansAmount(this.actualUserPlans(this.plans, this.accountData));
+        this.plannedSum = this.sumPlansAmount(this.actualUserPlans(this.plans, this.accountData));
       },
       error => {
         this.msg = error.error;
@@ -164,11 +164,12 @@ export class HomeComponent implements OnInit {
     return data;
   }
 
-  private sumPlansAmount(plans : any) : void {
-
+  private sumPlansAmount(plans : any) : any {
+    let sum = 0;
     for (let item of plans) {
-      this.plannedSum = this.plannedSum + item.amount;
+      sum += item.amount;
     }
+    return (Math.round(sum * 100) / 100).toFixed(2);
   }
 
   private getLastMonthTransfers(array : any) : any {

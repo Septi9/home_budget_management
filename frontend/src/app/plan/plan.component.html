@@ -58,7 +58,7 @@
                 <div class="element value">
                   <mat-icon>{{getPlanIcon(item.plan_desc)}}</mat-icon>
                 </div>
-                <div class="element value"></div>
+                <div class="element value delete" (click)="onDeletePlan(item.id)">Delete</div>
               </div>
             </div>
           </div>

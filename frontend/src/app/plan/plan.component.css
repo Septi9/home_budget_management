@@ -164,3 +164,8 @@ button:hover {
   color: rgb(235, 8, 8);
 }
 
+.delete {
+  color: rgb(235, 8, 8);
+  cursor: pointer;
+}
+

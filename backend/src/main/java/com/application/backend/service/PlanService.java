@@ -19,4 +19,8 @@ public class PlanService {
     public Plan savePlan(Plan plan) {
         return planRepository.save(plan);
     }
+
+    public void deletePlan(int id) {
+         planRepository.deleteById(id);
+    }
 }
