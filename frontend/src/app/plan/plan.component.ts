@@ -24,8 +24,8 @@ export class PlanComponent implements OnInit {
   plannedSum: number = 0;
   planIcon: string | undefined;
   categories = [
-    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
-    "Basic Expenses", "Food", "Others"
+    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
+    "Wydatki Podstawowe", "Jedzenie", "Inne"
   ];
 
   constructor(private _service : PlanService, private _serviceR : RegistrationService, private _router : Router) { }

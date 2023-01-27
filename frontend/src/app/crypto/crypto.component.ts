@@ -20,11 +20,11 @@ export class CryptoComponent implements OnInit {
   sortByMarketCap?: number = 0;
   sortByTotalVolume?: number = 0;
   sortBy24h?: number = 0;
-  sortByNameContent?: string = "Sort from A";
-  sortByPriceContent?: string = "Highest price";
-  sortByMarketCapContent?: string = "Lowest market cap";
-  sortByTotalVolumeContent?: string = "Highest total volume";
-  sortBy24hContent?: string = "Highest increase";
+  sortByNameContent?: string = "Sortuj od A";
+  sortByPriceContent?: string = "Najwyższa cena";
+  sortByMarketCapContent?: string = "Najniższy kurs";
+  sortByTotalVolumeContent?: string = "Najwyższa wartość";
+  sortBy24hContent?: string = "Najwyższy wzrost";
 
   ngOnInit(): void {
     this.cryptoService.getData().subscribe((cryptoModel) => this.cryptoModel = cryptoModel);
@@ -43,17 +43,17 @@ export class CryptoComponent implements OnInit {
   nameAlphabetically(): number {
     if(this.sortByName == 0) {
       this.cryptoModel.sort((a, b) => a.name.localeCompare(b.name));
-      this.sortByNameContent = "Sort from Z"
+      this.sortByNameContent = "Sortuj od Z"
       this.sortByName++;
       return 0;
     } else if(this.sortByName == 1) {
       this.cryptoModel.sort((a, b) => b.name.localeCompare(a.name));
-      this.sortByNameContent = "Initial display"
+      this.sortByNameContent = "Domyślnie"
       this.sortByName++;
       return 0;
     } else if(this.sortByName == 2) {
       this.ngOnInit();
-      this.sortByNameContent = "Sort from A"
+      this.sortByNameContent = "Sortuj od A"
       this.sortByName = 0;
       return 0;
     }
@@ -63,17 +63,17 @@ export class CryptoComponent implements OnInit {
   priceSort(): number {
     if(this.sortByMarketCap == 0) {
       this.cryptoModel.sort((a, b) => a.current_price < b.current_price ? 1 : -1);
-      this.sortByPriceContent = "Lowest Price";
+      this.sortByPriceContent = "Najniższa cena";
       this.sortByMarketCap++;
       return 0;
     } else if(this.sortByMarketCap == 1) {
       this.cryptoModel.sort((a, b) => a.current_price > b.current_price ? 1 : -1);
-      this.sortByPriceContent = "Initial display";
+      this.sortByPriceContent = "Domyślnie";
       this.sortByMarketCap++;
       return 0;
     } else if(this.sortByMarketCap == 2) {
       this.ngOnInit();
-      this.sortByPriceContent = "Highest price";
+      this.sortByPriceContent = "Najwyższa cena";
       this.sortByMarketCap = 0;
       return 0;
     }
@@ -83,12 +83,12 @@ export class CryptoComponent implements OnInit {
   marketCapSort(): number {
     if(this.sortByPrice == 0) {
       this.cryptoModel.sort((a, b) => a.market_cap > b.market_cap ? 1 : -1);
-      this.sortByMarketCapContent = "Highest market cap";
+      this.sortByMarketCapContent = "Najwyższy kurs";
       this.sortByPrice++;
       return 0;
     } else if(this.sortByPrice == 1) {
       this.ngOnInit();
-      this.sortByMarketCapContent = "Lowest market cap";
+      this.sortByMarketCapContent = "Najniższy kurs";
       this.sortByPrice = 0;
       return 0;
     }
@@ -98,17 +98,17 @@ export class CryptoComponent implements OnInit {
   totalVolumeSort(): number {
     if(this.sortByTotalVolume == 0) {
       this.cryptoModel.sort((a, b) => a.total_volume < b.total_volume ? 1 : -1);
-      this.sortByTotalVolumeContent = "Lowest total volume";
+      this.sortByTotalVolumeContent = "Najniższa wartość";
       this.sortByTotalVolume++;
       return 0;
     } else if(this.sortByTotalVolume == 1) {
       this.cryptoModel.sort((a, b) => a.total_volume > b.total_volume ? 1 : -1);
-      this.sortByTotalVolumeContent = "Initial display";
+      this.sortByTotalVolumeContent = "Domyślnie";
       this.sortByTotalVolume++;
       return 0;
     } else if(this.sortByTotalVolume == 2) {
       this.ngOnInit();
-      this.sortByTotalVolumeContent = "Highest total volume";
+      this.sortByTotalVolumeContent = "Najwyższa wartość";
       this.sortByTotalVolume = 0;
       return 0;
     }
@@ -118,17 +118,17 @@ export class CryptoComponent implements OnInit {
   dailySort(): number {
     if(this.sortBy24h == 0) {
       this.cryptoModel.sort((a, b) => a.price_change_percentage_24h < b.price_change_percentage_24h ? 1 : -1);
-      this.sortBy24hContent = "Lowest increase";
+      this.sortBy24hContent = "Najniższy wzrost";
       this.sortBy24h++;
       return 0;
     } else if(this.sortBy24h == 1) {
       this.cryptoModel.sort((a, b) => a.price_change_percentage_24h > b.price_change_percentage_24h ? 1 : -1);
-      this.sortBy24hContent = "Initial display";
+      this.sortBy24hContent = "Domyślnie";
       this.sortBy24h++;
       return 0;
     } else if(this.sortBy24h == 2) {
       this.ngOnInit();
-      this.sortBy24hContent = "Highest increase";
+      this.sortBy24hContent = "Najwyższy wzrost";
       this.sortBy24h = 0;
       return 0;
     }

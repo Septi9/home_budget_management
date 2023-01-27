@@ -14,22 +14,22 @@
               {{showMonth}}
             </div>
             <div class="buttons">
-              <div class="button" (click)="setCurrentMonth()">Today</div>
-              <div class="button" (click)="decreaseMonth()">Previous Month</div>
-              <div class="button" (click)="increaseMonth()">Next Month</div>
+              <div class="button" (click)="setCurrentMonth()">Dzisiaj</div>
+              <div class="button" (click)="decreaseMonth()">Poprzedni Miesiąc</div>
+              <div class="button" (click)="increaseMonth()">Następny Miesiąc</div>
             </div>
           </div>
           <div class="container">
             <table class='calendar-table' *ngIf="calendar">
               <thead>
               <tr>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
+                <th>Poniedziałek</th>
+                <th>Wtorek</th>
+                <th>Środa</th>
+                <th>Czwartek</th>
+                <th>Piątek</th>
+                <th>Sobota</th>
+                <th>Niedziela</th>
               </tr>
               </thead>
               <tbody>
@@ -74,10 +74,10 @@
             </div>
             <div class="top">
               <div class="headers">
-                <div class="element">Transfer Amount</div>
-                <div class="element">Sender Account</div>
-                <div class="element">Transfer Date</div>
-                <div class="element">Category</div>
+                <div class="element">Kwota przelewu</div>
+                <div class="element">Konto nadawcy</div>
+                <div class="element">Data przelewu</div>
+                <div class="element">Kategoria</div>
               </div>
             </div>
             <div class="modal-elements">
@@ -85,9 +85,9 @@
                 <div class="table-wrapper" *ngIf = "
                       (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
                   ">
-                  <div class="element element-out">${{item.transfer_amount | number:'1.2-2'}}</div>
+                  <div class="element element-out">{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                   <div class="element element-out">{{item.destination_account}}</div>
-                  <div class="element element-out">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                  <div class="element element-out">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                   <div class="element-not-center element-out"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
@@ -95,9 +95,9 @@
                 <div class="table-wrapper" *ngIf = "
                       (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
                   ">
-                  <div class="element element-in">${{item.transfer_amount | number:'1.2-2'}}</div>
+                  <div class="element element-in">{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                   <div class="element element-in">{{item.sender_account}}</div>
-                  <div class="element element-in">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                  <div class="element element-in">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                   <div class="element-not-center element-in"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>

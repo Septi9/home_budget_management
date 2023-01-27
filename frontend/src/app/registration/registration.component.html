@@ -4,7 +4,7 @@
       <div class="logo">
         <img class="logoImage" src="assets/images/rv.png" alt="logo">
       </div>
-      <h1 class="main-text">Create New Account</h1>
+      <h1 class="main-text">Stwórz Nowe Konto</h1>
       <form #registerForm="ngForm" (ngSubmit)="registerNewUser()">
         <small class="error">{{message}}</small>
         <div class="form-inside">
@@ -12,54 +12,54 @@
             <input type="email" class="form-input" placeholder="Email" name="email" [(ngModel)]="applicationUser.email"
                    pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" #email="ngModel" required>
             <div *ngIf="email.errors && email.touched && email.errors?.['required']">
-              <small class="error">Email is required</small>
+              <small class="error">Email jest wymagany</small>
             </div>
             <div *ngIf="email.errors && email.touched && email.errors?.['pattern']">
-              <small class="error">Invalid email</small>
+              <small class="error">Niepoprawny email</small>
             </div>
           </div>
           <div class="form">
-            <input type="text" class="form-input" placeholder="First Name" name="firstname" [(ngModel)]="applicationUser.firstname"
+            <input type="text" class="form-input" placeholder="Imię" name="firstname" [(ngModel)]="applicationUser.firstname"
                    #firstname="ngModel" required>
             <div *ngIf="firstname.errors && firstname.touched && firstname.errors?.['required']">
-              <small class="error">First name is required</small>
+              <small class="error">Imię jest wymagane</small>
             </div>
           </div>
           <div class="form">
-            <input type="text" class="form-input" placeholder="Last Name" name="lastname" [(ngModel)]="applicationUser.lastname"
+            <input type="text" class="form-input" placeholder="nazwisko" name="lastname" [(ngModel)]="applicationUser.lastname"
                    #lastname="ngModel" required>
             <div *ngIf="lastname.errors && lastname.touched && lastname.errors?.['required']">
-              <small class="error">Last name is required</small>
+              <small class="error">Nazwisko jest wymagane</small>
             </div>
           </div>
           <div class="form">
-            <input type="password" class="form-input" placeholder="Password" name="accountPassword"
+            <input type="password" class="form-input" placeholder="Hasło" name="accountPassword"
                    [(ngModel)]="applicationUser.password" required #password="ngModel">
             <div *ngIf="password.errors && (password.touched && password.invalid)">
-              <small class="error">Password is required</small>
+              <small class="error">Hasło jest wymagane</small>
             </div>
           </div>
           <div class="form">
-            <input type="text" class="form-input" placeholder="Account Balance" name="accountBalance" [(ngModel)]="applicationUser.accountBalance"
+            <input type="text" class="form-input" placeholder="Stan Konta" name="accountBalance" [(ngModel)]="applicationUser.accountBalance"
                    #accountBalance="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
             <div *ngIf="accountBalance.errors && accountBalance.touched && accountBalance.errors?.['required']">
-              <small class="error">Account Balance is required</small>
+              <small class="error">Stan konta jest wymagany</small>
             </div>
             <div *ngIf="accountBalance.errors && accountBalance.invalid && accountBalance.errors?.['pattern']">
-              <small class="error">Please enter decimal value</small>
+              <small class="error">Proszę wpisać wartość dziesiętną</small>
             </div>
           </div>
         </div>
-        <button [disabled]="registerForm.form.invalid" type="submit" class="confirm">Register</button>
+        <button [disabled]="registerForm.form.invalid" type="submit" class="confirm">Zarejestruj się</button>
       </form>
     </div>
     <div class="second-side">
       <div class="second-container">
         <div class="second">
           <div class="panel">
-            <h1 class="main-text-right">Welcome back!</h1>
-            <p class="second-text">If you already have an account, login here.</p>
-            <button class="confirm" [routerLink]="['/']" style="color: var(--text); background-color: var(--secondary)">Sign In</button>
+            <h1 class="main-text-right">Witamy ponownie!</h1>
+            <p class="second-text">Jeśli masz już konto, zaloguj się tutaj.</p>
+            <button class="confirm" [routerLink]="['/']" style="color: var(--text); background-color: var(--secondary)">Zaloguj się</button>
           </div>
         </div>
       </div>

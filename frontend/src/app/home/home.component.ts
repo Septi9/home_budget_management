@@ -27,10 +27,10 @@ export class HomeComponent implements OnInit {
   incomingTransfersLastMonth : number | undefined;
   categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
   categories = [
-    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
-    "Basic Expenses", "Food", "Others"
+    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
+    "Wydatki Podstawowe", "Jedzenie", "Inne"
   ];
-  mostPopularCategory = 'Nothing';
+  mostPopularCategory = 'Brak wydatków';
   plans : Plan[] | undefined;
   plannedSum: number = 0;
 

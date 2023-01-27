@@ -16,8 +16,8 @@ export class HistoryComponent implements OnInit {
   msg = '';
   sessionValue: any;
   categories = [
-    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
-    "Basic Expenses", "Food", "Others"
+    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
+    "Wydatki Podstawowe", "Jedzenie", "Inne"
   ];
 
   constructor(private _service : RegistrationService, private _router : Router) { }

@@ -20,12 +20,12 @@
             </div>
             <div class="headers">
               <div class="image element"></div>
-              <div class="element">Coin</div>
-              <div class="price element">Price</div>
-              <div class="market-cap element">Market cap</div>
-              <div class="total-volume element">Totav volume</div>
-              <div class="price-change-percentage-24h element">24h</div>
-              <div class="last-updated element">Last update</div>
+              <div class="element">Kryptowaluta</div>
+              <div class="price element">Cena</div>
+              <div class="market-cap element">Kurs</div>
+              <div class="total-volume element">Całkowita Wartość</div>
+              <div class="price-change-percentage-24h element">Ostatnie 24h</div>
+              <div class="last-updated element">Ostatnia Aktualizacja</div>
             </div>
           </div>
           <div class="container">
@@ -37,7 +37,7 @@
                 <div class="market-cap element">{{item.market_cap | currency:'USD'}}</div>
                 <div class="total-volume element">{{item.total_volume | currency:'USD'}}</div>
                 <div class="price-change-percentage-24h element" [ngClass]="item.price_change_percentage_24h > 0 ? 'percentage-positive' : 'percentage-negative'">{{item.price_change_percentage_24h | number: '1.2-2'}}%</div>
-                <div class="last-updated element">{{item.last_updated | date: 'h:mm a, M/d/yy'}}</div>
+                <div class="last-updated element">{{item.last_updated | date: 'HH:mm, dd.MM.y'}}</div>
               </div>
             </div>
             </div>

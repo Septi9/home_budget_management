@@ -15,42 +15,42 @@
             <div class="table">
               <div class="table-wrapper">
                 <div class="element" [routerLink]="['/home']">
-                  <p class="hello">Hello {{firstname}} {{lastname}},</p>
-                  <p class="hello">have a nice day!</p>
+                  <p class="hello">Witaj {{firstname}} {{lastname}},</p>
+                  <p class="hello">miłego dnia!</p>
                 </div>
                 <div class="element" [routerLink]="['/diagrams']">
                   <div class="center">
-                    <p class="desc">You have</p>
-                    <div class="value">${{accountBalance}}</div>
-                    <p class="desc2">in your account</p>
+                    <p class="desc">Masz</p>
+                    <div class="value">{{accountBalance}} PLN</div>
+                    <p class="desc2">na swoim koncie</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/plan']">
                   <div class="center">
-                    <p class="desc">You planned</p>
-                    <div class="value">${{plannedSum}}</div>
-                    <p class="class2">for the next expenses</p>
+                    <p class="desc">Zaplanowano</p>
+                    <div class="value">{{plannedSum}} PLN</div>
+                    <p class="class2">na nadchodzące wydatki</p>
                   </div>
                 </div>
               </div>
               <div class="table-wrapper">
                 <div class="element" [routerLink]="['/history']">
                   <div class="center">
-                    <p class="desc">You spent</p>
-                    <div class="value">${{outgoingTransfersLastMonth}}</div>
-                    <p class="class2">last month</p>
+                    <p class="desc">Wydano</p>
+                    <div class="value">{{outgoingTransfersLastMonth}} PLN</div>
+                    <p class="class2">w ostatnim miesiącu</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/history']">
                   <div class="center">
-                    <p class="desc">You received</p>
-                    <div class="value">${{incomingTransfersLastMonth}}</div>
-                    <p class="class2">last month</p>
+                    <p class="desc">Otrzymano</p>
+                    <div class="value">{{incomingTransfersLastMonth}} PLN</div>
+                    <p class="class2">w ostatnim miesiącu</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/diagrams']">
                   <div class="center">
-                    <p class="desc">you spend the most on</p>
+                    <p class="desc">Wydajesz najwięcej na</p>
                     <div class="value">{{mostPopularCategory}}</div>
                   </div>
                 </div>

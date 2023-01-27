@@ -12,10 +12,10 @@
           <div class="top">
           </div>
           <div class="container">
-            <h1>Currency Converter</h1>
+            <h1>Przelicznik Walut</h1>
             <div class="currency">
               <div class="first">
-                <p>From</p>
+                <p>Waluta Początkowa</p>
                 <div class="select-currency">
                   <img src="https://flagcdn.com/h40/{{countryFrom}}.png" alt="flag">
                   <select #from (change)="onSelectedFrom(from.value)" [(ngModel)]="selectedFrom">
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="second">
-                <p>To</p>
+                <p>Waluta Docelowa</p>
                 <div class="select-currency">
                   <img src="https://flagcdn.com/h40/{{countryTo}}.png" alt="flag">
                   <select #to (change)="onSelectedTo(to.value)" [(ngModel)]="selectedTo">
@@ -36,10 +36,10 @@
             <div class="amounts">
               <input class="input" type="text" value="0.00" min="0.00" max="1.00" step="0.01" #getVal (change)="onType(getVal.value)" [(ngModel)]="type" #element="ngModel" pattern="^\d+(\.)\d{2}$" data-type="currency">
               <div *ngIf="element.errors && element.invalid && element.errors?.['pattern']">
-                <small class="error">Please enter decimal value</small>
+                <small class="error">Proszę wprowadzić wartości dziesiętne</small>
               </div>
               <div class="exchange">{{type}} {{selectedFrom}} = {{finalValue}} {{selectedTo}}</div>
-              <button class="confirm" [disabled]="element.invalid" (click)="getCurrency()">Convert</button>
+              <button class="confirm" [disabled]="element.invalid" (click)="getCurrency()">Przelicz</button>
             </div>
           </div>
         </div>
