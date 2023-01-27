@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {CurrencyModel} from "../currency-model";
-import {CurrencyService} from "../currency.service";
-import countryData from "../../assets/json/country-code.json";
-
-interface Country {
-  currencyCode: string;
-  countryCode: string;
-}
+import {ApplicationUser} from "../application-user";
+import {RegistrationService} from "../registration.service";
 
 @Component({
   selector: 'app-topnav',
@@ -15,49 +9,35 @@ interface Country {
 })
 export class TopnavComponent implements OnInit {
 
-  currencyData? : CurrencyModel;
-  countries: Country[] = countryData;
-  selectedFrom : any = "PLN";
-  usd : any = "USD";
-  mostPopularNames : string[] = ["USD", "EUR", "GBP", "CHF"];
-  mostPopularValues : number[] = [];
-  a : number[] = [];
-  map : Map<string, number> | undefined;
-  finalValue: any = 1;
-  type : any = 1;
+  accountBalance: any;
+  sessionValue: any;
+  msg = '';
 
-  constructor(private currencyService : CurrencyService) { }
+  constructor(private _service : RegistrationService) { }
 
   ngOnInit(): void {
-    console.log("init");
-    this.getApi();
-    console.log(this.a);
-    console.log("out")
+    this.sessionValue = sessionStorage.getItem('email');
+    this.getUserData();
   }
 
-  getApi() : void {
-    this.currencyService.getData(this.selectedFrom).subscribe((currencyData) => {
-      this.currencyData = currencyData;
-      this.getCurrency(currencyData);
-    });
+  private getUserData() {
+    this._service.getUserDataList().subscribe(data => {
+        this.accountBalance = this.validateUsers(data);
+      },
+      error => {
+        this.msg = error.error;
+      });
   }
 
-  getCurrency(currencyData : any) : number[] {
-    if (currencyData != null) {
-      this.map = new Map<string, number>(Object.entries(currencyData.conversion_rates));
-      try {
-        for (let i = 0; i < this.mostPopularNames.length; i++) {
-          if ((this.map.get(this.mostPopularNames[i])!) != 0) {
-            this.mostPopularValues[i] = Math.round((1/this.map.get(this.mostPopularNames[i])!) * 100) / 100;
-          } else {
-            this.mostPopularValues[i] = 0;
-          }
-        }
-      } catch (e) {
-        console.log("problem with map");
-        throw(e);
+  private validateUsers(accountData : any) : ApplicationUser[] {
+    let balance: any;
+
+    for (let item of accountData) {
+      if (item.email === this.sessionValue) {
+        balance = (Math.round(item.accountBalance * 100) / 100).toFixed(2);
       }
     }
-    return this.mostPopularValues;
+    return balance;
   }
+
 }
