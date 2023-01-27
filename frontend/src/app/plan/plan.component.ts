@@ -23,6 +23,7 @@ export class PlanComponent implements OnInit {
   sum: number = 0;
   plannedSum: number = 0;
   planIcon: string | undefined;
+  isHidden = true;
   categories = [
     "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
     "Wydatki Podstawowe", "Jedzenie", "Inne"
@@ -34,6 +35,10 @@ export class PlanComponent implements OnInit {
     this.sessionValue = sessionStorage.getItem('email');
     this.getUserData();
     this.getPlans();
+  }
+
+  toggleDisplay() {
+    this.isHidden = !this.isHidden;
   }
 
   private actualUserPlans(plans : any, accountData : any) : Plan[] {
@@ -117,6 +122,7 @@ export class PlanComponent implements OnInit {
         data.push(item);
       }
     }
+    console.log(data)
     return data;
   }
 

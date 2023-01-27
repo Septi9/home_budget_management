@@ -3,6 +3,9 @@ import {CalendarDate} from "../calendar-date";
 import {OutgoingTransfers} from "../outgoing-transfers";
 import {IncomingTransfers} from "../incoming-transfers";
 import {RegistrationService} from "../registration.service";
+import {PlanService} from "../plan.service";
+import {Plan} from "../plan";
+import {ApplicationUser} from "../application-user";
 
 @Component({
   selector: 'app-calendar',
@@ -24,21 +27,26 @@ export class CalendarComponent implements OnInit {
   trigger: number = 0;
   transfersOut: string[] = [""];
   transfersIn: string[] = [""];
+  plansCalendar: string[] = [""];
 
   outgoingTransfers : OutgoingTransfers[] | any;
   incomingTransfers : IncomingTransfers[] | any;
+  plans : Plan[] | any;
+  accountData : ApplicationUser[] | undefined;
   msg = '';
   sessionValue: any;
   isHidden = true;
   element: string | undefined;
 
-  constructor(private _service : RegistrationService) { }
+  constructor(private _service : RegistrationService, private _servicePlan : PlanService) { }
 
   ngOnInit(): void {
     this.sessionValue = sessionStorage.getItem('email');
     this.generateDays(this.monthNumber);
     this.getOutgoingTransfers();
-    this.getIncomingTransfers();
+    this.getIncomingTransfers()
+    this.getUserData();
+    this.getPlans();
   }
 
   private generateDays(monthNumber : number) {
@@ -104,6 +112,27 @@ export class CalendarComponent implements OnInit {
     return data;
   }
 
+  private getUserData() {
+    this._service.getUserDataList().subscribe(data => {
+        this.accountData = this.validateUsers(data);
+      },
+      error => {
+        this.msg = error.error;
+      });
+  }
+
+  private validateUsers(accountData : any) : ApplicationUser[] {
+    let data : ApplicationUser[] = [];
+
+    for (let item of accountData) {
+      if (item.email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
+  }
+
+
   private getOutgoingTransfers() {
     this._service.getOutgoingTransfersList().subscribe(data => {
         this.outgoingTransfers = this.validateOutgoingTransfers(data);
@@ -126,6 +155,35 @@ export class CalendarComponent implements OnInit {
         this.msg = error.error;
         console.log(error)
       });
+  }
+
+  private getPlans() {
+    this._servicePlan.getPlanList().subscribe(data => {
+        this.plans = this.actualUserPlans(data, this.accountData);
+        this.assignPlansToCalendarDate(this.plans);
+      },
+      error => {
+        this.msg = error.error;
+        console.log(error)
+      })
+  }
+
+  private actualUserPlans(plans : any, accountData : any) : Plan[] {
+    let data : Plan[] = [];
+    try {
+      for(let element of accountData) {
+        if (element.email === this.sessionValue) {
+          for (let item of plans) {
+            if (element.id === item.user_id) {
+              data.push(item);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      window.location.reload();
+    }
+    return data;
   }
 
   getDay(date : Date | any) {
@@ -178,6 +236,25 @@ export class CalendarComponent implements OnInit {
       for (let i = 0; i < this.transfersIn.length; i++) {
         if (this.transfersIn.indexOf(item_element) === -1) {
           this.transfersIn.push(item_element);
+        }
+      }
+    }
+  }
+
+  assignPlansToCalendarDate(data : any) {
+
+    let item_element: string;
+
+    for (let element of data) {
+      item_element = this.getDay(element.date) + this.getMonth(element.date) + this.getYear(element.date);
+
+      console.log(element.date);
+      console.log("elements", this.getDay(element.date), this.getMonth(element.date), this.getYear(element.date))
+
+
+      for (let i = 0; i < this.plansCalendar.length; i++) {
+        if (this.plansCalendar.indexOf(item_element) === -1) {
+          this.plansCalendar.push(item_element);
         }
       }
     }

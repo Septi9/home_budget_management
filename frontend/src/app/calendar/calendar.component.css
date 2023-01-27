@@ -118,7 +118,7 @@
 .number {
   margin: 10px 5px;
   padding: 2px;
-  width: 50px;
+  width: 40px;
   height: 25px;
   text-align: center;
   border-radius: 20px;
@@ -130,6 +130,10 @@
 
 .number_out {
   background-color: red;
+}
+
+.number_plan {
+  background-color: gold;
 }
 
 /*modal*/
@@ -234,6 +238,10 @@
 
 .element-in {
   background-color: rgba(0, 256, 0, 0.3);
+}
+
+.element-plan {
+  background-color: rgba(255, 215, 0, 0.3);
 }
 
 .headers {

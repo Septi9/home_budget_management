@@ -16,17 +16,15 @@
               <div class="element">Konto Odbiorcy</div>
               <div class="element">Data Przelewu</div>
               <div class="element">Kategoria</div>
-              <div class="element"></div>
             </div>
           </div>
           <div class="container">
             <div class="table" *ngFor = "let item of outgoingTransfers">
               <div class="table-wrapper">
-                <div class="element">{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.destination_account}}</div>
                 <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getPlanIcon(item.category)}}</mat-icon>{{item.category}}</div>
-                <div class="element"><mat-icon> call_made</mat-icon></div>
               </div>
             </div>
           </div>
@@ -37,17 +35,15 @@
               <div class="element">Konto Odbiorcy</div>
               <div class="element">Data Przelewu</div>
               <div class="element">Kategoria</div>
-              <div class="element"></div>
             </div>
           </div>
           <div class="container">
             <div class="table" *ngFor = "let item of incomingTransfers">
               <div class="table-wrapper">
-                <div class="element">{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.sender_account}}</div>
                 <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getPlanIcon(item.category)}}</mat-icon>{{item.category}}</div>
-                <div class="element"><mat-icon> call_received</mat-icon></div>
               </div>
             </div>
           </div>

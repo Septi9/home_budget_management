@@ -9,35 +9,6 @@
     <div class="inner-row">
       <div class="inner-col">
         <div class="content">
-          <h1>Wpisz swoje planowane wydatki</h1>
-          <div class="form">
-            <form #addForm="ngForm" (ngSubmit)="onAddPlan(accountData)">
-              <small>{{msg}}</small>
-              <div class="inputs">
-                <div class="label-element">
-                  <label for="amount">Kwota</label>
-                  <input type="text" name="amount" class="form-input" id="amount" placeholder="1,000,000.00" [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
-                  <div *ngIf="amount.errors && amount.invalid && amount.errors?.['pattern']">
-                    <small class="error">Proszę wpisać wartość dziesiętną</small>
-                  </div>
-                </div>
-                <div class="label-element">
-                  <label for="description">Kategoria</label>
-                  <select id="description" name="description" class="form-input" [(ngModel)]="plan.plan_desc" #plan_desc="ngModel" required>
-                    <option value="Rozrywka">Rozrywka</option>
-                    <option value="Transport">Transport</option>
-                    <option value="Finanse">Finanse</option>
-                    <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
-                    <option value="Dom i Rachunki">Dom i Rachunki</option>
-                    <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
-                    <option value="Jedzenie">Jedzenie</option>
-                    <option value="Inne">Inne</option>
-                  </select>
-                </div>
-              </div>
-              <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Dodaj</button>
-            </form>
-          </div>
           <div class="amounts">
             <div class="account">Stan konta: <span class="inside_value">{{sum}} PLN</span></div>
             <div class="planned" [ngClass]="sum >= plannedSum ? 'green' : 'red'">Planowane wydatki: <span class="inside_value">{{plannedSum}} PLN</span></div>
@@ -46,7 +17,8 @@
             <div class="headers">
               <div class="element">Kwota</div>
               <div class="element">Kategoria</div>
-              <div class="element"></div>
+              <div class="element">Komentarz</div>
+              <div class="element">Planowana data zapłaty</div>
               <div class="element">Usuń plan</div>
             </div>
           </div>
@@ -54,17 +26,72 @@
             <div class="table" *ngFor = "let item of plans">
               <div class="table-wrapper">
                 <div class="element value">{{item.amount | number:'1.2-2'}} PLN</div>
-                <div class="element value">{{item.plan_desc}}</div>
-                <div class="element value">
+                <div class="element value tooltip">
                   <mat-icon>{{getPlanIcon(item.plan_desc)}}</mat-icon>
+                  <span class="tooltip_text">{{item.plan_desc}}</span>
                 </div>
+                <div class="element value">{{item.description}}</div>
+                <div class="element value">{{item.date | date:  'dd.MM.y'}}</div>
                 <div class="element value delete" (click)="onDeletePlan(item.id)">Usuń</div>
               </div>
             </div>
           </div>
+          <button class="add_plan" (click)="toggleDisplay();">Dodaj nowy plan</button>
         </div>
+        <div class="modal" [hidden]="isHidden">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplay()">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top">
+              <h1>Wpisz swoje planowane wydatki</h1>
+              <div class="form">
+                <form #addForm="ngForm" (ngSubmit)="onAddPlan(accountData)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <div class="label-element">
+                      <label for="amount">Kwota</label>
+                      <input type="text" name="amount" class="form-input" id="amount" placeholder="1,000,000.00" [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                      <div *ngIf="amount.errors && amount.invalid && amount.errors?.['pattern']">
+                        <small class="error">Proszę wpisać wartość dziesiętną</small>
+                      </div>
+                    </div>
+                    <div class="label-element">
+                      <label for="description">Kategoria</label>
+                      <select id="description" name="description" class="form-input" [(ngModel)]="plan.plan_desc" #plan_desc="ngModel" required>
+                        <option value="Rozrywka">Rozrywka</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Finanse">Finanse</option>
+                        <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
+                        <option value="Dom i Rachunki">Dom i Rachunki</option>
+                        <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
+                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Inne">Inne</option>
+                      </select>
+                    </div>
+                    <div class="label-element">
+                      <label for="amount">Opis</label>
+                      <input type="text" name="description_external" class="form-input" id="description_external" [(ngModel)]="plan.description" #description="ngModel" required>
+                    </div>
+                    <div class="label-element">
+                      <label for="amount">Oczekiwana data płatności</label>
+                      <input type="date" name="date" class="form-input" id="date" [(ngModel)]="plan.date" #date="ngModel" required>
+                    </div>
+                  </div>
+                  <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Dodaj</button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </div>
-</div>
 
