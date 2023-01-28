@@ -27,10 +27,10 @@ export class HomeComponent implements OnInit {
   incomingTransfersLastMonth : number | undefined;
   categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
   categories = [
-    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
-    "Basic Expenses", "Food", "Others"
+    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
+    "Wydatki Podstawowe", "Jedzenie", "Inne"
   ];
-  mostPopularCategory = 'Nothing';
+  mostPopularCategory = 'Brak wydatków';
   plans : Plan[] | undefined;
   plannedSum: number = 0;
 
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
         this.firstname = item.firstname;
         this.lastname = item.lastname;
         this.email = item.email;
-        this.accountBalance = item.accountBalance;
+        this.accountBalance = (Math.round(item.accountBalance * 100) / 100).toFixed(2);
       }
     }
     return data;
@@ -136,7 +136,7 @@ export class HomeComponent implements OnInit {
   private getPlans() {
     this._planService.getPlanList().subscribe(data => {
         this.plans = this.actualUserPlans(data, this.accountData);
-        this.sumPlansAmount(this.actualUserPlans(this.plans, this.accountData));
+        this.plannedSum = this.sumPlansAmount(this.actualUserPlans(this.plans, this.accountData));
       },
       error => {
         this.msg = error.error;
@@ -164,11 +164,12 @@ export class HomeComponent implements OnInit {
     return data;
   }
 
-  private sumPlansAmount(plans : any) : void {
-
+  private sumPlansAmount(plans : any) : any {
+    let sum = 0;
     for (let item of plans) {
-      this.plannedSum = this.plannedSum + item.amount;
+      sum += item.amount;
     }
+    return (Math.round(sum * 100) / 100).toFixed(2);
   }
 
   private getLastMonthTransfers(array : any) : any {
@@ -186,7 +187,7 @@ export class HomeComponent implements OnInit {
       }
     }
     console.log(value)
-    return value;
+    return (Math.round(value * 100) / 100).toFixed(2);;
   }
 
 }

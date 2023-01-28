@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
         this.router.navigate(['/'])
       },
       error => {
-        this.message = "User already exists";
+        this.message = "Użytkownik już istnieje.";
       }
     )
   }

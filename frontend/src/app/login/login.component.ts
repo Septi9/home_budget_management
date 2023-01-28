@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         this.authService.authenticate(this.applicationUser.email);
         this.router.navigate(['/home']);
       },
-      error => this.message = "Invalid email or password",
+      error => this.message = "Niepoprawny email lub hasło",
     )
   }
 

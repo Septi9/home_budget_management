@@ -3,6 +3,7 @@ package com.application.backend.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -13,14 +14,18 @@ public class Plan {
     private BigDecimal amount;
     private String plan_desc;
     private int user_id;
+    private String description;
+    private Date date;
 
     public Plan() {}
 
-    public Plan(int id, BigDecimal amount, String plan_desc, int user_id) {
+    public Plan(int id, BigDecimal amount, String plan_desc, int user_id, String description, Date date) {
         this.id = id;
         this.amount = amount;
         this.plan_desc = plan_desc;
         this.user_id = user_id;
+        this.description = description;
+        this.date = date;
     }
 
     public int getId() {
@@ -55,17 +60,33 @@ public class Plan {
         this.user_id = user_id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plan plan = (Plan) o;
-        return id == plan.id && user_id == plan.user_id && Objects.equals(amount, plan.amount) && Objects.equals(plan_desc, plan.plan_desc);
+        return id == plan.id && user_id == plan.user_id && Objects.equals(amount, plan.amount) && Objects.equals(plan_desc, plan.plan_desc) && Objects.equals(description, plan.description) && Objects.equals(date, plan.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, plan_desc, user_id);
+        return Objects.hash(id, amount, plan_desc, user_id, description, date);
     }
 
     @Override
@@ -75,6 +96,8 @@ public class Plan {
                 ", amount=" + amount +
                 ", plan_desc='" + plan_desc + '\'' +
                 ", user_id=" + user_id +
+                ", description='" + description + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

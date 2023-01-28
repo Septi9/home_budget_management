@@ -35,7 +35,7 @@
 }
 
 .top {
-  margin: 60px auto 0;
+  margin: 100px auto 0;
 }
 
 .headers {
@@ -74,10 +74,11 @@ h1 {
 
 .inputs {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .label-element {
-  margin: 20px auto;
+  margin: 50px auto 0;
 }
 
 label {
@@ -128,7 +129,7 @@ option:hover {
 
 button {
   display: block;
-  margin: 20px auto;
+  margin: 60px auto;
   width: 200px;
   height: 40px;
   font-size: 20px;
@@ -150,7 +151,7 @@ button:hover {
 }
 
 .amounts div {
-  margin: 20px auto;
+  margin: 60px auto 20px;
   font-size: 26px;
   width: 50%;
   text-align: center;
@@ -163,4 +164,110 @@ button:hover {
 .red {
   color: rgb(235, 8, 8);
 }
+
+.delete {
+  color: rgb(235, 8, 8);
+  cursor: pointer;
+}
+
+/*modal*/
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  width: 80%;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+
+  color: white;
+}
+
+.modal-elements {
+  overflow-y: scroll;
+  height: 300px;
+}
+
+/** tooltip */
+
+.tooltip_text {
+  visibility: hidden;
+  width: 150px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 25%;
+  left: 0;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip_text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  position: relative;
+}
+
 

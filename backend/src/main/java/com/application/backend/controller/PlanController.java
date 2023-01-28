@@ -28,4 +28,9 @@ public class PlanController {
         return planService.savePlan(plan);
     }
 
+    @DeleteMapping("plan-delete/{id}")
+    public void deletePlan(@PathVariable(name = "id") int id) {
+        planService.deletePlan(id);
+    }
+
 }

@@ -14,22 +14,22 @@
               {{showMonth}}
             </div>
             <div class="buttons">
-              <div class="button" (click)="setCurrentMonth()">Today</div>
-              <div class="button" (click)="decreaseMonth()">Previous Month</div>
-              <div class="button" (click)="increaseMonth()">Next Month</div>
+              <div class="button" (click)="setCurrentMonth()">Dzisiaj</div>
+              <div class="button" (click)="decreaseMonth()">Poprzedni Miesiąc</div>
+              <div class="button" (click)="increaseMonth()">Następny Miesiąc</div>
             </div>
           </div>
           <div class="container">
             <table class='calendar-table' *ngIf="calendar">
               <thead>
               <tr>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
+                <th>Poniedziałek</th>
+                <th>Wtorek</th>
+                <th>Środa</th>
+                <th>Czwartek</th>
+                <th>Piątek</th>
+                <th>Sobota</th>
+                <th>Niedziela</th>
               </tr>
               </thead>
               <tbody>
@@ -43,8 +43,9 @@
                       (c.date.getFullYear() == getYearFromShortDate(item)) &&
                       (c.date.getMonth()+1 == getMonthFromShortDate(item))
                       ">
-                        <div class="number_out number" (click)="toggleDisplay(); getDayValue(c.date.getDate(), c.date.getMonth()+1, c.date.getFullYear())">
-                          <mat-icon> call_made</mat-icon>
+                        <div class="number_out number tooltip" (click)="toggleDisplay(); getDayValue(c.date.getDate(), c.date.getMonth()+1, c.date.getFullYear())">
+                          <mat-icon>remove</mat-icon>
+                          <span class="tooltip_text">Transakcje wychodzące</span>
                         </div>
                       </div>
                     </div>
@@ -54,8 +55,21 @@
                       (c.date.getFullYear() == getYearFromShortDate(item)) &&
                       (c.date.getMonth()+1 == getMonthFromShortDate(item))
                      ">
-                        <div class="number_in number" (click)="toggleDisplay(); getDayValue(c.date.getDate(), c.date.getMonth()+1, c.date.getFullYear())">
-                          <mat-icon> call_received</mat-icon>
+                        <div class="number_in number tooltip" (click)="toggleDisplay(); getDayValue(c.date.getDate(), c.date.getMonth()+1, c.date.getFullYear())">
+                          <mat-icon>add</mat-icon>
+                          <span class="tooltip_text">Transakcje przychodzące</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="transfer" *ngFor = "let item of plansCalendar">
+                      <div class="item" *ngIf = "
+                      (c.date.getDate() == getDayFromShortDate(item)) &&
+                      (c.date.getFullYear() == getYearFromShortDate(item)) &&
+                      (c.date.getMonth()+1 == getMonthFromShortDate(item))
+                     ">
+                        <div class="number_plan number tooltip" (click)="toggleDisplay(); getDayValue(c.date.getDate(), c.date.getMonth()+1, c.date.getFullYear())">
+                          <mat-icon>event_note</mat-icon>
+                          <span class="tooltip_text">Zaplanowane wydatki</span>
                         </div>
                       </div>
                     </div>
@@ -73,13 +87,16 @@
               <span class="close">&times;</span>
             </div>
             <div class="top">
+              <div class="legend">
+                <div class="legend-element"><div class="color element-out"></div><div class="legend-text">Wydatki</div></div>
+                <div class="legend-element"><div class="color element-in"></div><div class="legend-text">Przychody</div></div>
+                <div class="legend-element"><div class="color element-plan"></div><div class="legend-text">Planowane wydatki</div></div>
+              </div>
               <div class="headers">
-                <div class="element">Transfer Amount</div>
-                <div class="element">Account Balance Before</div>
-                <div class="element">Account Balance After</div>
-                <div class="element">Sender Account</div>
-                <div class="element">Transfer Date</div>
-                <div class="element">Category</div>
+                <div class="element">Kwota transakcji</div>
+                <div class="element">Opis</div>
+                <div class="element">Data transakcji</div>
+                <div class="element">Kategoria</div>
               </div>
             </div>
             <div class="modal-elements">
@@ -87,11 +104,9 @@
                 <div class="table-wrapper" *ngIf = "
                       (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
                   ">
-                  <div class="element element-out">${{item.transfer_amount | number:'1.2-2'}}</div>
-                  <div class="element element-out">${{item.account_balance_before | number:'1.2-2'}}</div>
-                  <div class="element element-out">${{item.account_balance_after | number:'1.2-2'}}</div>
-                  <div class="element element-out">{{item.destination_account}}</div>
-                  <div class="element element-out">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                  <div class="element element-out">-{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element element-out">{{item.description}}</div>
+                  <div class="element element-out">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                   <div class="element-not-center element-out"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
@@ -99,12 +114,20 @@
                 <div class="table-wrapper" *ngIf = "
                       (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
                   ">
-                  <div class="element element-in">${{item.transfer_amount | number:'1.2-2'}}</div>
-                  <div class="element element-in">${{item.account_balance_before | number:'1.2-2'}}</div>
-                  <div class="element element-in">${{item.account_balance_after | number:'1.2-2'}}</div>
-                  <div class="element element-in">{{item.sender_account}}</div>
-                  <div class="element element-in">{{item.transfer_date | date: 'h:mm a, M/d/yy'}}</div>
+                  <div class="element element-in">+{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element element-in">{{item.description}}</div>
+                  <div class="element element-in">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                   <div class="element-not-center element-in"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
+                </div>
+              </div>
+              <div class="modal-body" *ngFor="let item of plans">
+                <div class="table-wrapper" *ngIf = "
+                      (element == getDay(item.date).concat(getMonth(item.date)).concat(getYear(item.date)))
+                  ">
+                  <div class="element element-plan">{{item.amount | number:'1.2-2'}} PLN</div>
+                  <div class="element element-plan">{{item.description}}</div>
+                  <div class="element element-plan">{{item.date | date: 'HH:mm, dd.MM.y'}}</div>
+                  <div class="element-not-center element-plan"><mat-icon class="icon">{{getPlanIcon(item.plan_desc)}}</mat-icon><span class="item-category">{{item.plan_desc}}</span></div>
                 </div>
               </div>
             </div>

@@ -3,10 +3,14 @@
     <div class="menu-bar">
       <div class="list-bar">
         <ul>
-          <li class="inline-list"><img src="https://flagcdn.com/h24/us.png" alt="flag">USD : {{mostPopularValues[0]}} {{selectedFrom}}</li>
-          <li class="inline-list"><img src="https://flagcdn.com/h24/eu.png" alt="flag">EUR : {{mostPopularValues[1]}} {{selectedFrom}}</li>
-          <li class="inline-list"><img src="https://flagcdn.com/h24/gb.png" alt="flag">GBP : {{mostPopularValues[2]}} {{selectedFrom}}</li>
-          <li class="inline-list"><img src="https://flagcdn.com/h24/ch.png" alt="flag">CHF : {{mostPopularValues[3]}} {{selectedFrom}}</li>
+          <li class="inline-list">Stan konta: {{accountBalance}} PLN</li>
+          <li class="inline-list"></li>
+          <li class="inline-list"></li>
+          <li class="inline-list">
+            <div class="account">
+              <button [routerLink]="['/logout']" class="btn">Wyloguj się</button>
+            </div>
+          </li>
         </ul>
       </div>
     </div>

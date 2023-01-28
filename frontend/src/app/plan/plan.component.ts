@@ -4,6 +4,7 @@ import {PlanService} from "../plan.service";
 import {Router} from "@angular/router";
 import {ApplicationUser} from "../application-user";
 import {RegistrationService} from "../registration.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-plan',
@@ -22,9 +23,10 @@ export class PlanComponent implements OnInit {
   sum: number = 0;
   plannedSum: number = 0;
   planIcon: string | undefined;
+  isHidden = true;
   categories = [
-    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
-    "Basic Expenses", "Food", "Others"
+    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
+    "Wydatki Podstawowe", "Jedzenie", "Inne"
   ];
 
   constructor(private _service : PlanService, private _serviceR : RegistrationService, private _router : Router) { }
@@ -33,6 +35,10 @@ export class PlanComponent implements OnInit {
     this.sessionValue = sessionStorage.getItem('email');
     this.getUserData();
     this.getPlans();
+  }
+
+  toggleDisplay() {
+    this.isHidden = !this.isHidden;
   }
 
   private actualUserPlans(plans : any, accountData : any) : Plan[] {
@@ -58,7 +64,7 @@ export class PlanComponent implements OnInit {
   private getPlans() {
     this._service.getPlanList().subscribe(data => {
       this.plans = this.actualUserPlans(data, this.accountData);
-      this.sumPlansAmount(this.actualUserPlans(this.plans, this.accountData));
+        this.plannedSum = this.sumPlansAmount(this.actualUserPlans(this.plans, this.accountData));
     },
       error => {
         this.msg = error.error;
@@ -84,11 +90,28 @@ export class PlanComponent implements OnInit {
     )
   }
 
-  private sumPlansAmount(plans : any) : void {
-
-    for (let item of plans) {
-      this.plannedSum = this.plannedSum + item.amount;
+  public onDeletePlan(id : number | undefined) : void {
+    if (id != null) {
+      this._service.deletePlan(id).subscribe(
+        (response : void) => {
+          this.getPlans();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    } else {
+      console.log("can't delete element");
     }
+    window.location.reload();
+  }
+
+  private sumPlansAmount(plans : any) : any {
+    let sum = 0;
+    for (let item of plans) {
+      sum += item.amount;
+    }
+    return (Math.round(sum * 100) / 100).toFixed(2);
   }
 
   private validateUsers(accountData : any) : ApplicationUser[] {
@@ -99,6 +122,7 @@ export class PlanComponent implements OnInit {
         data.push(item);
       }
     }
+    console.log(data)
     return data;
   }
 

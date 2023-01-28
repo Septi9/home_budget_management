@@ -4,36 +4,36 @@
       <div class="logo">
         <img class="logoImage" src="assets/images/rv.png" alt="logo">
       </div>
-      <h1 class="main-text">Login to Your Account</h1>
+      <h1 class="main-text">Logowanie</h1>
       <form #loginForm="ngForm" (ngSubmit)="loginExistingUser()">
         <small class="error">{{message}}</small>
         <div class="form">
           <input type="email" class="form-input" placeholder="Email" name="email" [(ngModel)]="applicationUser.email"
                  pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" #email="ngModel" required>
           <div *ngIf="email.errors && email.touched && email.errors?.['required']">
-            <small class="error">Email is required</small>
+            <small class="error">Email jest wymagany</small>
           </div>
           <div *ngIf="email.errors && email.touched && email.errors?.['pattern']">
-            <small class="error">Invalid email</small>
+            <small class="error">Niepoprawny email</small>
           </div>
         </div>
         <div class="form">
-          <input type="password" class="form-input" placeholder="Password" name="accountPassword"
+          <input type="password" class="form-input" placeholder="Hasło" name="accountPassword"
                  [(ngModel)]="applicationUser.password" required #password="ngModel">
           <div *ngIf="password.errors && (password.touched && password.invalid)">
-            <small class="error">Password is required</small>
+            <small class="error">Hasło jest wymagane</small>
           </div>
         </div>
-        <button [disabled]="loginForm.form.invalid" type="submit" class="confirm">Login</button>
+        <button [disabled]="loginForm.form.invalid" type="submit" class="confirm">Zajoguj się</button>
       </form>
     </div>
     <div class="second-side">
       <div class="second-container">
         <div class="second">
           <div class="panel">
-            <h1 class="main-text-right">New Here?</h1>
-            <p class="second-text">Check what benefits you will gain by using our app and start journey with us.</p>
-            <button class="confirm" [routerLink]="['/registration']" style="color: var(--text); background-color: var(--secondary)">Sign Up</button>
+            <h1 class="main-text-right">Nie masz konta?</h1>
+            <p class="second-text">Zobacz jakie korzyści możesz otrzymać używając naszej aplikacji i zacznij przygodę z nami.</p>
+            <button class="confirm" [routerLink]="['/registration']" style="color: var(--text); background-color: var(--secondary)">Zarejestruj się</button>
           </div>
         </div>
       </div>

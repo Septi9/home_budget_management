@@ -118,7 +118,7 @@
 .number {
   margin: 10px 5px;
   padding: 2px;
-  width: 50px;
+  width: 40px;
   height: 25px;
   text-align: center;
   border-radius: 20px;
@@ -130,6 +130,10 @@
 
 .number_out {
   background-color: red;
+}
+
+.number_plan {
+  background-color: gold;
 }
 
 /*modal*/
@@ -209,7 +213,7 @@
 }
 
 .element {
-  width: 20%;
+  width: 30%;
   height: 5vh;
   line-height: 5vh;
   margin: 10px auto 0;
@@ -236,9 +240,58 @@
   background-color: rgba(0, 256, 0, 0.3);
 }
 
+.element-plan {
+  background-color: rgba(255, 215, 0, 0.3);
+}
+
 .headers {
+  text-align: center;
   display: flex;
   font-weight: 700;
   width: 100%;
-  margin: 20px auto;
+  margin: 20px 50px;
 }
+
+.legend {
+  display: flex;
+}
+
+.legend-element {
+  display: flex;
+  margin: 10px 20px;
+}
+
+.color {
+  width: 20px;
+  height: 20px;
+  margin: 0 20px;
+}
+
+/** tooltip */
+
+.tooltip_text {
+  visibility: hidden;
+  width: 150px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 0;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip_text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  position: relative;
+}
+

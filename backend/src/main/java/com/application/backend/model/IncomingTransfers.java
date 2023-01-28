@@ -12,21 +12,17 @@ public class IncomingTransfers {
     @Id
     private int id;
     private BigDecimal transfer_amount;
-    private BigDecimal account_balance_before;
-    private BigDecimal account_balance_after;
-    private String sender_account;
+    private String description;
     private Date transfer_date;
     private String incoming_email;
     private String category;
 
     public IncomingTransfers() {}
 
-    public IncomingTransfers(int id, BigDecimal transfer_amount, BigDecimal account_balance_before, BigDecimal account_balance_after, String sender_account, Date transfer_date, String incoming_email, String category) {
+    public IncomingTransfers(int id, BigDecimal transfer_amount, String description, Date transfer_date, String incoming_email, String category) {
         this.id = id;
         this.transfer_amount = transfer_amount;
-        this.account_balance_before = account_balance_before;
-        this.account_balance_after = account_balance_after;
-        this.sender_account = sender_account;
+        this.description = description;
         this.transfer_date = transfer_date;
         this.incoming_email = incoming_email;
         this.category = category;
@@ -48,28 +44,12 @@ public class IncomingTransfers {
         this.transfer_amount = transfer_amount;
     }
 
-    public BigDecimal getAccount_balance_before() {
-        return account_balance_before;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAccount_balance_before(BigDecimal account_balance_before) {
-        this.account_balance_before = account_balance_before;
-    }
-
-    public BigDecimal getAccount_balance_after() {
-        return account_balance_after;
-    }
-
-    public void setAccount_balance_after(BigDecimal account_balance_after) {
-        this.account_balance_after = account_balance_after;
-    }
-
-    public String getSender_account() {
-        return sender_account;
-    }
-
-    public void setSender_account(String sender_account) {
-        this.sender_account = sender_account;
+    public void setDescription(String sender_account) {
+        this.description = sender_account;
     }
 
     public Date getTransfer_date() {
@@ -101,12 +81,12 @@ public class IncomingTransfers {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IncomingTransfers that = (IncomingTransfers) o;
-        return id == that.id && Objects.equals(transfer_amount, that.transfer_amount) && Objects.equals(account_balance_before, that.account_balance_before) && Objects.equals(account_balance_after, that.account_balance_after) && Objects.equals(sender_account, that.sender_account) && Objects.equals(transfer_date, that.transfer_date) && Objects.equals(incoming_email, that.incoming_email) && Objects.equals(category, that.category);
+        return id == that.id && Objects.equals(transfer_amount, that.transfer_amount) && Objects.equals(description, that.description) && Objects.equals(transfer_date, that.transfer_date) && Objects.equals(incoming_email, that.incoming_email) && Objects.equals(category, that.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, transfer_amount, account_balance_before, account_balance_after, sender_account, transfer_date, incoming_email, category);
+        return Objects.hash(id, transfer_amount, description, transfer_date, incoming_email, category);
     }
 
     @Override
@@ -114,9 +94,7 @@ public class IncomingTransfers {
         return "IncomingTransfers{" +
                 "id=" + id +
                 ", transfer_amount=" + transfer_amount +
-                ", account_balance_before=" + account_balance_before +
-                ", account_balance_after=" + account_balance_after +
-                ", sender_account='" + sender_account + '\'' +
+                ", sender_account='" + description + '\'' +
                 ", transfer_date=" + transfer_date +
                 ", incoming_email='" + incoming_email + '\'' +
                 ", category='" + category + '\'' +

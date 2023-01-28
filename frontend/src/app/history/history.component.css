@@ -67,6 +67,10 @@
   text-align: center;
 }
 
+.first {
+  text-align: left;
+}
+
 .element-not-center {
   width: 20%;
   height: 5vh;

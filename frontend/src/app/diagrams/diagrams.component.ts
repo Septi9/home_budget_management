@@ -12,8 +12,8 @@ import {OutgoingTransfers} from "../outgoing-transfers";
 export class DiagramsComponent implements OnInit {
 
   title = 'ng2-charts-demo';
-  monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+  monthNames = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
   ];
   private monthNumber: number = 0;
   date : Date = new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber));
@@ -27,8 +27,8 @@ export class DiagramsComponent implements OnInit {
   monthsIncoming : number[] = [0, 0, 0, 0, 0, 0, 0];
   monthsOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0];
   categories = [
-    "Entertainment", "Transport", "Finances", "Health and Beauty", "Home and Bills",
-    "Basic Expenses", "Food", "Others"
+    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
+    "Wydatki Podstawowe", "Jedzenie", "Inne"
   ];
   categoriesCountIncoming : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
   categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -144,11 +144,11 @@ private compareTwoArrays(a: any, b: any) {
         datasets: [
           {
             data: [this.monthsOutgoing[6], this.monthsOutgoing[5], this.monthsOutgoing[4], this.monthsOutgoing[3], this.monthsOutgoing[2], this.monthsOutgoing[1], this.monthsOutgoing[0]],
-            label: 'Outgoing Transfers',
+            label: 'Przelewy wychodzące (PLN)',
           },
           {
             data: [ this.monthsIncoming[6], this.monthsIncoming[5], this.monthsIncoming[4], this.monthsIncoming[3], this.monthsIncoming[2], this.monthsIncoming[1], this.monthsIncoming[0] ],
-            label: 'Incoming Transfers',
+            label: 'Przelewy przychodzące (PLN)',
           }
         ]
       }
