@@ -37,6 +37,11 @@ public class TransferController {
         return transferService.saveOutgoingTransfer(outgoingTransfers);
     }
 
+    @DeleteMapping("/transfers-delete/{id}")
+    public void deleteTransfer(@PathVariable(name = "id") int id) {
+        transferService.deleteOutgoingTransfers(id);
+    }
+
     @GetMapping("/incoming-transfers")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<IncomingTransfers> getAllIncomingTransfers() {
@@ -46,5 +51,10 @@ public class TransferController {
     @PostMapping("/incoming-transfers-post")
     public IncomingTransfers createIncomingTransfer(@RequestBody IncomingTransfers incomingTransfers) {
         return incomingTransferService.saveIncomingTransfer(incomingTransfers);
+    }
+
+    @DeleteMapping("/incoming-transfers-delete/{id}")
+    public void deleteIncomingTransfer(@PathVariable(name = "id") int id) {
+        incomingTransferService.deleteIncomingTransfers(id);
     }
 }
