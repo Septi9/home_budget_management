@@ -18,12 +18,14 @@ export class PlanComponent implements OnInit {
   accountData : ApplicationUser[] | undefined;
   plan = new Plan();
   plans : Plan[] | undefined;
+  editPlan : Plan | undefined;
   msg = '';
   sessionValue: any;
   sum: number = 0;
   plannedSum: number = 0;
   planIcon: string | undefined;
   isHidden = true;
+  isHiddenUpdate = true;
   categories = [
     "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
     "Wydatki Podstawowe", "Jedzenie", "Inne"
@@ -39,6 +41,15 @@ export class PlanComponent implements OnInit {
 
   toggleDisplay() {
     this.isHidden = !this.isHidden;
+  }
+
+  toggleDisplayUpdate() {
+    this.isHiddenUpdate = !this.isHiddenUpdate;
+  }
+
+  openUpdateModal(plan : any) {
+    this.editPlan = plan;
+    this.isHiddenUpdate = !this.isHiddenUpdate;
   }
 
   private actualUserPlans(plans : any, accountData : any) : Plan[] {
@@ -104,6 +115,16 @@ export class PlanComponent implements OnInit {
       console.log("can't delete element");
     }
     window.location.reload();
+  }
+
+  public onUpdatePlan(accountData : any) : void {
+    this._service.updatePlan(accountData).subscribe(data => {
+      window.location.reload();
+    },
+      error => {
+        this.msg = "Something went wrong";
+      }
+      )
   }
 
   private sumPlansAmount(plans : any) : any {

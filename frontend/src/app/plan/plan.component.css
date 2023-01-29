@@ -171,6 +171,11 @@ button:hover {
   cursor: pointer;
 }
 
+.parent {
+  display: flex;
+  justify-content: space-around;
+}
+
 /*modal*/
 
 .modal {

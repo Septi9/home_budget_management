@@ -4,6 +4,8 @@ import com.application.backend.model.Plan;
 import com.application.backend.repository.PlanRepository;
 import com.application.backend.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +33,12 @@ public class PlanController {
     @DeleteMapping("/plan-delete/{id}")
     public void deletePlan(@PathVariable(name = "id") int id) {
         planService.deletePlan(id);
+    }
+
+    @PutMapping("/plan-update")
+    public ResponseEntity<Plan> updatePlan(@RequestBody Plan plan) {
+        Plan update = planService.updatePlan(plan);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
 }
