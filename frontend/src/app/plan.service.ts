@@ -11,6 +11,7 @@ export class PlanService {
   private planBaseURL = "http://localhost:8080/plans";
   private planBaseURLPost = "http://localhost:8080/plans-post";
   private planBaseURLDelete = 'http://localhost:8080/plan-delete';
+  private planBaseURLUpdate = 'http://localhost:8080/plan-update';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,5 +25,9 @@ export class PlanService {
 
   public deletePlan(id : number): Observable<void> {
     return this.httpClient.delete<void>(`${this.planBaseURLDelete}/${id}`);
+  }
+
+  public updatePlan(data: any): Observable<Plan[]> {
+    return this.httpClient.put<Plan[]>(`${this.planBaseURLUpdate}`, data);
   }
 }

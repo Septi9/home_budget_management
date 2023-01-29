@@ -87,3 +87,247 @@ mat-icon {
   width: 100%;
   height: 10vh;
 }
+
+.delete {
+  color: rgb(235, 8, 8);
+  cursor: pointer;
+}
+
+.parent {
+  display: flex;
+  justify-content: space-around;
+}
+
+.inputs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.label-element {
+  margin: 30px auto 0;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  width: 400px;
+}
+
+input {
+  border: 2px solid #333;
+  border-radius: 5px;
+  color: #333;
+  font-size: 24px;
+  margin: 0;
+  padding: .5rem 1rem;
+  width: 100%;
+}
+
+select {
+  border: 2px solid #333;
+  border-radius: 5px;
+  color: #333;
+  font-size: 24px;
+  margin: 0;
+  padding: .5rem 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+option {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+option:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
+.error {
+  display: block;
+  width: 60%;
+  margin: 10px 20%;
+  color: var(--error);
+  text-align: center;
+}
+
+h1 {
+  font-size: 26px;
+  text-align: center;
+  padding: 15px 0;
+}
+
+/* button */
+
+button {
+  display: block;
+  margin-left: 20px;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: var(--secondary);
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.confirm {
+  margin: 40px auto;
+}
+
+/*modal*/
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  width: 30%;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+
+  color: white;
+}
+
+.modal-elements {
+  overflow-y: scroll;
+  height: 100px;
+}
+
+
+/* switch */
+
+.switches {
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 20px auto;
+  left: calc(50% - (34px/2));
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input + .slider {
+  background-color: red;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: green;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

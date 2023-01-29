@@ -19,4 +19,12 @@ public class IncomingTransferService {
     public IncomingTransfers saveIncomingTransfer(IncomingTransfers incomingTransfers) {
         return incomingTransferRepository.save(incomingTransfers);
     }
+
+    public void deleteIncomingTransfers(int id) {
+        incomingTransferRepository.deleteById(id);
+    }
+
+    public IncomingTransfers updateIncomingTransfers(IncomingTransfers incomingTransfers) {
+        return incomingTransferRepository.save(incomingTransfers);
+    }
 }

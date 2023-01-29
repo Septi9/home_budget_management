@@ -67,9 +67,9 @@
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 26px;
   text-align: center;
-  padding: 30px 0;
+  padding: 15px 0;
 }
 
 .inputs {
@@ -78,7 +78,7 @@ h1 {
 }
 
 .label-element {
-  margin: 50px auto 0;
+  margin: 30px auto 0;
 }
 
 label {
@@ -86,6 +86,7 @@ label {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+  width: 400px;
 }
 
 input {
@@ -170,6 +171,11 @@ button:hover {
   cursor: pointer;
 }
 
+.parent {
+  display: flex;
+  justify-content: space-around;
+}
+
 /*modal*/
 
 .modal {
@@ -188,7 +194,7 @@ button:hover {
   position: relative;
   margin: auto;
   padding: 0;
-  width: 80%;
+  width: 30%;
   border-radius: 20px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
   background-color: var(--secondary);
@@ -239,7 +245,7 @@ button:hover {
 
 .modal-elements {
   overflow-y: scroll;
-  height: 300px;
+  height: 0px;
 }
 
 /** tooltip */

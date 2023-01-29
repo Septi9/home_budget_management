@@ -18,9 +18,14 @@ export class CalendarComponent implements OnInit {
   monthNames = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
     "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
   ];
-  categories = [
-    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
-    "Wydatki Podstawowe", "Jedzenie", "Inne"
+  categoriesOut = [
+    "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",
+    "Wydatki Podstawowe", "Jedzenie na Mieście", "Samochód", "Zdrowie", "Ubrania",
+    "Zakupy", "Inwestycje", "Hotel", "Prezent", "Sport", "Edukacja", "Dzieci", "Ogród", "Kredyt",
+    "Podatki", "Inne"
+  ];
+  categoriesIn = [
+    "Pensja", "Premia", "Prezent", "Inwestycje", "Zwrot", "Odsetki", "Inne"
   ];
   public showMonth: string | undefined;
   private monthNumber: number = 0;
@@ -276,20 +281,45 @@ getDayValue(element1 : number, element2 : number, element3 : string) {
     }
     console.log('element', this.element)
 }
-  getPlanIcon(description : string | undefined) : string {
+  getIconPlan(description : string | undefined) : string {
     switch (description) {
-      case this.categories[0]: return 'beach_access';
-      case this.categories[1]: return 'directions_subway';
-      case this.categories[2]: return 'attach_money';
-      case this.categories[3]: return 'spa';
-      case this.categories[4]: return 'home';
-      case this.categories[5]: return 'shopping_basket';
-      case this.categories[6]: return 'fastfood';
-      case this.categories[7]: return 'account_circle';
+      case this.categoriesOut[0]: return 'beach_access';
+      case this.categoriesOut[1]: return 'directions_subway';
+      case this.categoriesOut[2]: return 'attach_money';
+      case this.categoriesOut[3]: return 'spa';
+      case this.categoriesOut[4]: return 'home';
+      case this.categoriesOut[5]: return 'shopping_basket';
+      case this.categoriesOut[6]: return 'fastfood';
+      case this.categoriesOut[7]: return 'directions_car';
+      case this.categoriesOut[8]: return 'healing';
+      case this.categoriesOut[9]: return 'local_offer';
+      case this.categoriesOut[10]: return 'shopping_cart';
+      case this.categoriesOut[11]: return 'trending_up';
+      case this.categoriesOut[12]: return 'local_hotel';
+      case this.categoriesOut[13]: return 'card_giftcard';
+      case this.categoriesOut[14]: return 'fitness_center';
+      case this.categoriesOut[15]: return 'school';
+      case this.categoriesOut[16]: return 'child_friendly';
+      case this.categoriesOut[17]: return 'nature';
+      case this.categoriesOut[18]: return 'assignment';
+      case this.categoriesOut[19]: return 'money';
+      case this.categoriesOut[20]: return 'account_circle';
+      default: return 'bug_report';
+    }
+  }
+
+  getIconIn(description : string | undefined) : string {
+    switch (description) {
+      case this.categoriesIn[0]: return 'work';
+      case this.categoriesIn[1]: return 'star_border';
+      case this.categoriesIn[2]: return 'card_giftcard';
+      case this.categoriesIn[3]: return 'trending_up';
+      case this.categoriesIn[4]: return 'replay';
+      case this.categoriesIn[5]: return 'monetization_on';
+      case this.categoriesIn[6]: return 'account_circle';
       default: return 'bug_report';
     }
   }
 
 
 }
-
