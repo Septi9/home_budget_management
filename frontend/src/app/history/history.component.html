@@ -26,7 +26,7 @@
                 <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
                 <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
-                <div class="element-not-center"><mat-icon>{{getPlanIcon(item.category)}}</mat-icon>{{item.category}}</div>
+                <div class="element-not-center"><mat-icon>{{getIconPlan(item.category)}}</mat-icon>{{item.category}}</div>
                 <div class="element delete parent">
                   <div (click)="onOpenUpdateModalOut(item)">Edytuj</div>
                   <div (click)="onDeleteOutgoingTransfer(item.id)">Usuń</div>
@@ -50,10 +50,10 @@
                 <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
                 <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
-                <div class="element-not-center"><mat-icon>{{getPlanIcon(item.category)}}</mat-icon>{{item.category}}</div>
+                <div class="element-not-center"><mat-icon>{{getIconIn(item.category)}}</mat-icon>{{item.category}}</div>
                 <div class="element delete parent">
                   <div (click)="onOpenUpdateModalIn(item)">Edytuj</div>
-                  <div (click)="onDeleteOutgoingTransfer(item.id)">Usuń</div>
+                  <div (click)="onDeleteIncomingTransfer(item.id)">Usuń</div>
                 </div>
               </div>
             </div>
@@ -95,10 +95,23 @@
                         <option value="Rozrywka">Rozrywka</option>
                         <option value="Transport">Transport</option>
                         <option value="Finanse">Finanse</option>
-                        <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
-                        <option value="Dom i Rachunki">Dom i Rachunki</option>
+                        <option value="Zdrowie">Zdrowie</option>
+                        <option value="Dom">Dom</option>
                         <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
-                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Jedzenie na Mieście">Jedzenie na Mieście</option>
+                        <option value="Samochód">Samochód</option>
+                        <option value="Uroda">Uroda</option>
+                        <option value="Ubrania">Ubrania</option>
+                        <option value="Zakupy">Zakupy</option>
+                        <option value="Inwestycje">Inwestycje</option>
+                        <option value="Prezent">Prezent</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Edukacja">Edukacja</option>
+                        <option value="Dzieci">Dzieci</option>
+                        <option value="Ogród">Ogród</option>
+                        <option value="Kredyt">Kredyt</option>
+                        <option value="Podatki">Podatki</option>
+                        <option value="Rachunki">Rachunki</option>
                         <option value="Inne">Inne</option>
                       </select>
                     </div>
@@ -129,13 +142,11 @@
                     <div class="label-element">
                       <label for="description">Kategoria</label>
                       <select id="description_in" name="description" class="form-input" [(ngModel)]="transferIn.category" #category="ngModel" required>
-                        <option value="Rozrywka">Rozrywka</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Finanse">Finanse</option>
-                        <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
-                        <option value="Dom i Rachunki">Dom i Rachunki</option>
-                        <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
-                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Pensja">Pensja</option>
+                        <option value="Premia">Premia</option>
+                        <option value="Prezent">Inwestycje</option>
+                        <option value="Zwrot">Zwrot</option>
+                        <option value="Odsetki">Odsetki</option>
                         <option value="Inne">Inne</option>
                       </select>
                     </div>
@@ -186,10 +197,23 @@
                         <option value="Rozrywka">Rozrywka</option>
                         <option value="Transport">Transport</option>
                         <option value="Finanse">Finanse</option>
-                        <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
-                        <option value="Dom i Rachunki">Dom i Rachunki</option>
+                        <option value="Zdrowie">Uroda</option>
+                        <option value="Dom">Dom</option>
                         <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
-                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Jedzenie na Mieście">Jedzenie na Mieście</option>
+                        <option value="Samochód">Samochód</option>
+                        <option value="Uroda">Uroda</option>
+                        <option value="Ubrania">Ubrania</option>
+                        <option value="Zakupy">Zakupy</option>
+                        <option value="Inwestycje">Inwestycje</option>
+                        <option value="Prezent">Prezent</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Edukacja">Edukacja</option>
+                        <option value="Dzieci">Dzieci</option>
+                        <option value="Ogród">Ogród</option>
+                        <option value="Kredyt">Kredyt</option>
+                        <option value="Podatki">Podatki</option>
+                        <option value="Rachunki">Rachunki</option>
                         <option value="Inne">Inne</option>
                       </select>
                     </div>
@@ -237,13 +261,11 @@
                     <div class="label-element">
                       <label for="description">Kategoria</label>
                       <select id="category_update_in" name="category" class="form-input" ngModel="{{editIncomingTransfers?.category}}" #category="ngModel" required>
-                        <option value="Rozrywka">Rozrywka</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Finanse">Finanse</option>
-                        <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
-                        <option value="Dom i Rachunki">Dom i Rachunki</option>
-                        <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
-                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Pensja">Pensja</option>
+                        <option value="Premia">Premia</option>
+                        <option value="Prezent">Inwestycje</option>
+                        <option value="Zwrot">Zwrot</option>
+                        <option value="Odsetki">Odsetki</option>
                         <option value="Inne">Inne</option>
                       </select>
                     </div>

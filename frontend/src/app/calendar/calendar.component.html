@@ -107,7 +107,7 @@
                   <div class="element element-out">-{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                   <div class="element element-out">{{item.description}}</div>
                   <div class="element element-out">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
-                  <div class="element-not-center element-out"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
+                  <div class="element-not-center element-out"><mat-icon class="icon">{{getIconPlan(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
               <div class="modal-body" *ngFor="let item of incomingTransfers">
@@ -117,7 +117,7 @@
                   <div class="element element-in">+{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                   <div class="element element-in">{{item.description}}</div>
                   <div class="element element-in">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
-                  <div class="element-not-center element-in"><mat-icon class="icon">{{getPlanIcon(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
+                  <div class="element-not-center element-in"><mat-icon class="icon">{{getIconIn(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
               <div class="modal-body" *ngFor="let item of plans">
@@ -127,7 +127,7 @@
                   <div class="element element-plan">{{item.amount | number:'1.2-2'}} PLN</div>
                   <div class="element element-plan">{{item.description}}</div>
                   <div class="element element-plan">{{item.date | date: 'dd.MM.y'}}</div>
-                  <div class="element-not-center element-plan"><mat-icon class="icon">{{getPlanIcon(item.plan_desc)}}</mat-icon><span class="item-category">{{item.plan_desc}}</span></div>
+                  <div class="element-not-center element-plan"><mat-icon class="icon">{{getIconPlan(item.plan_desc)}}</mat-icon><span class="item-category">{{item.plan_desc}}</span></div>
                 </div>
               </div>
             </div>
