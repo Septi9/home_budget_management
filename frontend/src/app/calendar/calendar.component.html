@@ -126,7 +126,7 @@
                   ">
                   <div class="element element-plan">{{item.amount | number:'1.2-2'}} PLN</div>
                   <div class="element element-plan">{{item.description}}</div>
-                  <div class="element element-plan">{{item.date | date: 'HH:mm, dd.MM.y'}}</div>
+                  <div class="element element-plan">{{item.date | date: 'dd.MM.y'}}</div>
                   <div class="element-not-center element-plan"><mat-icon class="icon">{{getPlanIcon(item.plan_desc)}}</mat-icon><span class="item-category">{{item.plan_desc}}</span></div>
                 </div>
               </div>

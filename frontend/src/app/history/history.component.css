@@ -93,6 +93,11 @@ mat-icon {
   cursor: pointer;
 }
 
+.parent {
+  display: flex;
+  justify-content: space-around;
+}
+
 .inputs {
   display: flex;
   flex-wrap: wrap;

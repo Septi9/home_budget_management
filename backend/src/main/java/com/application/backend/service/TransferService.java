@@ -23,4 +23,8 @@ public class TransferService {
     public void deleteOutgoingTransfers(int id) {
         transferRepository.deleteById(id);
     }
+
+    public OutgoingTransfers updateOutgoingTransfers(OutgoingTransfers outgoingTransfers) {
+        return transferRepository.save(outgoingTransfers);
+    }
 }

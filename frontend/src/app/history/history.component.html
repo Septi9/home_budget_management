@@ -17,17 +17,20 @@
               <div class="element">Opis</div>
               <div class="element">Data Przelewu</div>
               <div class="element">Kategoria</div>
-              <div class="element">Usuń</div>
+              <div class="element">Edytuj / Usuń</div>
             </div>
           </div>
           <div class="container">
-            <div class="table" *ngFor = "let item of outgoingTransfers">
+            <div class="table" *ngFor = "let item of sortDate(outgoingTransfers)">
               <div class="table-wrapper">
                 <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
                 <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getPlanIcon(item.category)}}</mat-icon>{{item.category}}</div>
-                <div class="element delete" (click)="onDeleteOutgoingTransfer(item.id)">Usuń</div>
+                <div class="element delete parent">
+                  <div (click)="onOpenUpdateModalOut(item)">Edytuj</div>
+                  <div (click)="onDeleteOutgoingTransfer(item.id)">Usuń</div>
+                </div>
               </div>
             </div>
           </div>
@@ -38,17 +41,20 @@
               <div class="element">Opis</div>
               <div class="element">Data Przelewu</div>
               <div class="element">Kategoria</div>
-              <div class="element">Usuń</div>
+              <div class="element">Edytuj / Usuń</div>
             </div>
           </div>
           <div class="container">
-            <div class="table" *ngFor = "let item of incomingTransfers">
+            <div class="table" *ngFor = "let item of sortDate(incomingTransfers)">
               <div class="table-wrapper">
                 <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
                 <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getPlanIcon(item.category)}}</mat-icon>{{item.category}}</div>
-                <div class="element delete" (click)="onDeleteIncomingTransfer(item.id)">Usuń</div>
+                <div class="element delete parent">
+                  <div (click)="onOpenUpdateModalIn(item)">Edytuj</div>
+                  <div (click)="onDeleteOutgoingTransfer(item.id)">Usuń</div>
+                </div>
               </div>
             </div>
           </div>
@@ -135,6 +141,114 @@
                     </div>
                   </div>
                   <button [disabled]="addFormIn.form.invalid" type="submit" class="confirm">Dodaj przychód</button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHiddenUpdateOut">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplayUpdate()">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top">
+              <div class="form">
+                <h1>Edytuj transakcję</h1>
+                <form #updateForm="ngForm" (ngSubmit)="onUpdateTransferOut(updateForm.value)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id" ngModel="{{editOutgoingTransfers?.id}}">
+                    <input type="hidden" name="outgoing_email" id="outgoing_email" ngModel="{{editOutgoingTransfers?.outgoing_email}}">
+                    <div class="label-element">
+                      <label for="amount">Opis</label>
+                      <input type="text" name="description" class="form-input" id="description_update" ngModel="{{editOutgoingTransfers?.description}}" #description="ngModel" required>
+                    </div>
+                    <div class="label-element">
+                      <label for="amount">Data transakcji</label>
+                      <input type="datetime-local" name="transfer_date" class="form-input" id="date_update" ngModel="{{editOutgoingTransfers?.transfer_date | date:'yyyy-MM-ddTHH:mm'}}" #transfer_date="ngModel" required>
+                    </div>
+                    <div class="label-element">
+                      <label for="transfer_amount">Kwota Transakcji</label>
+                      <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update" placeholder="1,000,000.00" ngModel="{{editOutgoingTransfers?.transfer_amount | number:'1.2-2'}}" #transfer_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                      <div *ngIf="transfer_amount.errors && transfer_amount.invalid && transfer_amount.errors?.['pattern']">
+                        <small class="error">Proszę wpisać wartość dziesiętną</small>
+                      </div>
+                    </div>
+                    <div class="label-element">
+                      <label for="description">Kategoria</label>
+                      <select id="category_update" name="category" class="form-input" ngModel="{{editOutgoingTransfers?.category}}" #category="ngModel" required>
+                        <option value="Rozrywka">Rozrywka</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Finanse">Finanse</option>
+                        <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
+                        <option value="Dom i Rachunki">Dom i Rachunki</option>
+                        <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
+                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Inne">Inne</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Aktualizuj</button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHiddenUpdateIn">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplayUpdate()">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top">
+              <div class="form">
+                <h1>Edytuj transakcję</h1>
+                <form #updateFormIn="ngForm" (ngSubmit)="onUpdateTransferIn(updateFormIn.value)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id_in" ngModel="{{editIncomingTransfers?.id}}">
+                    <input type="hidden" name="incoming_email" id="incoming_email_in" ngModel="{{editIncomingTransfers?.incoming_email}}">
+                    <div class="label-element">
+                      <label for="amount">Opis</label>
+                      <input type="text" name="description" class="form-input" id="description_update_in" ngModel="{{editIncomingTransfers?.description}}" #description="ngModel" required>
+                    </div>
+                    <div class="label-element">
+                      <label for="amount">Data transakcji</label>
+                      <input type="datetime-local" name="transfer_date" class="form-input" id="date_update_in" ngModel="{{editIncomingTransfers?.transfer_date | date:'yyyy-MM-ddTHH:mm'}}" #transfer_date="ngModel" required>
+                    </div>
+                    <div class="label-element">
+                      <label for="transfer_amount">Kwota Transakcji</label>
+                      <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update_in" placeholder="1,000,000.00" ngModel="{{editIncomingTransfers?.transfer_amount | number:'1.2-2'}}" #transfer_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                      <div *ngIf="transfer_amount.errors && transfer_amount.invalid && transfer_amount.errors?.['pattern']">
+                        <small class="error">Proszę wpisać wartość dziesiętną</small>
+                      </div>
+                    </div>
+                    <div class="label-element">
+                      <label for="description">Kategoria</label>
+                      <select id="category_update_in" name="category" class="form-input" ngModel="{{editIncomingTransfers?.category}}" #category="ngModel" required>
+                        <option value="Rozrywka">Rozrywka</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Finanse">Finanse</option>
+                        <option value="Zdrowie i Uroda">Zdrowie i Uroda</option>
+                        <option value="Dom i Rachunki">Dom i Rachunki</option>
+                        <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
+                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Inne">Inne</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button [disabled]="updateFormIn.form.invalid" type="submit" class="confirm">Aktualizuj</button>
                 </form>
               </div>
             </div>

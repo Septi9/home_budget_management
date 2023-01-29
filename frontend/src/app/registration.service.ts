@@ -16,6 +16,8 @@ export class RegistrationService {
   private incomingBaseURLPost = "http://localhost:8080/incoming-transfers-post";
   private outgoingBaseURLDelete = "http://localhost:8080/transfers-delete";
   private incomingBaseURLDelete = "http://localhost:8080/incoming-transfers-delete";
+  private outgoingBaseURLUpdate = "http://localhost:8080/transfers-update";
+  private incomingBaseURLUpdate = "http://localhost:8080/incoming-transfers-update";
   private userListURL = "http://localhost:8080/users";
 
   constructor(private httpClient: HttpClient) { }
@@ -40,6 +42,10 @@ export class RegistrationService {
     return this.httpClient.delete<void>(`${this.outgoingBaseURLDelete}/${id}`);
   }
 
+  public updateOutgoingTransfer(data: any): Observable<OutgoingTransfers[]> {
+    return this.httpClient.put<OutgoingTransfers[]>(`${this.outgoingBaseURLUpdate}`, data);
+  }
+
   public getIncomingTransfersList(): Observable<IncomingTransfers[]> {
     return this.httpClient.get<IncomingTransfers[]>(`${this.incomingBaseURL}`);
   }
@@ -54,6 +60,10 @@ export class RegistrationService {
 
   public getUserDataList(): Observable<ApplicationUser[]> {
     return this.httpClient.get<ApplicationUser[]>(`${this.userListURL}`);
+  }
+
+  public updateIncomingTransfer(data: any): Observable<IncomingTransfers[]> {
+    return this.httpClient.put<IncomingTransfers[]>(`${this.incomingBaseURLUpdate}`, data);
   }
 
 }

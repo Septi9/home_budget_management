@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {IncomingTransfers} from "../incoming-transfers";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ApplicationUser} from "../application-user";
+import {identity} from "rxjs";
 
 @Component({
   selector: 'app-history',
@@ -14,6 +15,8 @@ import {ApplicationUser} from "../application-user";
 export class HistoryComponent implements OnInit {
 
   outgoingTransfers : OutgoingTransfers[] | undefined;
+  editOutgoingTransfers : OutgoingTransfers | undefined;
+  editIncomingTransfers : IncomingTransfers | undefined;
   incomingTransfers : IncomingTransfers[] | undefined;
   accountData : ApplicationUser[] | undefined;
   transferIn = new IncomingTransfers();
@@ -21,6 +24,8 @@ export class HistoryComponent implements OnInit {
   msg = '';
   sessionValue: any;
   isHidden = true;
+  isHiddenUpdateOut = true;
+  isHiddenUpdateIn = true;
   isHiddenIn = true;
   isHiddenOut = false;
   categories = [
@@ -60,6 +65,21 @@ export class HistoryComponent implements OnInit {
 
   toggleDisplay() {
     this.isHidden = !this.isHidden;
+  }
+
+  toggleDisplayUpdate() {
+    this.isHiddenUpdateOut = true;
+    this.isHiddenUpdateIn = true;
+  }
+
+  onOpenUpdateModalOut(transfers : any) {
+    this.editOutgoingTransfers = transfers;
+    this.isHiddenUpdateOut = !this.isHiddenUpdateOut;
+  }
+
+  onOpenUpdateModalIn(transfers : any) {
+    this.editIncomingTransfers = transfers;
+    this.isHiddenUpdateIn = !this.isHiddenUpdateIn;
   }
 
   toggleDisplayTransfers() {
@@ -194,4 +214,35 @@ export class HistoryComponent implements OnInit {
       console.log("error");
     }
   }
+
+  public onUpdateTransferOut(accountData : any) : void {
+    this._service.updateOutgoingTransfer(accountData).subscribe(data => {
+        window.location.reload();
+      },
+      error => {
+        this.msg = "Something went wrong";
+      }
+    )
+  }
+
+  public onUpdateTransferIn(accountData : any) : void {
+    this._service.updateIncomingTransfer(accountData).subscribe(data => {
+        window.location.reload();
+      },
+      error => {
+        this.msg = "Something went wrong";
+      }
+    )
+  }
+
+  public sortDate(data : any) {
+    if (data != null) {
+      return data.sort((a: { transfer_date: string | number | Date; }, b: { transfer_date: string | number | Date; }) => {
+        return <any>new Date(b.transfer_date) - <any>new Date(a.transfer_date);
+      });
+    } else {
+      return data;
+    }
+  }
+
 }
