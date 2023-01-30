@@ -15,16 +15,18 @@
           </div>
           <div class="top">
             <div class="headers">
+              <div class="element">Status</div>
               <div class="element">Kwota</div>
               <div class="element">Kategoria</div>
               <div class="element">Komentarz</div>
               <div class="element">Planowana data zapłaty</div>
-              <div class="element">Usuń plan</div>
+              <div class="element">Akcje</div>
             </div>
           </div>
           <div class="container">
             <div class="table" *ngFor = "let item of plans">
               <div class="table-wrapper">
+                <div class="element value">{{item.is_periodic === false ? 'jednorazowy' : 'cykliczny'}}</div>
                 <div class="element value">{{item.amount | number:'1.2-2'}} PLN</div>
                 <div class="element value tooltip">
                   <mat-icon>{{getPlanIcon(item.plan_desc)}}</mat-icon>
@@ -33,6 +35,7 @@
                 <div class="element value">{{item.description}}</div>
                 <div class="element value">{{item.date | date:  'dd.MM.y'}}</div>
                 <div class="element delete parent">
+                  <div (click)="onCarryOutThePlan(item.id, item)">Zrealizuj plan</div>
                   <div (click)="openUpdateModal(item)">Edytuj</div>
                   <div (click)="onDeletePlan(item.id)">Usuń</div>
                 </div>
@@ -48,6 +51,10 @@
             </div>
             <div class="top">
               <h1>Wpisz swoje planowane wydatki</h1>
+              <label class="check">
+                <input type="checkbox" [value]="plan.is_periodic" name="is_periodic" [(ngModel)]="plan.is_periodic">
+                <span class="check_span">Transakcja cykliczna</span>
+              </label>
               <div class="form">
                 <form #addForm="ngForm" (ngSubmit)="onAddPlan(accountData)">
                   <small>{{msg}}</small>
@@ -164,6 +171,25 @@
                   <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Dodaj</button>
                 </form>
               </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHiddenPlan">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplayPlan()">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top">
+              <h1>Zrealizowano plan</h1>
+              <div class="form">
+                <h3>Zobacz swój plan na liście transakcji</h3>
+                <button [routerLink]="['/history']">Lista transakcji</button>
             </div>
             <div class="modal-elements">
               <div class="modal-body">

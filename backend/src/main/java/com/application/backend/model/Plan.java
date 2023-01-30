@@ -16,16 +16,18 @@ public class Plan {
     private int user_id;
     private String description;
     private Date date;
+    private boolean is_periodic;
 
     public Plan() {}
 
-    public Plan(int id, BigDecimal amount, String plan_desc, int user_id, String description, Date date) {
+    public Plan(int id, BigDecimal amount, String plan_desc, int user_id, String description, Date date, boolean is_periodic) {
         this.id = id;
         this.amount = amount;
         this.plan_desc = plan_desc;
         this.user_id = user_id;
         this.description = description;
         this.date = date;
+        this.is_periodic = is_periodic;
     }
 
     public int getId() {
@@ -60,6 +62,14 @@ public class Plan {
         this.user_id = user_id;
     }
 
+    public boolean isIs_periodic() {
+        return is_periodic;
+    }
+
+    public void setIs_periodic(boolean is_periodic) {
+        this.is_periodic = is_periodic;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -81,12 +91,12 @@ public class Plan {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plan plan = (Plan) o;
-        return id == plan.id && user_id == plan.user_id && Objects.equals(amount, plan.amount) && Objects.equals(plan_desc, plan.plan_desc) && Objects.equals(description, plan.description) && Objects.equals(date, plan.date);
+        return id == plan.id && user_id == plan.user_id && is_periodic == plan.is_periodic && Objects.equals(amount, plan.amount) && Objects.equals(plan_desc, plan.plan_desc) && Objects.equals(description, plan.description) && Objects.equals(date, plan.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, plan_desc, user_id, description, date);
+        return Objects.hash(id, amount, plan_desc, user_id, description, date, is_periodic);
     }
 
     @Override
@@ -98,6 +108,7 @@ public class Plan {
                 ", user_id=" + user_id +
                 ", description='" + description + '\'' +
                 ", date=" + date +
+                ", isPeriodic=" + is_periodic +
                 '}';
     }
 }

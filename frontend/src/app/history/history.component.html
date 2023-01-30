@@ -25,7 +25,7 @@
               <div class="table-wrapper">
                 <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
-                <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
+                <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getIconPlan(item.category)}}</mat-icon>{{item.category}}</div>
                 <div class="element delete parent">
                   <div (click)="onOpenUpdateModalOut(item)">Edytuj</div>
@@ -49,7 +49,7 @@
               <div class="table-wrapper">
                 <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
-                <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
+                <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getIconIn(item.category)}}</mat-icon>{{item.category}}</div>
                 <div class="element delete parent">
                   <div (click)="onOpenUpdateModalIn(item)">Edytuj</div>

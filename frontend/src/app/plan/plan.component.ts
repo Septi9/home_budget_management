@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {ApplicationUser} from "../application-user";
 import {RegistrationService} from "../registration.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {OutgoingTransfers} from "../outgoing-transfers";
 
 @Component({
   selector: 'app-plan',
@@ -16,6 +17,7 @@ export class PlanComponent implements OnInit {
   @ViewChild('addForm') addForm: any;
 
   accountData : ApplicationUser[] | undefined;
+  outgoingTransfers = new OutgoingTransfers();
   plan = new Plan();
   plans : Plan[] | undefined;
   editPlan : Plan | undefined;
@@ -26,6 +28,7 @@ export class PlanComponent implements OnInit {
   planIcon: string | undefined;
   isHidden = true;
   isHiddenUpdate = true;
+  isHiddenPlan = true;
   categoriesOut = [
     "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",
     "Wydatki Podstawowe", "Jedzenie na Mieście", "Samochód", "Zdrowie", "Ubrania",
@@ -52,6 +55,14 @@ export class PlanComponent implements OnInit {
   openUpdateModal(plan : any) {
     this.editPlan = plan;
     this.isHiddenUpdate = !this.isHiddenUpdate;
+  }
+
+  toggleDisplayPlan() {
+    this.isHiddenPlan = !this.isHiddenPlan;
+  }
+
+  toggleIsPeriodic(state : any) {
+    console.log(state);
   }
 
   private actualUserPlans(plans : any, accountData : any) : Plan[] {
@@ -127,6 +138,37 @@ export class PlanComponent implements OnInit {
         this.msg = "Something went wrong";
       }
       )
+  }
+
+  public onCarryOutThePlan(id : number | undefined, accountData : any) {
+    console.log(this.isHiddenPlan);
+    this.isHiddenPlan = !this.isHiddenPlan;
+    console.log(this.isHiddenPlan);
+
+    this.outgoingTransfers.transfer_amount = accountData.amount;
+    this.outgoingTransfers.transfer_date = new Date();
+    this.outgoingTransfers.outgoing_email = this.sessionValue;
+    this.outgoingTransfers.category = accountData.plan_desc;
+    this.outgoingTransfers.description = accountData.description;
+
+    this._serviceR.createOutgoingTransfer(this.outgoingTransfers).subscribe(data => {
+    },
+      error => {
+        this.msg = "Something went wrong";
+      }
+      )
+    if (id != null) {
+      this._service.deletePlan(id).subscribe(
+        (response : void) => {
+          this.getPlans();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    } else {
+      console.log("can't delete element");
+    }
   }
 
   private sumPlansAmount(plans : any) : any {
