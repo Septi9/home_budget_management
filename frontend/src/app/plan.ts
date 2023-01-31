@@ -6,6 +6,7 @@ export class Plan {
   description: string | undefined;
   date: Date | undefined;
   is_periodic: boolean | undefined;
+  cycle: string | undefined;
 
   constructor() {
   }

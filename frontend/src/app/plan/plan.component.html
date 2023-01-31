@@ -11,11 +11,12 @@
         <div class="content">
           <div class="amounts">
             <div class="account">Stan konta: <span class="inside_value">{{sum}} PLN</span></div>
-            <div class="planned" [ngClass]="sum >= plannedSum ? 'green' : 'red'">Planowane wydatki: <span class="inside_value">{{plannedSum}} PLN</span></div>
+            <div class="planned" [ngClass]="sum >= plannedSum ? 'green' : 'red'">Planowane wydatki: <span
+              class="inside_value">{{plannedSum}} PLN</span></div>
           </div>
           <div class="top">
             <div class="headers">
-              <div class="element">Status</div>
+              <div class="element">Okres powtarzania transakcji</div>
               <div class="element">Kwota</div>
               <div class="element">Kategoria</div>
               <div class="element">Komentarz</div>
@@ -24,9 +25,10 @@
             </div>
           </div>
           <div class="container">
-            <div class="table" *ngFor = "let item of plans">
+            <div class="table" *ngFor="let item of plans">
               <div class="table-wrapper">
-                <div class="element value">{{item.is_periodic === false ? 'jednorazowy' : 'cykliczny'}}</div>
+                <div
+                  class="element value">{{item.is_periodic === false ? 'Jednorazowy' : 'Każdy ' + item.cycle?.toLowerCase()}}</div>
                 <div class="element value">{{item.amount | number:'1.2-2'}} PLN</div>
                 <div class="element value tooltip">
                   <mat-icon>{{getPlanIcon(item.plan_desc)}}</mat-icon>
@@ -49,26 +51,40 @@
             <div class="modal-header" (click)="toggleDisplay()">
               <span class="close">&times;</span>
             </div>
-            <div class="top">
+            <div class="top_modal">
               <h1>Wpisz swoje planowane wydatki</h1>
-              <label class="check">
-                <input type="checkbox" [value]="plan.is_periodic" name="is_periodic" [(ngModel)]="plan.is_periodic">
-                <span class="check_span">Transakcja cykliczna</span>
-              </label>
               <div class="form">
                 <form #addForm="ngForm" (ngSubmit)="onAddPlan(accountData)">
                   <small>{{msg}}</small>
                   <div class="inputs">
                     <div class="label-element">
+                      <label class="check">
+                        <input type="checkbox" [value]="plan.is_periodic" name="is_periodic"
+                               [(ngModel)]="plan.is_periodic">
+                        <span class="check_span">Transakcja cykliczna</span>
+                      </label>
+                      <label *ngIf="plan.is_periodic" class="choose">
+                        <label for="cycle">Częstotliwość co</label>
+                        <select name="cycle" id="cycle" [(ngModel)]="plan.cycle" #cycle="ngModel" required>
+                          <option value="Miesiąc">Miesiąc</option>
+                          <option value="Dzień">Dzień</option>
+                          <option value="Rok">Rok</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="label-element">
                       <label for="amount">Kwota</label>
-                      <input type="text" name="amount" class="form-input" id="amount" placeholder="1,000,000.00" [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                      <input type="text" name="amount" class="form-input" id="amount" placeholder="1,000,000.00"
+                             [(ngModel)]="plan.amount" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$"
+                             required>
                       <div *ngIf="amount.errors && amount.invalid && amount.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
                       </div>
                     </div>
                     <div class="label-element">
                       <label for="description">Kategoria</label>
-                      <select id="description" name="description" class="form-input" [(ngModel)]="plan.plan_desc" #plan_desc="ngModel" required>
+                      <select id="description" name="description" class="form-input" [(ngModel)]="plan.plan_desc"
+                              #plan_desc="ngModel" required>
                         <option value="Rozrywka">Rozrywka</option>
                         <option value="Transport">Transport</option>
                         <option value="Finanse">Finanse</option>
@@ -94,11 +110,13 @@
                     </div>
                     <div class="label-element">
                       <label for="amount">Opis</label>
-                      <input type="text" name="description_external" class="form-input" id="description_external" [(ngModel)]="plan.description" #description="ngModel" required>
+                      <input type="text" name="description_external" class="form-input" id="description_external"
+                             [(ngModel)]="plan.description" #description="ngModel" required>
                     </div>
                     <div class="label-element">
                       <label for="amount">Oczekiwana data płatności</label>
-                      <input type="date" name="date" class="form-input" id="date" [(ngModel)]="plan.date" #date="ngModel" required>
+                      <input type="date" name="date" class="form-input" id="date" [(ngModel)]="plan.date"
+                             #date="ngModel" required>
                     </div>
                   </div>
                   <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Dodaj</button>
@@ -118,7 +136,7 @@
             <div class="modal-header" (click)="toggleDisplayUpdate()">
               <span class="close">&times;</span>
             </div>
-            <div class="top">
+            <div class="top_modal">
               <h1>Edytuj planowane wydatki</h1>
               <div class="form">
                 <form #updateForm="ngForm" (ngSubmit)="onUpdatePlan(updateForm.value)">
@@ -127,15 +145,33 @@
                     <input type="hidden" name="id" id="id" ngModel="{{editPlan?.id}}">
                     <input type="hidden" name="user_id" id="user_id" ngModel="{{editPlan?.user_id}}">
                     <div class="label-element">
+                      <label class="check">
+                        <input type="checkbox" name="is_periodic" [value]="editPlan?.is_periodic"
+                               [(ngModel)]="editPlan.is_periodic">
+                        <span class="check_span">Transakcja cykliczna {{editPlan?.is_periodic}}</span>
+                      </label>
+                      <label *ngIf="editPlan?.is_periodic" class="choose">
+                        <label for="cycle">Częstotliwość co</label>
+                        <select name="cycle" id="cycleEdit" ngModel="{{editPlan?.cycle}}" #cycle="ngModel" required>
+                          <option value="Miesiąc">Miesiąc</option>
+                          <option value="Dzień">Dzień</option>
+                          <option value="Rok">Rok</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="label-element">
                       <label for="amount">Kwota</label>
-                      <input type="text" name="amount" class="form-input" id="amount_up" placeholder="1,000,000.00" ngModel="{{editPlan?.amount | number:'1.2-2'}}" #amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                      <input type="text" name="amount" class="form-input" id="amount_up" placeholder="1,000,000.00"
+                             ngModel="{{editPlan?.amount | number:'1.2-2'}}" #amount="ngModel" data-type="currency"
+                             pattern="^\d+(\.)\d{2}$" required>
                       <div *ngIf="amount.errors && amount.invalid && amount.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
                       </div>
                     </div>
                     <div class="label-element">
                       <label for="description">Kategoria</label>
-                      <select id="plan_desc_up" name="plan_desc" class="form-input" ngModel="{{editPlan?.plan_desc}}" #plan_desc="ngModel" required>
+                      <select id="plan_desc_up" name="plan_desc" class="form-input" ngModel="{{editPlan?.plan_desc}}"
+                              #plan_desc="ngModel" required>
                         <option value="Rozrywka">Rozrywka</option>
                         <option value="Transport">Transport</option>
                         <option value="Finanse">Finanse</option>
@@ -161,11 +197,13 @@
                     </div>
                     <div class="label-element">
                       <label for="amount">Opis</label>
-                      <input type="text" name="description" class="form-input" id="description_up" ngModel="{{editPlan?.description}}" #description="ngModel" required>
+                      <input type="text" name="description" class="form-input" id="description_up"
+                             ngModel="{{editPlan?.description}}" #description="ngModel" required>
                     </div>
                     <div class="label-element">
                       <label for="amount">Oczekiwana data płatności</label>
-                      <input type="date" name="date" class="form-input" id="date_up" ngModel="{{editPlan?.date | date:'yyyy-MM-dd'}}" #date="ngModel" required>
+                      <input type="date" name="date" class="form-input" id="date_up"
+                             ngModel="{{editPlan?.date | date:'yyyy-MM-dd'}}" #date="ngModel" required>
                     </div>
                   </div>
                   <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Dodaj</button>
@@ -185,21 +223,21 @@
             <div class="modal-header" (click)="toggleDisplayPlan()">
               <span class="close">&times;</span>
             </div>
-            <div class="top">
+            <div class="top_modal">
               <h1>Zrealizowano plan</h1>
               <div class="form">
                 <h3>Zobacz swój plan na liście transakcji</h3>
                 <button [routerLink]="['/history']">Lista transakcji</button>
-            </div>
-            <div class="modal-elements">
-              <div class="modal-body">
               </div>
-            </div>
-            <div class="modal-footer">
+              <div class="modal-elements">
+                <div class="modal-body">
+                </div>
+              </div>
+              <div class="modal-footer">
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   </div>

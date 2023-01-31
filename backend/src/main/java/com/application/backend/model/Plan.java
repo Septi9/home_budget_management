@@ -17,10 +17,11 @@ public class Plan {
     private String description;
     private Date date;
     private boolean is_periodic;
+    private String cycle;
 
     public Plan() {}
 
-    public Plan(int id, BigDecimal amount, String plan_desc, int user_id, String description, Date date, boolean is_periodic) {
+    public Plan(int id, BigDecimal amount, String plan_desc, int user_id, String description, Date date, boolean is_periodic, String cycle) {
         this.id = id;
         this.amount = amount;
         this.plan_desc = plan_desc;
@@ -28,6 +29,7 @@ public class Plan {
         this.description = description;
         this.date = date;
         this.is_periodic = is_periodic;
+        this.cycle = cycle;
     }
 
     public int getId() {
@@ -86,17 +88,25 @@ public class Plan {
         this.date = date;
     }
 
+    public String getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(String cycle) {
+        this.cycle = cycle;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plan plan = (Plan) o;
-        return id == plan.id && user_id == plan.user_id && is_periodic == plan.is_periodic && Objects.equals(amount, plan.amount) && Objects.equals(plan_desc, plan.plan_desc) && Objects.equals(description, plan.description) && Objects.equals(date, plan.date);
+        return id == plan.id && user_id == plan.user_id && is_periodic == plan.is_periodic && Objects.equals(amount, plan.amount) && Objects.equals(plan_desc, plan.plan_desc) && Objects.equals(description, plan.description) && Objects.equals(date, plan.date) && Objects.equals(cycle, plan.cycle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, plan_desc, user_id, description, date, is_periodic);
+        return Objects.hash(id, amount, plan_desc, user_id, description, date, is_periodic, cycle);
     }
 
     @Override
@@ -108,7 +118,8 @@ public class Plan {
                 ", user_id=" + user_id +
                 ", description='" + description + '\'' +
                 ", date=" + date +
-                ", isPeriodic=" + is_periodic +
+                ", is_periodic=" + is_periodic +
+                ", cycle='" + cycle + '\'' +
                 '}';
     }
 }

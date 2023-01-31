@@ -20,7 +20,7 @@ export class PlanComponent implements OnInit {
   outgoingTransfers = new OutgoingTransfers();
   plan = new Plan();
   plans : Plan[] | undefined;
-  editPlan : Plan | undefined;
+  editPlan : Plan = new Plan();
   msg = '';
   sessionValue: any;
   sum: number = 0;
@@ -141,9 +141,8 @@ export class PlanComponent implements OnInit {
   }
 
   public onCarryOutThePlan(id : number | undefined, accountData : any) {
-    console.log(this.isHiddenPlan);
     this.isHiddenPlan = !this.isHiddenPlan;
-    console.log(this.isHiddenPlan);
+    console.log(accountData.date.toString().substring(5,7));
 
     this.outgoingTransfers.transfer_amount = accountData.amount;
     this.outgoingTransfers.transfer_date = new Date();
@@ -157,17 +156,42 @@ export class PlanComponent implements OnInit {
         this.msg = "Something went wrong";
       }
       )
-    if (id != null) {
-      this._service.deletePlan(id).subscribe(
-        (response : void) => {
-          this.getPlans();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
+    if (!accountData.is_periodic) {
+      if (id != null) {
+        this._service.deletePlan(id).subscribe(
+          (response : void) => {
+            this.getPlans();
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
+      } else {
+        console.log("can't delete element");
+      }
     } else {
-      console.log("can't delete element");
+      if (accountData.cycle === 'Miesiąc') {
+        let date = accountData.date.toString().substring(5,7);
+        date = parseInt(date, 10);
+        date++;
+        accountData.date = accountData.date.replace(accountData.date.toString().substring(5,7), date.toString().length === 1 ? '0' + date : date);
+      } else if (accountData.cycle === 'Dzień') {
+        let date = accountData.date.toString().substring(8,10);
+        date = parseInt(date, 10);
+        date++;
+        accountData.date = accountData.date.replace(accountData.date.toString().substring(8,10), date.toString().length === 1 ? '0' + date : date);
+      } else if (accountData.cycle === 'Rok') {
+        let date = accountData.date.toString().substring(0,4);
+        date = parseInt(date, 10);
+        date++;
+        accountData.date = accountData.date.replace(accountData.date.toString().substring(0,4), date);
+      }
+      this._service.updatePlan(accountData).subscribe(data => {
+        },
+        error => {
+          this.msg = "Something went wrong";
+        }
+      )
     }
   }
 
