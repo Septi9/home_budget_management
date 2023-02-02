@@ -14,17 +14,17 @@ public class ApplicationUser {
     private String firstname;
     private String lastname;
     private String password;
-    private BigDecimal accountBalance;
+    private BigDecimal account_balance;
 
     public ApplicationUser() {}
 
-    public ApplicationUser(int id, String email, String firstname, String lastname, String password, BigDecimal accountBalance) {
+    public ApplicationUser(int id, String email, String firstname, String lastname, String password, BigDecimal account_balance) {
         this.id = id;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
-        this.accountBalance = accountBalance;
+        this.account_balance = account_balance;
     }
 
     public int getId() {
@@ -67,12 +67,12 @@ public class ApplicationUser {
         this.password = password;
     }
 
-    public BigDecimal getAccountBalance() {
-        return accountBalance;
+    public BigDecimal getAccount_balance() {
+        return account_balance;
     }
 
-    public void setAccountBalance(BigDecimal accountBalance) {
-        this.accountBalance = accountBalance;
+    public void setAccount_balance(BigDecimal accountBalance) {
+        this.account_balance = accountBalance;
     }
 
     @Override
@@ -80,12 +80,12 @@ public class ApplicationUser {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApplicationUser that = (ApplicationUser) o;
-        return id == that.id && Objects.equals(email, that.email) && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(password, that.password) && Objects.equals(accountBalance, that.accountBalance);
+        return id == that.id && Objects.equals(email, that.email) && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(password, that.password) && Objects.equals(account_balance, that.account_balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, firstname, lastname, password, accountBalance);
+        return Objects.hash(id, email, firstname, lastname, password, account_balance);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ApplicationUser {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", password='" + password + '\'' +
-                ", accountBalance=" + accountBalance +
+                ", accountBalance=" + account_balance +
                 '}';
     }
 }

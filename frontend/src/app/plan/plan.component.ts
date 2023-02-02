@@ -142,7 +142,6 @@ export class PlanComponent implements OnInit {
 
   public onCarryOutThePlan(id : number | undefined, accountData : any) {
     this.isHiddenPlan = !this.isHiddenPlan;
-    console.log(accountData.date.toString().substring(5,7));
 
     this.outgoingTransfers.transfer_amount = accountData.amount;
     this.outgoingTransfers.transfer_date = new Date();

@@ -71,7 +71,7 @@
               </label>
               <div class="form" [hidden]="isHiddenOut">
                 <h1>Dodaj wydatek</h1>
-                <form #addForm="ngForm" (ngSubmit)="onAddTransfer(accountData, 1)">
+                <form #addForm="ngForm" (ngSubmit)="onAddTransfer(accountData, isHiddenIn)">
                   <small>{{msg}}</small>
                   <div class="inputs">
                     <div class="label-element">
@@ -116,12 +116,11 @@
                       </select>
                     </div>
                   </div>
-                  <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Dodaj wydatek</button>
                 </form>
               </div>
               <div class="form" [hidden]="isHiddenIn">
                 <h1>Dodaj przychód</h1>
-                <form #addFormIn="ngForm" (ngSubmit)="onAddTransfer(accountData, 2)">
+                <form #addFormIn="ngForm" (ngSubmit)="onAddTransfer(accountData, isHiddenOut)">
                   <small>{{msg}}</small>
                   <div class="inputs">
                     <div class="label-element">
@@ -151,7 +150,20 @@
                       </select>
                     </div>
                   </div>
-                  <button [disabled]="addFormIn.form.invalid" type="submit" class="confirm">Dodaj przychód</button>
+                </form>
+              </div>
+              <div class="form">
+                <form #updateFormUser="ngForm" (ngSubmit)="onUpdateAccount(updateFormUser.value); onAddTransfer(accountData, isHiddenOut)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id_user" ngModel="{{user?.id}}">
+                    <input type="hidden" name="firstname" id="firstname" ngModel="{{user?.firstname}}">
+                    <input type="hidden" name="lastname" id="lastname" ngModel="{{user?.lastname}}">
+                    <input type="hidden" name="password" id="password" ngModel="{{user?.password}}">
+                    <input type="hidden" name="email" id="email" ngModel="{{user?.email}}">
+                    <input type="hidden" name="account_balance" id="account_balance" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , isHiddenOut === false ? transferOut?.transfer_amount : transferIn?.transfer_amount, 0, isHiddenOut)}}">
+                  </div>
+                  <button [disabled]="isHiddenOut === false ? addForm.form.invalid : addFormIn.form.invalid" type="submit" class="confirm">Aktualizuj stan konta</button>
                 </form>
               </div>
             </div>

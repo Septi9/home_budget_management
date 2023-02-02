@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {IncomingTransfers} from "../incoming-transfers";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ApplicationUser} from "../application-user";
-import {identity} from "rxjs";
 
 @Component({
   selector: 'app-history',
@@ -14,11 +13,12 @@ import {identity} from "rxjs";
 })
 export class HistoryComponent implements OnInit {
 
-  outgoingTransfers : OutgoingTransfers[] | undefined;
+  outgoingTransfers : OutgoingTransfers[] = [];
   editOutgoingTransfers : OutgoingTransfers | undefined;
   editIncomingTransfers : IncomingTransfers | undefined;
-  incomingTransfers : IncomingTransfers[] | undefined;
+  incomingTransfers : IncomingTransfers[] = [];
   accountData : ApplicationUser[] | undefined;
+  user = new ApplicationUser();
   transferIn = new IncomingTransfers();
   transferOut = new OutgoingTransfers();
   msg = '';
@@ -28,6 +28,7 @@ export class HistoryComponent implements OnInit {
   isHiddenUpdateIn = true;
   isHiddenIn = true;
   isHiddenOut = false;
+  amount = 0;
   categoriesOut = [
     "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",
     "Wydatki Podstawowe", "Jedzenie na Mieście", "Samochód", "Zdrowie", "Ubrania",
@@ -50,6 +51,9 @@ export class HistoryComponent implements OnInit {
   private getUserData() {
     this._service.getUserDataList().subscribe(data => {
         this.accountData = this.validateUsers(data);
+        for (const a of this.accountData) {
+          this.user = a;
+        }
       },
       error => {
         this.msg = error.error;
@@ -64,7 +68,6 @@ export class HistoryComponent implements OnInit {
         data.push(item);
       }
     }
-    console.log(data)
     return data;
   }
 
@@ -208,8 +211,8 @@ export class HistoryComponent implements OnInit {
     window.location.reload();
   }
 
-  public onAddTransfer(accountData : any, toggle : any) : void {
-    if (toggle === 1) {
+  public onAddTransfer(accountData : any, toggle : boolean) : void {
+    if (!toggle) {
       for (let item of accountData) {
         if (item.email === this.sessionValue) {
           this.transferOut.outgoing_email = item.email;
@@ -219,13 +222,12 @@ export class HistoryComponent implements OnInit {
         this.transferOut.outgoing_email = "";
       }
       this._service.createOutgoingTransfer(this.transferOut).subscribe(data => {
-          window.location.reload();
         },
         error => {
           this.msg = "Something went wrong";
         }
       )
-    } else if (toggle === 2) {
+    } else if (toggle) {
       for (let item of accountData) {
         if (item.email === this.sessionValue) {
           this.transferIn.incoming_email = item.email;
@@ -235,7 +237,6 @@ export class HistoryComponent implements OnInit {
         this.transferIn.incoming_email = "";
       }
       this._service.createIncomingTransfer(this.transferIn).subscribe(data => {
-          window.location.reload();
         },
         error => {
           this.msg = "Something went wrong";
@@ -246,9 +247,40 @@ export class HistoryComponent implements OnInit {
     }
   }
 
+  public onUpdateAccount(transfer : any) : void {
+    this._service.updateUser(transfer).subscribe(data => {
+      window.location.reload();
+    },
+      error => {
+        this.msg = "Something went wrong";
+      });
+  }
+
+  public onUpdateAmount(income : IncomingTransfers[], outcome : OutgoingTransfers[], amount : any, amountPast : any, toggle : boolean) : number {
+    let sum = 0;
+    for (const incomeElement of income) {
+      if (incomeElement.transfer_amount != null) {
+        sum += Number(incomeElement.transfer_amount);
+      }
+    }
+
+    for (const outcomeElement of outcome) {
+      if (outcomeElement.transfer_amount != null) {
+        sum -= Number(outcomeElement.transfer_amount);
+      }
+    }
+
+    if (toggle) {
+      sum += (Number(amount) - Number(amountPast));
+    } else {
+      sum -= (Number(amount) - Number(amountPast));
+    }
+
+    return sum;
+  }
+
   public onUpdateTransferOut(accountData : any) : void {
     this._service.updateOutgoingTransfer(accountData).subscribe(data => {
-        window.location.reload();
       },
       error => {
         this.msg = "Something went wrong";
@@ -258,7 +290,6 @@ export class HistoryComponent implements OnInit {
 
   public onUpdateTransferIn(accountData : any) : void {
     this._service.updateIncomingTransfer(accountData).subscribe(data => {
-        window.location.reload();
       },
       error => {
         this.msg = "Something went wrong";

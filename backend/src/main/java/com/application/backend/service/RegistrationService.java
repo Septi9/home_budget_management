@@ -1,6 +1,7 @@
 package com.application.backend.service;
 
 import com.application.backend.model.ApplicationUser;
+import com.application.backend.model.Plan;
 import com.application.backend.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,11 @@ public class RegistrationService {
 
     public ApplicationUser validateUserByEmailAndPassword(String email, String password) {
         return registrationRepository.findUserByEmailAndPassword(email, password);
+    }
+
+    public ApplicationUser updateUser(ApplicationUser applicationUser) {
+        System.out.println(applicationUser + " service");
+        return registrationRepository.save(applicationUser);
     }
 
 
