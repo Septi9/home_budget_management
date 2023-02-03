@@ -6,6 +6,7 @@ import {ApplicationUser} from "../application-user";
 import {RegistrationService} from "../registration.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {OutgoingTransfers} from "../outgoing-transfers";
+import {IncomingTransfers} from "../incoming-transfers";
 
 @Component({
   selector: 'app-plan',
@@ -18,9 +19,12 @@ export class PlanComponent implements OnInit {
 
   accountData : ApplicationUser[] | undefined;
   outgoingTransfers = new OutgoingTransfers();
+  outgoingTransfersList : OutgoingTransfers[] = [];
+  incomingTransfersList : IncomingTransfers[] = [];
   plan = new Plan();
   plans : Plan[] | undefined;
   editPlan : Plan = new Plan();
+  user = new ApplicationUser();
   msg = '';
   sessionValue: any;
   sum: number = 0;
@@ -42,6 +46,53 @@ export class PlanComponent implements OnInit {
     this.sessionValue = sessionStorage.getItem('email');
     this.getUserData();
     this.getPlans();
+    this.getOutgoingTransfers();
+    this.getIncomingTransfers();
+  }
+
+
+  public getOutgoingTransfers() {
+    this._serviceR.getOutgoingTransfersList().subscribe(data => {
+        this.outgoingTransfersList = this.validateOutgoingTransfers(data);
+      },
+      error => {
+        console.log("not working");
+        this.msg = error.error;
+        console.log(error)
+      });
+  }
+
+  public getIncomingTransfers() {
+    this._serviceR.getIncomingTransfersList().subscribe(data => {
+        this.incomingTransfersList = this.validateIncomingTransfers(data);
+      },
+      error => {
+        console.log("not working");
+        this.msg = error.error;
+        console.log(error)
+      });
+  }
+
+  private validateOutgoingTransfers(outgoingTransfers : any) : OutgoingTransfers[] {
+    let data : OutgoingTransfers[] = [];
+
+    for (let item of outgoingTransfers) {
+      if (item.outgoing_email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
+  }
+
+  private validateIncomingTransfers(incomingTransfers : any) : IncomingTransfers[] {
+    let data : IncomingTransfers[] = [];
+
+    for (let item of incomingTransfers) {
+      if (item.incoming_email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
   }
 
   toggleDisplay() {
@@ -218,6 +269,9 @@ export class PlanComponent implements OnInit {
     this._serviceR.getUserDataList().subscribe(data => {
         this.accountData = this.validateUsers(data);
         this.getData(this.accountData);
+        for (const a of this.accountData) {
+          this.user = a;
+        }
       },
       error => {
         this.msg = error.error;
@@ -228,6 +282,33 @@ export class PlanComponent implements OnInit {
     for (let item of accountData) {
       this.sum = item.accountBalance;
     }
+  }
+
+  public onUpdateAccount(transfer : any) : void {
+    this._serviceR.updateUser(transfer).subscribe(data => {
+        window.location.reload();
+      },
+      error => {
+        this.msg = "Something went wrong";
+      });
+  }
+
+  public onUpdateAmount(income : IncomingTransfers[], outcome : OutgoingTransfers[], amount : any, typedAmount : any, toggle : boolean) : number {
+    let sum = 0;
+    for (const incomeElement of income) {
+      if (incomeElement.transfer_amount != null) {
+        sum += Number(incomeElement.transfer_amount);
+      }
+    }
+
+    for (const outcomeElement of outcome) {
+      if (outcomeElement.transfer_amount != null) {
+        sum -= Number(outcomeElement.transfer_amount);
+      }
+    }
+    sum -= Math.abs((Number(amount)));
+
+    return sum;
   }
 
   getPlanIcon(description : string | undefined) : string {

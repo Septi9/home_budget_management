@@ -276,8 +276,6 @@ export class HistoryComponent implements OnInit {
 
   public onUpdateAmount(income : IncomingTransfers[], outcome : OutgoingTransfers[], amount : any, typedAmount : any, toggle : boolean) : number {
     let sum = 0;
-    console.log("amount", amount);
-    console.log("typedAmount", typedAmount);
     for (const incomeElement of income) {
       if (incomeElement.transfer_amount != null) {
         sum += Number(incomeElement.transfer_amount);

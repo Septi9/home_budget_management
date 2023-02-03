@@ -226,8 +226,18 @@
             <div class="top_modal">
               <h1>Zrealizowano plan</h1>
               <div class="form">
-                <h3>Zobacz swój plan na liście transakcji</h3>
-                <button [routerLink]="['/history']">Lista transakcji</button>
+                <form #updateFormUser="ngForm" (ngSubmit)="onUpdateAccount(updateFormUser.value)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id_user" ngModel="{{user?.id}}">
+                    <input type="hidden" name="firstname" id="firstname" ngModel="{{user?.firstname}}">
+                    <input type="hidden" name="lastname" id="lastname" ngModel="{{user?.lastname}}">
+                    <input type="hidden" name="password" id="password" ngModel="{{user?.password}}">
+                    <input type="hidden" name="email" id="email" ngModel="{{user?.email}}">
+                    <input type="hidden" name="account_balance" id="account_balance" ngModel="{{onUpdateAmount(this.incomingTransfersList, this.outgoingTransfersList , this.outgoingTransfers.transfer_amount, null, true)}}">
+                  </div>
+                  <button [disabled]="updateFormUser.form.invalid" type="submit" class="confirm">Aktualizuj stan konta</button>
+                </form>
               </div>
               <div class="modal-elements">
                 <div class="modal-body">

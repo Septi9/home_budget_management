@@ -161,7 +161,7 @@
                     <input type="hidden" name="lastname" id="lastname" ngModel="{{user?.lastname}}">
                     <input type="hidden" name="password" id="password" ngModel="{{user?.password}}">
                     <input type="hidden" name="email" id="email" ngModel="{{user?.email}}">
-                    <input type="hidden" name="account_balance" id="account_balance" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , isHiddenOut === false ? transferOut?.transfer_amount : transferIn?.transfer_amount, 0, isHiddenOut)}}">
+                    <input type="hidden" name="account_balance" id="account_balance" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , isHiddenOut === false ? transferOut?.transfer_amount : transferIn?.transfer_amount, null, isHiddenOut)}}">
                   </div>
                   <button [disabled]="isHiddenOut === false ? addForm.form.invalid : addFormIn.form.invalid" type="submit" class="confirm">Aktualizuj stan konta</button>
                 </form>
@@ -336,7 +336,7 @@
                     <input type="hidden" name="lastname" id="lastname_delete_out" ngModel="{{user?.lastname}}">
                     <input type="hidden" name="password" id="password_delete_out" ngModel="{{user?.password}}">
                     <input type="hidden" name="email" id="email_delete_out" ngModel="{{user?.email}}">
-                    <input type="hidden" name="account_balance" id="account_balance_delete_out" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , this.amount_transaction , 0, true)}}">
+                    <input type="hidden" name="account_balance" id="account_balance_delete_out" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , this.amount_transaction , null, true)}}">
                   </div>
                   <button [disabled]="updateFormUserDeleteOut.form.invalid" type="submit" class="confirm">Usuń</button>
                 </form>
@@ -366,7 +366,7 @@
                     <input type="hidden" name="lastname" id="lastname_delete_in" ngModel="{{user?.lastname}}">
                     <input type="hidden" name="password" id="password_delete_in" ngModel="{{user?.password}}">
                     <input type="hidden" name="email" id="email_delete_in" ngModel="{{user?.email}}">
-                    <input type="hidden" name="account_balance" id="account_balance_delete_in" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , this.amount_transaction , 0, false)}}">
+                    <input type="hidden" name="account_balance" id="account_balance_delete_in" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , this.amount_transaction , null, false)}}">
                   </div>
                   <button [disabled]="updateFormUserDeleteIn.form.invalid" type="submit" class="confirm">Usuń</button>
                 </form>
