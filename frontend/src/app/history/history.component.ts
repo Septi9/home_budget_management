@@ -28,7 +28,13 @@ export class HistoryComponent implements OnInit {
   isHiddenUpdateIn = true;
   isHiddenIn = true;
   isHiddenOut = false;
+  isHiddenModal = true;
+  isHiddenModalIn = true;
   amount = 0;
+  inputOut = 0;
+  inputIn = 0;
+  id_transaction: number | undefined = 0;
+  amount_transaction: number | undefined = 0;
   categoriesOut = [
     "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",
     "Wydatki Podstawowe", "Jedzenie na Mieście", "Samochód", "Zdrowie", "Ubrania",
@@ -95,6 +101,18 @@ export class HistoryComponent implements OnInit {
     this.isHiddenOut = !this.isHiddenOut;
   }
 
+  toggleDisplayModal(id : number | undefined, amount : any) {
+    this.isHiddenModal = !this.isHiddenModal;
+    this.id_transaction = id;
+    this.amount_transaction = amount;
+  }
+
+  toggleDisplayModalIn(id : number | undefined, amount : any) {
+    this.isHiddenModalIn = !this.isHiddenModalIn;
+    this.id_transaction = id;
+    this.amount_transaction = amount;
+  }
+
   private validateOutgoingTransfers(outgoingTransfers : any) : OutgoingTransfers[] {
     let data : OutgoingTransfers[] = [];
 
@@ -117,7 +135,7 @@ export class HistoryComponent implements OnInit {
     return data;
   }
 
-  private getOutgoingTransfers() {
+  public getOutgoingTransfers() {
     this._service.getOutgoingTransfersList().subscribe(data => {
       this.outgoingTransfers = this.validateOutgoingTransfers(data);
     },
@@ -128,7 +146,7 @@ export class HistoryComponent implements OnInit {
       });
   }
 
-  private getIncomingTransfers() {
+  public getIncomingTransfers() {
     this._service.getIncomingTransfersList().subscribe(data => {
         this.incomingTransfers = this.validateIncomingTransfers(data);
       },
@@ -256,8 +274,10 @@ export class HistoryComponent implements OnInit {
       });
   }
 
-  public onUpdateAmount(income : IncomingTransfers[], outcome : OutgoingTransfers[], amount : any, amountPast : any, toggle : boolean) : number {
+  public onUpdateAmount(income : IncomingTransfers[], outcome : OutgoingTransfers[], amount : any, typedAmount : any, toggle : boolean) : number {
     let sum = 0;
+    console.log("amount", amount);
+    console.log("typedAmount", typedAmount);
     for (const incomeElement of income) {
       if (incomeElement.transfer_amount != null) {
         sum += Number(incomeElement.transfer_amount);
@@ -270,10 +290,14 @@ export class HistoryComponent implements OnInit {
       }
     }
 
-    if (toggle) {
-      sum += (Number(amount) - Number(amountPast));
-    } else {
-      sum -= (Number(amount) - Number(amountPast));
+    if (typedAmount != 0) {
+      if (toggle) {
+        sum += Math.abs((Number(amount)));
+        sum -= Math.abs((Number(typedAmount)));
+      } else {
+        sum -= Math.abs((Number(amount)));
+        sum += Math.abs((Number(typedAmount)));
+      }
     }
 
     return sum;
@@ -285,7 +309,7 @@ export class HistoryComponent implements OnInit {
       error => {
         this.msg = "Something went wrong";
       }
-    )
+    );
   }
 
   public onUpdateTransferIn(accountData : any) : void {
@@ -307,4 +331,11 @@ export class HistoryComponent implements OnInit {
     }
   }
 
+  onKeyOut(x : any) {
+    this.inputOut = x.target.value;
+  }
+
+  onKeyIn(x : any) {
+    this.inputIn = x.target.value;
+  }
 }
