@@ -5,6 +5,8 @@ export class Plan {
   user_id: number | undefined;
   description: string | undefined;
   date: Date | undefined;
+  is_periodic: boolean | undefined;
+  cycle: string | undefined;
 
   constructor() {
   }

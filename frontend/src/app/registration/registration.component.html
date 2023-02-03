@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="form">
-            <input type="text" class="form-input" placeholder="Stan Konta" name="accountBalance" [(ngModel)]="applicationUser.accountBalance"
+            <input type="text" class="form-input" placeholder="Stan Konta" name="accountBalance" [(ngModel)]="applicationUser.account_balance"
                    #accountBalance="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
             <div *ngIf="accountBalance.errors && accountBalance.touched && accountBalance.errors?.['required']">
               <small class="error">Stan konta jest wymagany</small>

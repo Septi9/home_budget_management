@@ -25,11 +25,11 @@
               <div class="table-wrapper">
                 <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
-                <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
+                <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getIconPlan(item.category)}}</mat-icon>{{item.category}}</div>
                 <div class="element delete parent">
                   <div (click)="onOpenUpdateModalOut(item)">Edytuj</div>
-                  <div (click)="onDeleteOutgoingTransfer(item.id)">Usuń</div>
+                  <div (click)="toggleDisplayModal(item.id, item.transfer_amount)">Usuń</div>
                 </div>
               </div>
             </div>
@@ -49,11 +49,11 @@
               <div class="table-wrapper">
                 <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
                 <div class="element">{{item.description}}</div>
-                <div class="element">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
+                <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                 <div class="element-not-center"><mat-icon>{{getIconIn(item.category)}}</mat-icon>{{item.category}}</div>
                 <div class="element delete parent">
                   <div (click)="onOpenUpdateModalIn(item)">Edytuj</div>
-                  <div (click)="onDeleteIncomingTransfer(item.id)">Usuń</div>
+                  <div (click)="toggleDisplayModalIn(item.id, item.transfer_amount)">Usuń</div>
                 </div>
               </div>
             </div>
@@ -71,7 +71,7 @@
               </label>
               <div class="form" [hidden]="isHiddenOut">
                 <h1>Dodaj wydatek</h1>
-                <form #addForm="ngForm" (ngSubmit)="onAddTransfer(accountData, 1)">
+                <form #addForm="ngForm" (ngSubmit)="onAddTransfer(accountData, isHiddenIn)">
                   <small>{{msg}}</small>
                   <div class="inputs">
                     <div class="label-element">
@@ -116,12 +116,11 @@
                       </select>
                     </div>
                   </div>
-                  <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Dodaj wydatek</button>
                 </form>
               </div>
               <div class="form" [hidden]="isHiddenIn">
                 <h1>Dodaj przychód</h1>
-                <form #addFormIn="ngForm" (ngSubmit)="onAddTransfer(accountData, 2)">
+                <form #addFormIn="ngForm" (ngSubmit)="onAddTransfer(accountData, isHiddenOut)">
                   <small>{{msg}}</small>
                   <div class="inputs">
                     <div class="label-element">
@@ -151,7 +150,20 @@
                       </select>
                     </div>
                   </div>
-                  <button [disabled]="addFormIn.form.invalid" type="submit" class="confirm">Dodaj przychód</button>
+                </form>
+              </div>
+              <div class="form">
+                <form #updateFormUser="ngForm" (ngSubmit)="onUpdateAccount(updateFormUser.value); onAddTransfer(accountData, isHiddenOut)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id_user" ngModel="{{user?.id}}">
+                    <input type="hidden" name="firstname" id="firstname" ngModel="{{user?.firstname}}">
+                    <input type="hidden" name="lastname" id="lastname" ngModel="{{user?.lastname}}">
+                    <input type="hidden" name="password" id="password" ngModel="{{user?.password}}">
+                    <input type="hidden" name="email" id="email" ngModel="{{user?.email}}">
+                    <input type="hidden" name="account_balance" id="account_balance" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , isHiddenOut === false ? transferOut?.transfer_amount : transferIn?.transfer_amount, null, isHiddenOut)}}">
+                  </div>
+                  <button [disabled]="isHiddenOut === false ? addForm.form.invalid : addFormIn.form.invalid" type="submit" class="confirm">Aktualizuj stan konta</button>
                 </form>
               </div>
             </div>
@@ -186,7 +198,7 @@
                     </div>
                     <div class="label-element">
                       <label for="transfer_amount">Kwota Transakcji</label>
-                      <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update" placeholder="1,000,000.00" ngModel="{{editOutgoingTransfers?.transfer_amount | number:'1.2-2'}}" #transfer_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                      <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update" placeholder="1,000,000.00" ngModel="{{editOutgoingTransfers?.transfer_amount | number:'1.2-2'}}" #transfer_amount="ngModel" (keyup)="onKeyOut($event)" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                       <div *ngIf="transfer_amount.errors && transfer_amount.invalid && transfer_amount.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
                       </div>
@@ -217,6 +229,19 @@
                         <option value="Inne">Inne</option>
                       </select>
                     </div>
+                  </div>
+                </form>
+              </div>
+              <div class="form">
+                <form #updateFormUserOut="ngForm" (ngSubmit)="onUpdateTransferOut(updateForm.value); onUpdateAccount(updateFormUserOut.value)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id_user_out" ngModel="{{user?.id}}">
+                    <input type="hidden" name="firstname" id="firstname_out" ngModel="{{user?.firstname}}">
+                    <input type="hidden" name="lastname" id="lastname_out" ngModel="{{user?.lastname}}">
+                    <input type="hidden" name="password" id="password_out" ngModel="{{user?.password}}">
+                    <input type="hidden" name="email" id="email_out" ngModel="{{user?.email}}">
+                    <input type="hidden" name="account_balance" id="account_balance_out" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , editOutgoingTransfers?.transfer_amount , this.inputOut, true)}}">
                   </div>
                   <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Aktualizuj</button>
                 </form>
@@ -253,7 +278,7 @@
                     </div>
                     <div class="label-element">
                       <label for="transfer_amount">Kwota Transakcji</label>
-                      <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update_in" placeholder="1,000,000.00" ngModel="{{editIncomingTransfers?.transfer_amount | number:'1.2-2'}}" #transfer_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
+                      <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update_in" placeholder="1,000,000.00" ngModel="{{editIncomingTransfers?.transfer_amount | number:'1.2-2'}}" (keyup)="onKeyIn($event)" #transfer_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                       <div *ngIf="transfer_amount.errors && transfer_amount.invalid && transfer_amount.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
                       </div>
@@ -270,7 +295,80 @@
                       </select>
                     </div>
                   </div>
-                  <button [disabled]="updateFormIn.form.invalid" type="submit" class="confirm">Aktualizuj</button>
+                </form>
+                <div class="form">
+                  <form #updateFormUserIn="ngForm" (ngSubmit)="onUpdateTransferIn(updateFormIn.value); onUpdateAccount(updateFormUserIn.value)">
+                    <small>{{msg}}</small>
+                    <div class="inputs">
+                      <input type="hidden" name="id" id="id_user_in" ngModel="{{user?.id}}">
+                      <input type="hidden" name="firstname" id="firstname_in" ngModel="{{user?.firstname}}">
+                      <input type="hidden" name="lastname" id="lastname_in" ngModel="{{user?.lastname}}">
+                      <input type="hidden" name="password" id="password_in" ngModel="{{user?.password}}">
+                      <input type="hidden" name="email" id="email_in" ngModel="{{user?.email}}">
+                      <input type="hidden" name="account_balance" id="account_balance_in" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , editIncomingTransfers?.transfer_amount , this.inputIn, false)}}">
+                    </div>
+                    <button [disabled]="updateFormIn.form.invalid" type="submit" class="confirm">Aktualizuj</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHiddenModal">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplayModal(this.id_transaction, this.amount_transaction)">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top">
+              <h1>Czy na pewno chcesz usunąć</h1>
+              <div class="form">
+                <form #updateFormUserDeleteOut="ngForm" (ngSubmit)="onDeleteOutgoingTransfer(this.id_transaction); onUpdateAccount(updateFormUserDeleteOut.value)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id_user_delete_out" ngModel="{{user?.id}}">
+                    <input type="hidden" name="firstname" id="firstname_delete_out" ngModel="{{user?.firstname}}">
+                    <input type="hidden" name="lastname" id="lastname_delete_out" ngModel="{{user?.lastname}}">
+                    <input type="hidden" name="password" id="password_delete_out" ngModel="{{user?.password}}">
+                    <input type="hidden" name="email" id="email_delete_out" ngModel="{{user?.email}}">
+                    <input type="hidden" name="account_balance" id="account_balance_delete_out" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , this.amount_transaction , null, true)}}">
+                  </div>
+                  <button [disabled]="updateFormUserDeleteOut.form.invalid" type="submit" class="confirm">Usuń</button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHiddenModalIn">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplayModalIn(this.id_transaction, this.amount_transaction)">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top">
+              <h1>Czy na pewno chcesz usunąć</h1>
+              <div class="form">
+                <form #updateFormUserDeleteIn="ngForm" (ngSubmit)="onDeleteIncomingTransfer(this.id_transaction); onUpdateAccount(updateFormUserDeleteIn.value)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id_user_delete_in" ngModel="{{user?.id}}">
+                    <input type="hidden" name="firstname" id="firstname_delete_in" ngModel="{{user?.firstname}}">
+                    <input type="hidden" name="lastname" id="lastname_delete_in" ngModel="{{user?.lastname}}">
+                    <input type="hidden" name="password" id="password_delete_in" ngModel="{{user?.password}}">
+                    <input type="hidden" name="email" id="email_delete_in" ngModel="{{user?.email}}">
+                    <input type="hidden" name="account_balance" id="account_balance_delete_in" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , this.amount_transaction , null, false)}}">
+                  </div>
+                  <button [disabled]="updateFormUserDeleteIn.form.invalid" type="submit" class="confirm">Usuń</button>
                 </form>
               </div>
             </div>

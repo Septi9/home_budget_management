@@ -5,7 +5,7 @@ export class ApplicationUser {
   firstname: string | undefined;
   lastname: string | undefined;
   password: string | undefined;
-  accountBalance: number | undefined;
+  account_balance: number | undefined;
 
   constructor() {}
 }

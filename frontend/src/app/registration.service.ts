@@ -19,6 +19,7 @@ export class RegistrationService {
   private outgoingBaseURLUpdate = "http://localhost:8080/transfers-update";
   private incomingBaseURLUpdate = "http://localhost:8080/incoming-transfers-update";
   private userListURL = "http://localhost:8080/users";
+  private userUpdate = "http://localhost:8080/user-update";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -64,6 +65,11 @@ export class RegistrationService {
 
   public updateIncomingTransfer(data: any): Observable<IncomingTransfers[]> {
     return this.httpClient.put<IncomingTransfers[]>(`${this.incomingBaseURLUpdate}`, data);
+  }
+
+  public updateUser(data : any): Observable<ApplicationUser[]> {
+    console.log(data, " method")
+    return this.httpClient.put<ApplicationUser[]>(`${this.userUpdate}`, data);
   }
 
 }

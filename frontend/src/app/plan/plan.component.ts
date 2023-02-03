@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {ApplicationUser} from "../application-user";
 import {RegistrationService} from "../registration.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {OutgoingTransfers} from "../outgoing-transfers";
+import {IncomingTransfers} from "../incoming-transfers";
 
 @Component({
   selector: 'app-plan',
@@ -16,9 +18,13 @@ export class PlanComponent implements OnInit {
   @ViewChild('addForm') addForm: any;
 
   accountData : ApplicationUser[] | undefined;
+  outgoingTransfers = new OutgoingTransfers();
+  outgoingTransfersList : OutgoingTransfers[] = [];
+  incomingTransfersList : IncomingTransfers[] = [];
   plan = new Plan();
   plans : Plan[] | undefined;
-  editPlan : Plan | undefined;
+  editPlan : Plan = new Plan();
+  user = new ApplicationUser();
   msg = '';
   sessionValue: any;
   sum: number = 0;
@@ -26,6 +32,7 @@ export class PlanComponent implements OnInit {
   planIcon: string | undefined;
   isHidden = true;
   isHiddenUpdate = true;
+  isHiddenPlan = true;
   categoriesOut = [
     "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",
     "Wydatki Podstawowe", "Jedzenie na Mieście", "Samochód", "Zdrowie", "Ubrania",
@@ -39,6 +46,53 @@ export class PlanComponent implements OnInit {
     this.sessionValue = sessionStorage.getItem('email');
     this.getUserData();
     this.getPlans();
+    this.getOutgoingTransfers();
+    this.getIncomingTransfers();
+  }
+
+
+  public getOutgoingTransfers() {
+    this._serviceR.getOutgoingTransfersList().subscribe(data => {
+        this.outgoingTransfersList = this.validateOutgoingTransfers(data);
+      },
+      error => {
+        console.log("not working");
+        this.msg = error.error;
+        console.log(error)
+      });
+  }
+
+  public getIncomingTransfers() {
+    this._serviceR.getIncomingTransfersList().subscribe(data => {
+        this.incomingTransfersList = this.validateIncomingTransfers(data);
+      },
+      error => {
+        console.log("not working");
+        this.msg = error.error;
+        console.log(error)
+      });
+  }
+
+  private validateOutgoingTransfers(outgoingTransfers : any) : OutgoingTransfers[] {
+    let data : OutgoingTransfers[] = [];
+
+    for (let item of outgoingTransfers) {
+      if (item.outgoing_email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
+  }
+
+  private validateIncomingTransfers(incomingTransfers : any) : IncomingTransfers[] {
+    let data : IncomingTransfers[] = [];
+
+    for (let item of incomingTransfers) {
+      if (item.incoming_email === this.sessionValue) {
+        data.push(item);
+      }
+    }
+    return data;
   }
 
   toggleDisplay() {
@@ -52,6 +106,14 @@ export class PlanComponent implements OnInit {
   openUpdateModal(plan : any) {
     this.editPlan = plan;
     this.isHiddenUpdate = !this.isHiddenUpdate;
+  }
+
+  toggleDisplayPlan() {
+    this.isHiddenPlan = !this.isHiddenPlan;
+  }
+
+  toggleIsPeriodic(state : any) {
+    console.log(state);
   }
 
   private actualUserPlans(plans : any, accountData : any) : Plan[] {
@@ -129,6 +191,60 @@ export class PlanComponent implements OnInit {
       )
   }
 
+  public onCarryOutThePlan(id : number | undefined, accountData : any) {
+    this.isHiddenPlan = !this.isHiddenPlan;
+
+    this.outgoingTransfers.transfer_amount = accountData.amount;
+    this.outgoingTransfers.transfer_date = new Date();
+    this.outgoingTransfers.outgoing_email = this.sessionValue;
+    this.outgoingTransfers.category = accountData.plan_desc;
+    this.outgoingTransfers.description = accountData.description;
+
+    this._serviceR.createOutgoingTransfer(this.outgoingTransfers).subscribe(data => {
+    },
+      error => {
+        this.msg = "Something went wrong";
+      }
+      )
+    if (!accountData.is_periodic) {
+      if (id != null) {
+        this._service.deletePlan(id).subscribe(
+          (response : void) => {
+            this.getPlans();
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
+      } else {
+        console.log("can't delete element");
+      }
+    } else {
+      if (accountData.cycle === 'Miesiąc') {
+        let date = accountData.date.toString().substring(5,7);
+        date = parseInt(date, 10);
+        date++;
+        accountData.date = accountData.date.replace(accountData.date.toString().substring(5,7), date.toString().length === 1 ? '0' + date : date);
+      } else if (accountData.cycle === 'Dzień') {
+        let date = accountData.date.toString().substring(8,10);
+        date = parseInt(date, 10);
+        date++;
+        accountData.date = accountData.date.replace(accountData.date.toString().substring(8,10), date.toString().length === 1 ? '0' + date : date);
+      } else if (accountData.cycle === 'Rok') {
+        let date = accountData.date.toString().substring(0,4);
+        date = parseInt(date, 10);
+        date++;
+        accountData.date = accountData.date.replace(accountData.date.toString().substring(0,4), date);
+      }
+      this._service.updatePlan(accountData).subscribe(data => {
+        },
+        error => {
+          this.msg = "Something went wrong";
+        }
+      )
+    }
+  }
+
   private sumPlansAmount(plans : any) : any {
     let sum = 0;
     for (let item of plans) {
@@ -153,6 +269,9 @@ export class PlanComponent implements OnInit {
     this._serviceR.getUserDataList().subscribe(data => {
         this.accountData = this.validateUsers(data);
         this.getData(this.accountData);
+        for (const a of this.accountData) {
+          this.user = a;
+        }
       },
       error => {
         this.msg = error.error;
@@ -163,6 +282,33 @@ export class PlanComponent implements OnInit {
     for (let item of accountData) {
       this.sum = item.accountBalance;
     }
+  }
+
+  public onUpdateAccount(transfer : any) : void {
+    this._serviceR.updateUser(transfer).subscribe(data => {
+        window.location.reload();
+      },
+      error => {
+        this.msg = "Something went wrong";
+      });
+  }
+
+  public onUpdateAmount(income : IncomingTransfers[], outcome : OutgoingTransfers[], amount : any, typedAmount : any, toggle : boolean) : number {
+    let sum = 0;
+    for (const incomeElement of income) {
+      if (incomeElement.transfer_amount != null) {
+        sum += Number(incomeElement.transfer_amount);
+      }
+    }
+
+    for (const outcomeElement of outcome) {
+      if (outcomeElement.transfer_amount != null) {
+        sum -= Number(outcomeElement.transfer_amount);
+      }
+    }
+    sum -= Math.abs((Number(amount)));
+
+    return sum;
   }
 
   getPlanIcon(description : string | undefined) : string {

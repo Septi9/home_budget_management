@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
         this.firstname = item.firstname;
         this.lastname = item.lastname;
         this.email = item.email;
-        this.accountBalance = (Math.round(item.accountBalance * 100) / 100).toFixed(2);
+        this.accountBalance = (Math.round(item.account_balance * 100) / 100).toFixed(2);
       }
     }
     return data;
