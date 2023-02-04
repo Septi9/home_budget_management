@@ -26,12 +26,17 @@ export class DiagramsComponent implements OnInit {
   public chartOutgoing: any;
   monthsIncoming : number[] = [0, 0, 0, 0, 0, 0, 0];
   monthsOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0];
-  categories = [
-    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
-    "Wydatki Podstawowe", "Jedzenie", "Inne"
+  categoriesOut = [
+    "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",
+    "Wydatki Podstawowe", "Jedzenie na Mieście", "Samochód", "Zdrowie", "Ubrania",
+    "Zakupy", "Inwestycje", "Hotel", "Prezent", "Sport", "Edukacja", "Dzieci", "Ogród", "Kredyt",
+    "Podatki", "Inne"
   ];
-  categoriesCountIncoming : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
-  categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
+  categoriesIn = [
+    "Pensja", "Premia", "Prezent", "Inwestycje", "Zwrot", "Odsetki", "Inne"
+  ];
+  categoriesCountIncoming : number[] = [0, 0, 0, 0, 0, 0, 0];
+  categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   isHidden = true;
   toggle1 = false;
   toggle2 = false;
@@ -69,7 +74,7 @@ export class DiagramsComponent implements OnInit {
     this._service.getIncomingTransfersList().subscribe(data => {
         this.incomingTransfers = this.validateIncomingTransfers(data);
         this.monthlyTransfers(this.incomingTransfers, this.monthsIncoming);
-        this.findCategory(this.incomingTransfers, this.categoriesCountIncoming);
+        this.findCategory(this.incomingTransfers, this.categoriesCountIncoming, this.categoriesIn);
         this.toggle1 = true;
       },
       error => {
@@ -80,7 +85,7 @@ export class DiagramsComponent implements OnInit {
     this._service.getOutgoingTransfersList().subscribe(data => {
       this.outgoingTransfers = this.validateOutgoingTransfers(data);
       this.monthlyTransfers(this.outgoingTransfers, this.monthsOutgoing);
-      this.findCategory(this.outgoingTransfers, this.categoriesCountOutgoing);
+      this.findCategory(this.outgoingTransfers, this.categoriesCountOutgoing, this.categoriesOut);
       this.toggle2 = true;
       if (this.toggle1 && this.toggle2) {
         this.createChart();
@@ -114,10 +119,10 @@ private compareTwoArrays(a: any, b: any) {
     }
   }
 
-  public findCategory(transfers : any, array : any) {
+  public findCategory(transfers : any, array : any, categories : any) {
     for(let i = 0; i < transfers.length; i++) {
-      for (let j = 0; j < this.categories.length; j++) {
-        if (transfers[i].category === this.categories[j]) {
+      for (let j = 0; j < categories.length; j++) {
+        if (transfers[i].category === categories[j]) {
           array[j] += 1;
         }
       }
@@ -157,14 +162,13 @@ private compareTwoArrays(a: any, b: any) {
       type: 'pie',
       data: {
         labels: [
-          this.categories[0],
-          this.categories[1],
-          this.categories[2],
-          this.categories[3],
-          this.categories[4],
-          this.categories[5],
-          this.categories[6],
-          this.categories[7],
+          this.categoriesIn[0],
+          this.categoriesIn[1],
+          this.categoriesIn[2],
+          this.categoriesIn[3],
+          this.categoriesIn[4],
+          this.categoriesIn[5],
+          this.categoriesIn[6]
         ],
         datasets: [
           {
@@ -175,8 +179,7 @@ private compareTwoArrays(a: any, b: any) {
               this.categoriesCountIncoming[3],
               this.categoriesCountIncoming[4],
               this.categoriesCountIncoming[5],
-              this.categoriesCountIncoming[6],
-              this.categoriesCountIncoming[7],
+              this.categoriesCountIncoming[6]
             ],
           }
         ]
@@ -186,14 +189,27 @@ private compareTwoArrays(a: any, b: any) {
       type: 'pie',
       data: {
         labels: [
-          this.categories[0],
-          this.categories[1],
-          this.categories[2],
-          this.categories[3],
-          this.categories[4],
-          this.categories[5],
-          this.categories[6],
-          this.categories[7],
+          this.categoriesOut[0],
+          this.categoriesOut[1],
+          this.categoriesOut[2],
+          this.categoriesOut[3],
+          this.categoriesOut[4],
+          this.categoriesOut[5],
+          this.categoriesOut[6],
+          this.categoriesOut[7],
+          this.categoriesOut[8],
+          this.categoriesOut[9],
+          this.categoriesOut[10],
+          this.categoriesOut[11],
+          this.categoriesOut[12],
+          this.categoriesOut[13],
+          this.categoriesOut[14],
+          this.categoriesOut[15],
+          this.categoriesOut[16],
+          this.categoriesOut[17],
+          this.categoriesOut[18],
+          this.categoriesOut[19],
+          this.categoriesOut[20],
         ],
         datasets: [
           {
@@ -206,6 +222,19 @@ private compareTwoArrays(a: any, b: any) {
               this.categoriesCountOutgoing[5],
               this.categoriesCountOutgoing[6],
               this.categoriesCountOutgoing[7],
+              this.categoriesCountOutgoing[8],
+              this.categoriesCountOutgoing[9],
+              this.categoriesCountOutgoing[10],
+              this.categoriesCountOutgoing[11],
+              this.categoriesCountOutgoing[12],
+              this.categoriesCountOutgoing[13],
+              this.categoriesCountOutgoing[14],
+              this.categoriesCountOutgoing[15],
+              this.categoriesCountOutgoing[16],
+              this.categoriesCountOutgoing[17],
+              this.categoriesCountOutgoing[18],
+              this.categoriesCountOutgoing[19],
+              this.categoriesCountOutgoing[20]
             ],
           }
         ]

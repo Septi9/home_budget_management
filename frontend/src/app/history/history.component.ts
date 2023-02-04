@@ -30,6 +30,8 @@ export class HistoryComponent implements OnInit {
   isHiddenOut = false;
   isHiddenModal = true;
   isHiddenModalIn = true;
+  isHiddenMainPageOut = false;
+  isHiddenMainPageIn = true;
   amount = 0;
   inputOut = 0;
   inputIn = 0;
@@ -111,6 +113,11 @@ export class HistoryComponent implements OnInit {
     this.isHiddenModalIn = !this.isHiddenModalIn;
     this.id_transaction = id;
     this.amount_transaction = amount;
+  }
+
+  toggleMain() {
+    this.isHiddenMainPageOut = !this.isHiddenMainPageOut;
+    this.isHiddenMainPageIn = !this.isHiddenMainPageIn;
   }
 
   private validateOutgoingTransfers(outgoingTransfers : any) : OutgoingTransfers[] {

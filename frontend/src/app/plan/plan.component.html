@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="container">
-            <div class="table" *ngFor="let item of plans">
+            <div class="table" *ngFor="let item of sortDate(plans)">
               <div class="table-wrapper">
                 <div
                   class="element value">{{item.is_periodic === false ? 'Jednorazowy' : 'Każdy ' + item.cycle?.toLowerCase()}}</div>

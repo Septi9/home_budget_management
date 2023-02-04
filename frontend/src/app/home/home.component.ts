@@ -25,10 +25,12 @@ export class HomeComponent implements OnInit {
   incomingTransfers : IncomingTransfers[] | undefined;
   outgoingTransfersLastMonth : number | undefined;
   incomingTransfersLastMonth : number | undefined;
-  categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
+  categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   categories = [
-    "Rozrywka", "Transport", "Finanse", "Zdrowie i Uroda", "Dom i Rachunki",
-    "Wydatki Podstawowe", "Jedzenie", "Inne"
+    "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",
+    "Wydatki Podstawowe", "Jedzenie na Mieście", "Samochód", "Zdrowie", "Ubrania",
+    "Zakupy", "Inwestycje", "Hotel", "Prezent", "Sport", "Edukacja", "Dzieci", "Ogród", "Kredyt",
+    "Podatki", "Inne"
   ];
   mostPopularCategory = 'Brak wydatków';
   plans : Plan[] | undefined;

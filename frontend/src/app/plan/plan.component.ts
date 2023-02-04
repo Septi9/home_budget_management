@@ -337,4 +337,14 @@ export class PlanComponent implements OnInit {
       default: return 'bug_report';
     }
   }
+
+  public sortDate(data : any) {
+    if (data != null) {
+      return data.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => {
+        return <any>new Date(b.date) - <any>new Date(a.date);
+      });
+    } else {
+      return data;
+    }
+  }
 }

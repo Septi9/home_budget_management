@@ -10,53 +10,65 @@
       <div class="inner-col">
         <div class="content">
           <button class="add_transaction" (click)="toggleDisplay()">Dodaj transakcję</button>
-          <div class="header">Przelewy Wychodzące</div>
-          <div class="top">
-            <div class="headers">
-              <div class="element">Kwota Przelewu</div>
-              <div class="element">Opis</div>
-              <div class="element">Data Przelewu</div>
-              <div class="element">Kategoria</div>
-              <div class="element">Edytuj / Usuń</div>
+          <div class="wrap-transaction" [hidden]="isHiddenMainPageOut">
+            <div class="header">Przelewy Wychodzące</div>
+            <div class="top">
+              <div class="headers">
+                <div class="element">Kwota Przelewu</div>
+                <div class="element desc-txt">Opis</div>
+                <div class="element">Data Przelewu</div>
+                <div class="element">Kategoria</div>
+                <div class="element">Edytuj / Usuń</div>
+              </div>
             </div>
-          </div>
-          <div class="container">
-            <div class="table" *ngFor = "let item of sortDate(outgoingTransfers)">
-              <div class="table-wrapper">
-                <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
-                <div class="element">{{item.description}}</div>
-                <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
-                <div class="element-not-center"><mat-icon>{{getIconPlan(item.category)}}</mat-icon>{{item.category}}</div>
-                <div class="element delete parent">
-                  <div (click)="onOpenUpdateModalOut(item)">Edytuj</div>
-                  <div (click)="toggleDisplayModal(item.id, item.transfer_amount)">Usuń</div>
+            <div class="container">
+              <div class="table" *ngFor = "let item of sortDate(outgoingTransfers)">
+                <div class="table-wrapper">
+                  <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element desc-txt">{{item.description}}</div>
+                  <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
+                  <div class="element value tooltip">
+                    <mat-icon>{{getIconPlan(item.category)}}</mat-icon>
+                    <span class="tooltip_text">{{item.category}}</span>
+                  </div>
+                  <div class="element delete parent">
+                    <div (click)="onOpenUpdateModalOut(item)">Edytuj</div>
+                    <div (click)="toggleDisplayModal(item.id, item.transfer_amount)">Usuń</div>
+                  </div>
                 </div>
               </div>
             </div>
+            <button class="change" (click)="toggleMain()">Przelewy Przychodzące</button>
           </div>
-          <div class="header">Przelewy Przychodzące</div>
-          <div class="top">
-            <div class="headers">
-              <div class="element">Kwota Przelewu</div>
-              <div class="element">Opis</div>
-              <div class="element">Data Przelewu</div>
-              <div class="element">Kategoria</div>
-              <div class="element">Edytuj / Usuń</div>
+          <div class="wrap-transaction" [hidden]="isHiddenMainPageIn">
+            <div class="header">Przelewy Przychodzące</div>
+            <div class="top">
+              <div class="headers">
+                <div class="element">Kwota Przelewu</div>
+                <div class="element desc-txt">Opis</div>
+                <div class="element">Data Przelewu</div>
+                <div class="element">Kategoria</div>
+                <div class="element">Edytuj / Usuń</div>
+              </div>
             </div>
-          </div>
-          <div class="container">
-            <div class="table" *ngFor = "let item of sortDate(incomingTransfers)">
-              <div class="table-wrapper">
-                <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
-                <div class="element">{{item.description}}</div>
-                <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
-                <div class="element-not-center"><mat-icon>{{getIconIn(item.category)}}</mat-icon>{{item.category}}</div>
-                <div class="element delete parent">
-                  <div (click)="onOpenUpdateModalIn(item)">Edytuj</div>
-                  <div (click)="toggleDisplayModalIn(item.id, item.transfer_amount)">Usuń</div>
+            <div class="container">
+              <div class="table" *ngFor = "let item of sortDate(incomingTransfers)">
+                <div class="table-wrapper">
+                  <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element desc-txt">{{item.description}}</div>
+                  <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
+                  <div class="element value tooltip">
+                    <mat-icon>{{getIconIn(item.category)}}</mat-icon>
+                    <span class="tooltip_text">{{item.category}}</span>
+                  </div>
+                  <div class="element delete parent">
+                    <div (click)="onOpenUpdateModalIn(item)">Edytuj</div>
+                    <div (click)="toggleDisplayModalIn(item.id, item.transfer_amount)">Usuń</div>
+                  </div>
                 </div>
               </div>
             </div>
+            <button class="change" (click)="toggleMain()">Przelewy Wychodzące</button>
           </div>
         </div>
         <div class="modal" [hidden]="isHidden">

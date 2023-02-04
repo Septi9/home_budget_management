@@ -44,8 +44,12 @@
 .container {
   width: 90%;
   margin: 20px auto 0;
-  height: 30%;
+  height: 60%;
   overflow-y: scroll;
+}
+
+.wrap-transaction {
+  height: 90%;
 }
 
 .headers {
@@ -76,6 +80,10 @@
   height: 5vh;
   line-height: 5vh;
   margin: 10px auto 0;
+}
+
+.desc-txt {
+  width: 30%;
 }
 
 mat-icon {
@@ -183,6 +191,12 @@ button:hover {
 
 .confirm {
   margin: 40px auto;
+}
+
+.change {
+  text-align: center;
+  margin: 50px auto 0;
+  height: 60px;
 }
 
 /*modal*/
@@ -331,3 +345,32 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/** tooltip */
+
+.tooltip_text {
+  visibility: hidden;
+  width: 150px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip_text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  position: relative;
+}
+
