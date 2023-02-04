@@ -1,0 +1,280 @@
+/*flexbox*/
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-nav {
+  flex: 1;
+}
+
+.flex_elements {
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+}
+
+.inner-row {
+  display: flex;
+  flex-direction: row;
+}
+.inner-col {
+  flex: 4;
+}
+
+/*others*/
+
+.content {
+  margin: var(--marginOfElemenrs);
+  width: calc(100% - (2 * var(--marginOfElemenrs)));
+  height: calc(92vh - (2 * var(--marginOfElemenrs)));
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  border-radius: 10px;
+}
+
+.header {
+  color: var(--primary);
+  font-size: 25px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.headers {
+  display: flex;
+  font-weight: 700;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.container {
+  width: 90%;
+  margin: 20px auto 0;
+  height: 60%;
+  overflow-y: scroll;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.table {
+  width: 250px;
+  height: 250px;
+  margin: 10px 20px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+}
+
+.table-wrapper {
+  border-radius: 10px;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.element {
+  width: 100%;
+  text-align: center;
+  line-height: 35px;
+}
+
+.parent {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px auto;
+}
+
+.parent div {
+  cursor: pointer;
+}
+
+.edit {
+  color: orange;
+}
+
+.delete {
+  color: red;
+}
+
+.green {
+  font-weight: bold;
+  color: green;
+}
+
+.red {
+  font-weight: bold;
+  color: red;
+}
+
+.value_element {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.inputs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.label-element {
+  margin: 30px auto 0;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  width: 400px;
+}
+
+input {
+  border: 2px solid #333;
+  border-radius: 5px;
+  color: #333;
+  font-size: 24px;
+  margin: 0;
+  padding: .5rem 1rem;
+  width: 100%;
+}
+
+select {
+  border: 2px solid #333;
+  border-radius: 5px;
+  color: #333;
+  font-size: 24px;
+  margin: 0;
+  padding: .5rem 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+option {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+option:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
+.error {
+  display: block;
+  width: 60%;
+  margin: 10px 20%;
+  color: var(--error);
+  text-align: center;
+}
+
+h1 {
+  font-size: 26px;
+  text-align: center;
+  padding: 15px 0;
+}
+
+/* button */
+
+button {
+  display: block;
+  margin-left: 20px;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: var(--secondary);
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.confirm {
+  margin: 40px auto;
+}
+
+.change {
+  text-align: center;
+  margin: 50px auto 0;
+  height: 60px;
+}
+
+/*modal*/
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  width: 30%;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+  background-color: var(--secondary);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+
+  color: white;
+}
+
+.modal-elements {
+  overflow-y: scroll;
+  height: 100px;
+}
+
+
+

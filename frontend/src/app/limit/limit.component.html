@@ -1,0 +1,159 @@
+<div class="wrapper">
+  <div class="left-nav">
+    <app-nav></app-nav>
+  </div>
+  <div class="flex_elements">
+    <div class="top-nav">
+      <app-topnav></app-topnav>
+    </div>
+    <div class="inner-row">
+      <div class="inner-col">
+        <div class="content">
+          <div class="top">
+          </div>
+          <button (click)="toggleDisplay()">Dodaj limit</button>
+          <div class="container">
+            <div class="table" *ngFor="let item of limits">
+              <div class="table-wrapper">
+                <div class="element value"><span class="value_element">{{item.limit_category}}</span></div>
+                <div class="element value">Kwota limitu: <span class="value_element">{{item.limit_amount | number:'1.2-2'}} PLN</span></div>
+                <div class="amount" *ngFor="let element of getBindedMap">
+                  <div class="element value" *ngIf="element === item.limit_category">Wydatki:
+                    <span class="value_element">{{categories.get(item.limit_category) | number:'1.2-2'}} PLN</span>
+                    <div class="element value limit-ok" [ngClass]="checkValue(categories.get(item.limit_category), item.limit_amount) === true ? 'green' : 'red'">{{checkValue(categories.get(item.limit_category), item.limit_amount) === true ? 'Mieścisz się w limicie' : 'Limit przekroczony'}}</div>
+                  </div>
+                </div>
+                <div class="element delete parent">
+                  <div class="edit" (click)="openUpdateModal(item)">Edytuj</div>
+                  <div class="delete" (click)="onDeleteLimit(item.id)">Usuń</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHidden">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplay()">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top_modal">
+              <h1>Wpisz nowy limit</h1>
+              <div class="form">
+                <form #addForm="ngForm" (ngSubmit)="onAddPlan(accountData)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <div class="label-element">
+                      <label for="amount">Kwota limitu</label>
+                      <input type="text" name="limit_amount" class="form-input" id="amount"
+                             [(ngModel)]="limit.limit_amount" #limit_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$"
+                             required>
+                      <div *ngIf="limit_amount.errors && limit_amount.invalid && limit_amount.errors?.['pattern']">
+                        <small class="error">Proszę wpisać wartość dziesiętną</small>
+                      </div>
+                    </div>
+                    <div class="label-element">
+                      <label for="description">Kategoria</label>
+                      <select id="description" name="description" class="form-input" [(ngModel)]="limit.limit_category"
+                              #limit_category="ngModel" required>
+                        <option value="Rozrywka">Rozrywka</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Finanse">Finanse</option>
+                        <option value="Zdrowie">Uroda</option>
+                        <option value="Dom">Dom</option>
+                        <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
+                        <option value="Jedzenie na Mieście">Jedzenie na Mieście</option>
+                        <option value="Samochód">Samochód</option>
+                        <option value="Uroda">Uroda</option>
+                        <option value="Ubrania">Ubrania</option>
+                        <option value="Zakupy">Zakupy</option>
+                        <option value="Inwestycje">Inwestycje</option>
+                        <option value="Prezent">Prezent</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Edukacja">Edukacja</option>
+                        <option value="Dzieci">Dzieci</option>
+                        <option value="Ogród">Ogród</option>
+                        <option value="Kredyt">Kredyt</option>
+                        <option value="Podatki">Podatki</option>
+                        <option value="Rachunki">Rachunki</option>
+                        <option value="Inne">Inne</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Dodaj</button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+        <div class="modal" [hidden]="isHiddenUpdate">
+          <div class="modal-content">
+            <div class="modal-header" (click)="toggleDisplayUpdate()">
+              <span class="close">&times;</span>
+            </div>
+            <div class="top_modal">
+              <h1>Edytuj planowane wydatki</h1>
+              <div class="form">
+                <form #updateForm="ngForm" (ngSubmit)="onUpdateLimit(updateForm.value)">
+                  <small>{{msg}}</small>
+                  <div class="inputs">
+                    <input type="hidden" name="id" id="id" ngModel="{{editedLimit?.id}}">
+                    <input type="hidden" name="user_id" id="user_id" ngModel="{{editedLimit?.user_id}}">
+                    <div class="label-element">
+                      <label for="amount">Kwota limitu</label>
+                      <input type="text" name="limit_amount" class="form-input" id="amount_up"
+                             ngModel="{{editedLimit?.limit_amount | number:'1.2-2'}}" #limit_amount="ngModel" data-type="currency"
+                             pattern="^\d+(\.)\d{2}$" required>
+                      <div *ngIf="limit_amount.errors && limit_amount.invalid && limit_amount.errors?.['pattern']">
+                        <small class="error">Proszę wpisać wartość dziesiętną</small>
+                      </div>
+                    </div>
+                    <div class="label-element">
+                      <label for="description">Kategoria</label>
+                      <select id="plan_desc_up" name="limit_category" class="form-input" ngModel="{{editedLimit?.limit_category}}"
+                              #limit_category="ngModel" required>
+                        <option value="Rozrywka">Rozrywka</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Finanse">Finanse</option>
+                        <option value="Zdrowie">Zdrowie</option>
+                        <option value="Dom">Dom</option>
+                        <option value="Wydatki Podstawowe">Wydatki Podstawowe</option>
+                        <option value="Jedzenie na Mieście">Jedzenie na Mieście</option>
+                        <option value="Samochód">Samochód</option>
+                        <option value="Uroda">Uroda</option>
+                        <option value="Ubrania">Ubrania</option>
+                        <option value="Zakupy">Zakupy</option>
+                        <option value="Inwestycje">Inwestycje</option>
+                        <option value="Prezent">Prezent</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Edukacja">Edukacja</option>
+                        <option value="Dzieci">Dzieci</option>
+                        <option value="Ogród">Ogród</option>
+                        <option value="Kredyt">Kredyt</option>
+                        <option value="Podatki">Podatki</option>
+                        <option value="Rachunki">Rachunki</option>
+                        <option value="Inne">Inne</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Edytuj</button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-elements">
+              <div class="modal-body">
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

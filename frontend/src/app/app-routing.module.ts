@@ -11,6 +11,7 @@ import {CalendarComponent} from "./calendar/calendar.component";
 import {PlanComponent} from "./plan/plan.component";
 import {ConverterComponent} from "./converter/converter.component";
 import {DiagramsComponent} from "./diagrams/diagrams.component";
+import {LimitComponent} from "./limit/limit.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'plan', component: PlanComponent, canActivate:[AuthGuardService]},
   {path: 'converter', component: ConverterComponent, canActivate:[AuthGuardService]},
   {path: 'diagrams', component: DiagramsComponent, canActivate:[AuthGuardService]},
+  {path: 'limit', component: LimitComponent, canActivate:[AuthGuardService]},
 ];
 
 @NgModule({

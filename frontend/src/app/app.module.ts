@@ -22,6 +22,7 @@ import { PlanComponent } from './plan/plan.component';
 import { ConverterComponent } from './converter/converter.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import { NgChartsModule } from 'ng2-charts';
+import { LimitComponent } from './limit/limit.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { NgChartsModule } from 'ng2-charts';
     GridPipe,
     PlanComponent,
     ConverterComponent,
-    DiagramsComponent
+    DiagramsComponent,
+    LimitComponent
   ],
   imports: [
     BrowserModule,
