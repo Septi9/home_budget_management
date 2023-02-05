@@ -10,8 +10,8 @@
       <div class="inner-col">
         <div class="content">
           <div class="amounts">
-            <div class="account">Stan konta: <span class="inside_value">{{sum}} PLN</span></div>
-            <div class="planned" [ngClass]="sum >= plannedSum ? 'green' : 'red'">Planowane wydatki: <span
+            <div class="account">Stan konta: <span class="inside_value">{{accountBalance}} PLN</span></div>
+            <div class="planned" [ngClass]="accountBalance >= plannedSum ? 'green' : 'red'">Planowane wydatki: <span
               class="inside_value">{{plannedSum}} PLN</span></div>
           </div>
           <div class="top">

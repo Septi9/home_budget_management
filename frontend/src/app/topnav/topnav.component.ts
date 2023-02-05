@@ -9,8 +9,10 @@ import {RegistrationService} from "../registration.service";
 })
 export class TopnavComponent implements OnInit {
 
+  accountData : ApplicationUser[] | undefined;
   accountBalance: any;
   sessionValue: any;
+  name: any;
   msg = '';
 
   constructor(private _service : RegistrationService) { }
@@ -22,7 +24,7 @@ export class TopnavComponent implements OnInit {
 
   private getUserData() {
     this._service.getUserDataList().subscribe(data => {
-        this.accountBalance = this.validateUsers(data);
+        this.accountData = this.validateUsers(data);
       },
       error => {
         this.msg = error.error;
@@ -30,14 +32,15 @@ export class TopnavComponent implements OnInit {
   }
 
   private validateUsers(accountData : any) : ApplicationUser[] {
-    let balance: any;
+    let data : ApplicationUser[] = [];
 
     for (let item of accountData) {
       if (item.email === this.sessionValue) {
-        balance = (Math.round(item.accountBalance * 100) / 100).toFixed(2);
+        data.push(item.email);
+        this.name = item.firstname + " " + item.lastname;
       }
     }
-    return balance;
+    return data;
   }
 
 }

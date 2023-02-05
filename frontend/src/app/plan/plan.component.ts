@@ -21,13 +21,13 @@ export class PlanComponent implements OnInit {
   outgoingTransfers = new OutgoingTransfers();
   outgoingTransfersList : OutgoingTransfers[] = [];
   incomingTransfersList : IncomingTransfers[] = [];
+  accountBalance: any = 0;
   plan = new Plan();
   plans : Plan[] | undefined;
   editPlan : Plan = new Plan();
   user = new ApplicationUser();
   msg = '';
   sessionValue: any;
-  sum: number = 0;
   plannedSum: number = 0;
   planIcon: string | undefined;
   isHidden = true;
@@ -259,6 +259,7 @@ export class PlanComponent implements OnInit {
     for (let item of accountData) {
       if (item.email === this.sessionValue) {
         data.push(item);
+        this.accountBalance = (Math.round(item.account_balance * 100) / 100).toFixed(2);
       }
     }
     console.log(data)
@@ -268,7 +269,6 @@ export class PlanComponent implements OnInit {
   private getUserData() {
     this._serviceR.getUserDataList().subscribe(data => {
         this.accountData = this.validateUsers(data);
-        this.getData(this.accountData);
         for (const a of this.accountData) {
           this.user = a;
         }
@@ -278,10 +278,13 @@ export class PlanComponent implements OnInit {
       });
   }
 
-  private getData(accountData : any) {
+  private getData(accountData : any): number {
+    let balance;
     for (let item of accountData) {
-      this.sum = item.accountBalance;
+      console.log("balance", item.accountBalance)
+      balance = item.accountBalance;
     }
+    return balance;
   }
 
   public onUpdateAccount(transfer : any) : void {
