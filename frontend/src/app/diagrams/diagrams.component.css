@@ -45,7 +45,6 @@
   width: 90%;
   margin: 20px auto 0;
   height: 100%;
-  overflow-y: scroll;
 }
 
 .wrap {
@@ -58,14 +57,13 @@
   height: 500px;
   margin: 30px auto;
   padding: 30px 0;
-  background-color: #d0d0d0;
   border-radius: 20px;
 }
 
 
 h2 {
   text-align: center;
-  margin: 40px auto 20px;
+  margin: 40px auto 0;
 }
 
 h3 {
@@ -78,7 +76,7 @@ h3 {
 }
 
 .btn {
-  width: 100px;
+  width: 200px;
   height: 50px;
   background-color: var(--primary);
   line-height: 50px;
@@ -87,4 +85,13 @@ h3 {
   border-radius: 20px;
   margin: 50px auto 0;
   cursor: pointer;
+}
+
+/* media */
+
+@media (max-width: 700px) {
+  .btn {
+    font-size: 14px;
+    margin-left: 20px;
+  }
 }

@@ -15,13 +15,13 @@ interface Country {
 })
 export class ConverterComponent implements OnInit {
   countries: Country[] = countryData;
-  selectedFrom : any = "USD";
-  selectedTo : any = "USD";
+  selectedFrom : any = "PLN";
+  selectedTo : any = "PLN";
   type : any = `${1}.00`;
   finalValue: any = `${1}.00`;
   option: any;
-  countryFrom: any = "us";
-  countryTo: any = "us";
+  countryFrom: any = "pl";
+  countryTo: any = "pl";
   map : Map<string, number> | undefined;
 
   constructor(private currencyService : CurrencyService) { }

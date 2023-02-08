@@ -15,7 +15,7 @@
             <div class="wrap">
               <div class="bar-diagrams" [hidden]="!isHidden">
                 <h2>Twoje ostatnie transakcje</h2>
-                <div id="divChart">
+                <div id="divChart" style="min-width: 500px;">
                   <div style="display: block;">
                     <canvas id="baseChart" width="1200" height="400">
                       {{chart}}
@@ -41,7 +41,7 @@
                 </div>
               </div>
               <div class="btns">
-                <div class="btn" (click)="toggleDisplay();">Przejdź dalej</div>
+                <div class="btn" (click)="toggleDisplay();">Zobacz następny diagram</div>
               </div>
             </div>
           </div>

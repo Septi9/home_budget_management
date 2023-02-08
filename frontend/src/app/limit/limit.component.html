@@ -12,11 +12,13 @@
           <div class="top">
           </div>
           <button (click)="toggleDisplay()">Dodaj limit</button>
+          <h1>Limity na miesiąc {{month}}</h1>
           <div class="container">
             <div class="table" *ngFor="let item of limits">
               <div class="table-wrapper">
                 <div class="element value"><span class="value_element">{{item.limit_category}}</span></div>
                 <div class="element value">Kwota limitu: <span class="value_element">{{item.limit_amount | number:'1.2-2'}} PLN</span></div>
+                <div class="element value">Opis: <span class="value_element">{{item.description}}</span></div>
                 <div class="amount" *ngFor="let element of getBindedMap">
                   <div class="element value" *ngIf="element === item.limit_category">Wydatki:
                     <span class="value_element">{{categories.get(item.limit_category) | number:'1.2-2'}} PLN</span>
@@ -77,6 +79,12 @@
                         <option value="Rachunki">Rachunki</option>
                         <option value="Inne">Inne</option>
                       </select>
+                    </div>
+                    <div class="label-element">
+                      <label for="amount">Opis:</label>
+                      <input type="text" name="description_" class="form-input" id="description_"
+                             [(ngModel)]="limit.description" #description_="ngModel" data-type="text"
+                             required>
                     </div>
                   </div>
                   <button [disabled]="addForm.form.invalid" type="submit" class="confirm">Dodaj</button>
@@ -139,6 +147,12 @@
                         <option value="Rachunki">Rachunki</option>
                         <option value="Inne">Inne</option>
                       </select>
+                    </div>
+                    <div class="label-element">
+                      <label for="amount">Opis:</label>
+                      <input type="text" name="description" class="form-input" id="description_edit"
+                             ngModel="{{editedLimit?.description}}" #description="ngModel" data-type="text"
+                             required>
                     </div>
                   </div>
                   <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Edytuj</button>

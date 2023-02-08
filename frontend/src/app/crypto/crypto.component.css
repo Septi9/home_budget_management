@@ -28,6 +28,7 @@
 .content {
   margin: var(--marginOfElemenrs);
   width: calc(100% - (2 * var(--marginOfElemenrs)));
+  min-width: 400px;
   height: calc(92vh - (2 * var(--marginOfElemenrs)));
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
   background-color: var(--secondary);
@@ -87,6 +88,7 @@ img {
 
 .buttons {
   display: flex;
+  /*flex-wrap: wrap;*/
   margin: 50px auto 20px;
   width: 70%;
   height: 50px;
@@ -100,6 +102,38 @@ img {
 .sortByName {
   box-shadow:  var(--primary) 0 0 5px 5px;
   width: 20%;
+  min-width: 150px;
   cursor: pointer;
   text-align: center;
+}
+
+/* media */
+
+@media (max-width: 1650px) {
+  .buttons {
+    display: none;
+  }
+
+  .headers .element {
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 1350px) {
+
+  .market-cap {
+    display: none;
+  }
+
+  .total-volume {
+    display: none;
+  }
+
+  .last-updated {
+    display: none;
+  }
+
+  .image {
+    margin-right: 20px;
+  }
 }

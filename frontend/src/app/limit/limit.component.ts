@@ -18,6 +18,7 @@ export class LimitComponent implements OnInit {
   accountData : ApplicationUser[] | undefined;
   user = new ApplicationUser();
   msg = '';
+  month : any;
   sessionValue: any;
   isHidden = true;
   isHiddenUpdate = true;
@@ -27,7 +28,9 @@ export class LimitComponent implements OnInit {
    ["Wydatki Podstawowe", 0], ["Jedzenie na Mieście", 0], ["Samochód", 0], ["Zdrowie", 0], ["Ubrania", 0],
     ["Zakupy", 0], ["Inwestycje", 0], ["Hotel", 0], ["Prezent", 0], ["Sport", 0], ["Edukacja", 0], ["Dzieci", 0], ["Ogród", 0], ["Kredyt", 0],
     ["Podatki", 0], ["Inne", 0]]);
-
+  monthNames = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+  ];
   constructor(private _service : RegistrationService, private _serviceLimit : TransfersLimitService, private _router : Router) { }
 
   ngOnInit(): void {
@@ -35,6 +38,12 @@ export class LimitComponent implements OnInit {
     this.getUserData();
     this.getOutgoingTransfers();
     this.getLimits();
+    this.month = this.getActualDate();
+  }
+
+  getActualDate() {
+    const now = new Date();
+    return this.monthNames[now.getMonth()];
   }
 
   toggleDisplay() {

@@ -2,7 +2,7 @@
   <div class="left-menu">
     <div class="menu">
       <div class="logo">
-        <img class="logoImage" src="assets/images/rv.png" alt="logo">
+        <img class="logoImage" src="assets/images/logo.png" alt="logo">
       </div>
       <div class="list">
         <ul>
@@ -14,6 +14,23 @@
           <li class="element" [routerLink]="['/crypto']">Kryptowaluty</li>
           <li class="element" [routerLink]="['/calendar']">Kalendarz</li>
           <li class="element" [routerLink]="['/converter']">Przelicznik walut</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mobile_menu">
+<!--      <div class="logo">-->
+<!--        <img class="logoImage" src="assets/images/rv.png" alt="logo">-->
+<!--      </div>-->
+      <div class="list">
+        <ul>
+          <li class="element" [routerLink]="['/home']"><mat-icon>home</mat-icon></li>
+          <li class="element" [routerLink]="['/history']"><mat-icon> money</mat-icon></li>
+          <li class="element" [routerLink]="['/diagrams']"><mat-icon> insert_chart</mat-icon></li>
+          <li class="element" [routerLink]="['/limit']"><mat-icon>priority_high</mat-icon></li>
+          <li class="element" [routerLink]="['/plan']" ><mat-icon>event_note</mat-icon></li>
+          <li class="element" [routerLink]="['/crypto']"><mat-icon>copyright</mat-icon></li>
+          <li class="element" [routerLink]="['/calendar']"><mat-icon>calendar_today</mat-icon></li>
+          <li class="element" [routerLink]="['/converter']"><mat-icon>settings_ethernet</mat-icon></li>
         </ul>
       </div>
     </div>

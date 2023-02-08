@@ -27,11 +27,13 @@
 
 .content {
   margin: var(--marginOfElemenrs);
+  margin-bottom: 0;
   width: calc(100% - (2 * var(--marginOfElemenrs)));
   height: calc(92vh - (2 * var(--marginOfElemenrs)));
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
   background-color: var(--secondary);
   border-radius: 10px;
+  overflow-y: scroll;
 }
 
 .header {
@@ -77,6 +79,13 @@
 
 .table-wrapper {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.element {
+  width: 28%;
+  min-width: 300px;
+  float: left;
 }
 
 .center {
@@ -90,5 +99,13 @@ p {
 
 .value {
   color: var(--primary);
+}
+
+/* media */
+
+@media (max-width: 600px) {
+  .element:hover {
+    transform: none;
+  }
 }
 

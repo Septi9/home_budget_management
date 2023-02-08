@@ -16,12 +16,12 @@
           </div>
           <div class="top">
             <div class="headers">
-              <div class="element">Okres powtarzania transakcji</div>
+              <div class="element">Okres powtarzania</div>
               <div class="element">Kwota</div>
               <div class="element">Kategoria</div>
               <div class="element">Komentarz</div>
               <div class="element">Planowana data zapłaty</div>
-              <div class="element">Akcje</div>
+              <div class="element">Zrealizuj / Edytuj / Usuń</div>
             </div>
           </div>
           <div class="container">
@@ -36,10 +36,10 @@
                 </div>
                 <div class="element value">{{item.description}}</div>
                 <div class="element value">{{item.date | date:  'dd.MM.y'}}</div>
-                <div class="element delete parent">
-                  <div (click)="onCarryOutThePlan(item.id, item)">Zrealizuj plan</div>
-                  <div (click)="openUpdateModal(item)">Edytuj</div>
-                  <div (click)="onDeletePlan(item.id)">Usuń</div>
+                <div class="element parent">
+                  <div (click)="onCarryOutThePlan(item.id, item)" class="actions go"><mat-icon>check_circle</mat-icon></div>
+                  <div (click)="openUpdateModal(item)" class="actions edit"><mat-icon>edit</mat-icon></div>
+                  <div (click)="onDeletePlan(item.id)" class="actions delete"><mat-icon>delete</mat-icon></div>
                 </div>
               </div>
             </div>
@@ -206,7 +206,7 @@
                              ngModel="{{editPlan?.date | date:'yyyy-MM-dd'}}" #date="ngModel" required>
                     </div>
                   </div>
-                  <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Dodaj</button>
+                  <button [disabled]="updateForm.form.invalid" type="submit" class="confirm">Edytuj</button>
                 </form>
               </div>
             </div>
@@ -220,9 +220,6 @@
         </div>
         <div class="modal" [hidden]="isHiddenPlan">
           <div class="modal-content">
-            <div class="modal-header" (click)="toggleDisplayPlan()">
-              <span class="close">&times;</span>
-            </div>
             <div class="top_modal">
               <h1>Zrealizowano plan</h1>
               <div class="form">

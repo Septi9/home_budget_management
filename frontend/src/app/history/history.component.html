@@ -175,7 +175,7 @@
                     <input type="hidden" name="email" id="email" ngModel="{{user?.email}}">
                     <input type="hidden" name="account_balance" id="account_balance" ngModel="{{onUpdateAmount(incomingTransfers, outgoingTransfers , isHiddenOut === false ? transferOut?.transfer_amount : transferIn?.transfer_amount, null, isHiddenOut)}}">
                   </div>
-                  <button [disabled]="isHiddenOut === false ? addForm.form.invalid : addFormIn.form.invalid" type="submit" class="confirm">Aktualizuj stan konta</button>
+                  <button [disabled]="isHiddenOut === false ? addForm.form.invalid : addFormIn.form.invalid" type="submit" class="confirm">Dodaj</button>
                 </form>
               </div>
             </div>

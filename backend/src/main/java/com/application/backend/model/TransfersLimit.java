@@ -13,14 +13,16 @@ public class TransfersLimit {
     private int id;
     private BigDecimal limit_amount;
     private String limit_category;
+    private String description;
     private int user_id;
 
     public TransfersLimit() {}
 
-    public TransfersLimit(int id, BigDecimal limit_amount, String limit_category, int user_id) {
+    public TransfersLimit(int id, BigDecimal limit_amount, String limit_category, String description, int user_id) {
         this.id = id;
         this.limit_amount = limit_amount;
         this.limit_category = limit_category;
+        this.description = description;
         this.user_id = user_id;
     }
 
@@ -48,6 +50,14 @@ public class TransfersLimit {
         this.limit_category = limit_category;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getUser_id() {
         return user_id;
     }
@@ -60,21 +70,22 @@ public class TransfersLimit {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TransfersLimit transfersLimit = (TransfersLimit) o;
-        return id == transfersLimit.id && user_id == transfersLimit.user_id && Objects.equals(limit_amount, transfersLimit.limit_amount) && Objects.equals(limit_category, transfersLimit.limit_category);
+        TransfersLimit that = (TransfersLimit) o;
+        return id == that.id && user_id == that.user_id && Objects.equals(limit_amount, that.limit_amount) && Objects.equals(limit_category, that.limit_category) && Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, limit_amount, limit_category, user_id);
+        return Objects.hash(id, limit_amount, limit_category, description, user_id);
     }
 
     @Override
     public String toString() {
-        return "Limit{" +
+        return "TransfersLimit{" +
                 "id=" + id +
                 ", limit_amount=" + limit_amount +
                 ", limit_category='" + limit_category + '\'' +
+                ", description='" + description + '\'' +
                 ", user_id=" + user_id +
                 '}';
     }
