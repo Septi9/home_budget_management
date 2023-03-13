@@ -138,13 +138,13 @@ private compareTwoArrays(a: any, b: any) {
       type: 'bar',
       data: {
         labels: [
-          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-6)).getMonth()],
-          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-5)).getMonth()],
-          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-4)).getMonth()],
-          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-3)).getMonth()],
-          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-2)).getMonth()],
-          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-1)).getMonth()],
-          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber)).getMonth()],
+          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-6)).getMonth()].toLowerCase(),
+          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-5)).getMonth()].toLowerCase(),
+          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-4)).getMonth()].toLowerCase(),
+          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-3)).getMonth()].toLowerCase(),
+          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-2)).getMonth()].toLowerCase(),
+          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber-1)).getMonth()].toLowerCase(),
+          this.monthNames[new Date(new Date().setMonth(new Date().getMonth() + this.monthNumber)).getMonth()].toLowerCase(),
         ],
         datasets: [
           {

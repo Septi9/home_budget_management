@@ -11,31 +11,31 @@
         <div class="content">
           <div class="top">
             <div class="showMonth">
-              {{showMonth}}
+              {{showMonth?.toLowerCase()}}
             </div>
             <div class="buttons">
               <div class="button" (click)="setCurrentMonth()">Dzisiaj</div>
-              <div class="button" (click)="decreaseMonth()">Poprzedni Miesiąc</div>
-              <div class="button" (click)="increaseMonth()">Następny Miesiąc</div>
+              <div class="button" (click)="decreaseMonth()">Poprzedni miesiąc</div>
+              <div class="button" (click)="increaseMonth()">Następny miesiąc</div>
             </div>
           </div>
           <div class="container">
             <table class='calendar-table' *ngIf="calendar">
               <thead>
               <tr>
-                <th>Poniedziałek</th>
-                <th>Wtorek</th>
-                <th>Środa</th>
-                <th>Czwartek</th>
-                <th>Piątek</th>
-                <th>Sobota</th>
-                <th>Niedziela</th>
+                <th>poniedziałek</th>
+                <th>wtorek</th>
+                <th>środa</th>
+                <th>czwartek</th>
+                <th>piątek</th>
+                <th>sobota</th>
+                <th>niedziela</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let row of calendar | grid: 7; let i = index">
                 <td class="calendar-day" [ngClass]="{'past-date': c.isPast, 'today': c.isToday}" *ngFor="let c of row; let j = index">
-                  <div class="calendar-day-header" [ngClass]="{'blue-date': c.isToday}"><strong>{{c.date.getDate()}}</strong> <strong *ngIf="c.isToday || (i==0 && j==0) || (c.date.getDate() == 1)"> {{monthNames[c.date.getMonth()]}}</strong></div>
+                  <div class="calendar-day-header" [ngClass]="{'blue-date': c.isToday}"><strong>{{c.date.getDate()}}</strong> <strong *ngIf="c.isToday || (i==0 && j==0) || (c.date.getDate() == 1)"> {{monthNames[c.date.getMonth()].toLowerCase()}}</strong></div>
                   <div class="transfers" *ngIf = "(outgoingTransfers != null) || (incomingTransfers != null)">
                     <div class="transfer" *ngFor = "let item of transfersOut">
                       <div class="item" *ngIf = "
@@ -104,9 +104,9 @@
                 <div class="table-wrapper" *ngIf = "
                       (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
                   ">
-                  <div class="element element-out">-{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element element-out">-{{(item.transfer_amount | number:'1.2-2')?.trim()?.replace(".", ",")}} PLN</div>
                   <div class="element element-out">{{item.description}}</div>
-                  <div class="element element-out">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
+                  <div class="element element-out">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                   <div class="element-not-center element-out"><mat-icon class="icon">{{getIconPlan(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
@@ -114,9 +114,9 @@
                 <div class="table-wrapper" *ngIf = "
                       (element == getDay(item.transfer_date).concat(getMonth(item.transfer_date)).concat(getYear(item.transfer_date)))
                   ">
-                  <div class="element element-in">+{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element element-in">+{{(item.transfer_amount | number:'1.2-2')?.trim()?.replace(".", ",")}} PLN</div>
                   <div class="element element-in">{{item.description}}</div>
-                  <div class="element element-in">{{item.transfer_date | date: 'HH:mm, dd.MM.y'}}</div>
+                  <div class="element element-in">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                   <div class="element-not-center element-in"><mat-icon class="icon">{{getIconIn(item.category)}}</mat-icon><span class="item-category">{{item.category}}</span></div>
                 </div>
               </div>
@@ -124,7 +124,7 @@
                 <div class="table-wrapper" *ngIf = "
                       (element == getDay(item.date).concat(getMonth(item.date)).concat(getYear(item.date)))
                   ">
-                  <div class="element element-plan">{{item.amount | number:'1.2-2'}} PLN</div>
+                  <div class="element element-plan">{{(item.amount | number:'1.2-2')?.trim()?.replace(".", ",")}} PLN</div>
                   <div class="element element-plan">{{item.description}}</div>
                   <div class="element element-plan">{{item.date | date: 'dd.MM.y'}}</div>
                   <div class="element-not-center element-plan"><mat-icon class="icon">{{getIconPlan(item.plan_desc)}}</mat-icon><span class="item-category">{{item.plan_desc}}</span></div>

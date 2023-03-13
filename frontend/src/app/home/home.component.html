@@ -21,28 +21,28 @@
                 <div class="element" [routerLink]="['/diagrams']">
                   <div class="center">
                     <p class="desc">Masz</p>
-                    <div class="value">{{accountBalance}} PLN</div>
+                    <div class="value">{{accountBalance.toString().trim().replace(".", ",")}} PLN</div>
                     <p class="desc2">na swoim koncie</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/plan']">
                   <div class="center">
                     <p class="desc">Zaplanowano</p>
-                    <div class="value">{{plannedSum}} PLN</div>
+                    <div class="value">{{plannedSum.toString().trim().replace(".", ",")}} PLN</div>
                     <p class="class2">na nadchodzące wydatki</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/history']">
                   <div class="center">
                     <p class="desc">Wydano</p>
-                    <div class="value">{{outgoingTransfersLastMonth}} PLN</div>
+                    <div class="value">{{outgoingTransfersLastMonth.toString().trim().replace(".", ",")}} PLN</div>
                     <p class="class2">w ostatnim miesiącu</p>
                   </div>
                 </div>
                 <div class="element" [routerLink]="['/history']">
                   <div class="center">
                     <p class="desc">Otrzymano</p>
-                    <div class="value">{{incomingTransfersLastMonth}} PLN</div>
+                    <div class="value">{{incomingTransfersLastMonth.toString().trim().replace(".", ",")}} PLN</div>
                     <p class="class2">w ostatnim miesiącu</p>
                   </div>
                 </div>

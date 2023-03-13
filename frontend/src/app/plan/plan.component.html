@@ -10,9 +10,9 @@
       <div class="inner-col">
         <div class="content">
           <div class="amounts">
-            <div class="account">Stan konta: <span class="inside_value">{{accountBalance}} PLN</span></div>
+            <div class="account">Stan konta: <span class="inside_value">{{accountBalance.trim().replace(".", ",")}} PLN</span></div>
             <div class="planned" [ngClass]="accountBalance >= plannedSum ? 'green' : 'red'">Planowane wydatki: <span
-              class="inside_value">{{plannedSum}} PLN</span></div>
+              class="inside_value">{{plannedSum.toString().trim().replace(".", ",")}} PLN</span></div>
           </div>
           <div class="top">
             <div class="headers">
@@ -29,7 +29,7 @@
               <div class="table-wrapper">
                 <div
                   class="element value">{{item.is_periodic === false ? 'Jednorazowy' : 'Każdy ' + item.cycle?.toLowerCase()}}</div>
-                <div class="element value">{{item.amount | number:'1.2-2'}} PLN</div>
+                <div class="element value">{{(item.amount | number:'1.2-2')?.trim()?.replace(".", ",")}} PLN</div>
                 <div class="element value tooltip">
                   <mat-icon>{{getPlanIcon(item.plan_desc)}}</mat-icon>
                   <span class="tooltip_text">{{item.plan_desc}}</span>

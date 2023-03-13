@@ -12,10 +12,10 @@
           <div class="top">
           </div>
           <div class="container">
-            <h1>Przelicznik Walut</h1>
+            <h1>Przelicznik walut</h1>
             <div class="currency">
               <div class="first">
-                <p>Waluta Początkowa</p>
+                <p>Waluta początkowa</p>
                 <div class="select-currency">
                   <img src="https://flagcdn.com/h40/{{countryFrom}}.png" alt="flag">
                   <select #from (change)="onSelectedFrom(from.value)" [(ngModel)]="selectedFrom">
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="second">
-                <p>Waluta Docelowa</p>
+                <p>Waluta docelowa</p>
                 <div class="select-currency">
                   <img src="https://flagcdn.com/h40/{{countryTo}}.png" alt="flag">
                   <select #to (change)="onSelectedTo(to.value)" [(ngModel)]="selectedTo">
@@ -38,7 +38,7 @@
               <div *ngIf="element.errors && element.invalid && element.errors?.['pattern']">
                 <small class="error">Proszę wprowadzić wartości dziesiętne</small>
               </div>
-              <div class="exchange">{{type}} {{selectedFrom}} = {{finalValue}} {{selectedTo}}</div>
+              <div class="exchange">{{type.toString().trim().replace(".", ",")}} {{selectedFrom}} = {{finalValue.toString().trim().replace(".", ",")}} {{selectedTo}}</div>
               <button class="confirm" [disabled]="element.invalid" (click)="getCurrency()">Przelicz</button>
             </div>
           </div>

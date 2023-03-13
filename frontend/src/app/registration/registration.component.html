@@ -4,7 +4,7 @@
       <div class="logo">
         <img class="logoImage" src="assets/images/logo.png" alt="logo">
       </div>
-      <h1 class="main-text">Stwórz Nowe Konto</h1>
+      <h1 class="main-text">Stwórz nowe konto</h1>
       <form #registerForm="ngForm" (ngSubmit)="registerNewUser()">
         <small class="error">{{message}}</small>
         <div class="form-inside">
@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="form">
-            <input type="text" class="form-input" placeholder="Stan Konta" name="accountBalance" [(ngModel)]="applicationUser.account_balance"
+            <input type="text" class="form-input" placeholder="Stan konta" name="accountBalance" [(ngModel)]="applicationUser.account_balance"
                    #accountBalance="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
             <div *ngIf="accountBalance.errors && accountBalance.touched && accountBalance.errors?.['required']">
               <small class="error">Stan konta jest wymagany</small>

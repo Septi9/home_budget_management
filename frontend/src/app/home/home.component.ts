@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
   accountBalance: any;
   outgoingTransfers : OutgoingTransfers[] | undefined;
   incomingTransfers : IncomingTransfers[] | undefined;
-  outgoingTransfersLastMonth : number | undefined;
-  incomingTransfersLastMonth : number | undefined;
+  outgoingTransfersLastMonth : number = 0;
+  incomingTransfersLastMonth : number = 0;
   categoriesCountOutgoing : number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   categories = [
     "Rozrywka", "Transport", "Rachunki", "Uroda", "Dom",

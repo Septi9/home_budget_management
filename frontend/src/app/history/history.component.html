@@ -11,12 +11,12 @@
         <div class="content">
           <button class="add_transaction" (click)="toggleDisplay()">Dodaj transakcję</button>
           <div class="wrap-transaction" [hidden]="isHiddenMainPageOut">
-            <div class="header">Przelewy Wychodzące</div>
+            <div class="header">Przelewy wychodzące</div>
             <div class="top">
               <div class="headers">
-                <div class="element">Kwota Przelewu</div>
+                <div class="element">Kwota przelewu</div>
                 <div class="element desc-txt">Opis</div>
-                <div class="element">Data Przelewu</div>
+                <div class="element">Data przelewu</div>
                 <div class="element">Kategoria</div>
                 <div class="element">Edytuj / Usuń</div>
               </div>
@@ -24,7 +24,7 @@
             <div class="container">
               <div class="table" *ngFor = "let item of sortDate(outgoingTransfers)">
                 <div class="table-wrapper">
-                  <div class="element first"><mat-icon>remove</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element first"><mat-icon>remove</mat-icon>{{(item.transfer_amount.toFixed(2) | number:'1.2-2')?.trim()?.replace(".", ",")}} PLN</div>
                   <div class="element desc-txt">{{item.description}}</div>
                   <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                   <div class="element value tooltip">
@@ -38,15 +38,15 @@
                 </div>
               </div>
             </div>
-            <button class="change" (click)="toggleMain()">Przelewy Przychodzące</button>
+            <button class="change" (click)="toggleMain()">Przelewy przychodzące</button>
           </div>
           <div class="wrap-transaction" [hidden]="isHiddenMainPageIn">
-            <div class="header">Przelewy Przychodzące</div>
+            <div class="header">Przelewy przychodzące</div>
             <div class="top">
               <div class="headers">
-                <div class="element">Kwota Przelewu</div>
+                <div class="element">Kwota przelewu</div>
                 <div class="element desc-txt">Opis</div>
-                <div class="element">Data Przelewu</div>
+                <div class="element">Data przelewu</div>
                 <div class="element">Kategoria</div>
                 <div class="element">Edytuj / Usuń</div>
               </div>
@@ -54,7 +54,7 @@
             <div class="container">
               <div class="table" *ngFor = "let item of sortDate(incomingTransfers)">
                 <div class="table-wrapper">
-                  <div class="element first"><mat-icon>add</mat-icon>{{item.transfer_amount | number:'1.2-2'}} PLN</div>
+                  <div class="element first"><mat-icon>add</mat-icon>{{(item.transfer_amount | number:'1.2-2')?.trim()?.replace(".", ",")}} PLN</div>
                   <div class="element desc-txt">{{item.description}}</div>
                   <div class="element">{{item.transfer_date | date: 'dd.MM.y'}}</div>
                   <div class="element value tooltip">
@@ -68,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <button class="change" (click)="toggleMain()">Przelewy Wychodzące</button>
+            <button class="change" (click)="toggleMain()">Przelewy wychodzące</button>
           </div>
         </div>
         <div class="modal" [hidden]="isHidden">
@@ -95,7 +95,7 @@
                       <input type="datetime-local" name="date" class="form-input" id="date" [(ngModel)]="transferOut.transfer_date" #transfer_date="ngModel" required>
                     </div>
                     <div class="label-element">
-                      <label for="transfer_amount">Kwota Transakcji</label>
+                      <label for="transfer_amount">Kwota transakcji</label>
                       <input type="text" name="amount" class="form-input" id="transfer_amount" placeholder="1,000,000.00" [(ngModel)]="transferOut.transfer_amount" #transfer_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                       <div *ngIf="transfer_amount.errors && transfer_amount.invalid && transfer_amount.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
@@ -144,7 +144,7 @@
                       <input type="datetime-local" name="date" class="form-input" id="date_in" [(ngModel)]="transferIn.transfer_date" #transfer_date="ngModel" required>
                     </div>
                     <div class="label-element">
-                      <label for="transfer_amount">Kwota Transakcji</label>
+                      <label for="transfer_amount">Kwota transakcji</label>
                       <input type="text" name="amount2" class="form-input" id="transfer_amount_in" placeholder="1,000,000.00" [(ngModel)]="transferIn.transfer_amount" #transfer_amount_in="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                       <div *ngIf="transfer_amount_in.errors && transfer_amount_in.invalid && transfer_amount_in.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
@@ -209,7 +209,7 @@
                       <input type="datetime-local" name="transfer_date" class="form-input" id="date_update" ngModel="{{editOutgoingTransfers?.transfer_date | date:'yyyy-MM-ddTHH:mm'}}" #transfer_date="ngModel" required>
                     </div>
                     <div class="label-element">
-                      <label for="transfer_amount">Kwota Transakcji</label>
+                      <label for="transfer_amount">Kwota transakcji</label>
                       <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update" placeholder="1,000,000.00" ngModel="{{editOutgoingTransfers?.transfer_amount | number:'1.2-2'}}" #transfer_amount="ngModel" (keyup)="onKeyOut($event)" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                       <div *ngIf="transfer_amount.errors && transfer_amount.invalid && transfer_amount.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
@@ -289,7 +289,7 @@
                       <input type="datetime-local" name="transfer_date" class="form-input" id="date_update_in" ngModel="{{editIncomingTransfers?.transfer_date | date:'yyyy-MM-ddTHH:mm'}}" #transfer_date="ngModel" required>
                     </div>
                     <div class="label-element">
-                      <label for="transfer_amount">Kwota Transakcji</label>
+                      <label for="transfer_amount">Kwota transakcji</label>
                       <input type="text" name="transfer_amount" class="form-input" id="transfer_amount_update_in" placeholder="1,000,000.00" ngModel="{{editIncomingTransfers?.transfer_amount | number:'1.2-2'}}" (keyup)="onKeyIn($event)" #transfer_amount="ngModel" data-type="currency" pattern="^\d+(\.)\d{2}$" required>
                       <div *ngIf="transfer_amount.errors && transfer_amount.invalid && transfer_amount.errors?.['pattern']">
                         <small class="error">Proszę wpisać wartość dziesiętną</small>
